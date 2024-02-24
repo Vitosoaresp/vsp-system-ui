@@ -1,6 +1,6 @@
-import * as y from 'yup';
+import * as yup from 'yup';
 
-export const yup = y.setLocale({
+yup.setLocale({
 	mixed: {
 		required: 'Campo obrigatório',
 	},
@@ -19,3 +19,5 @@ export const yup = y.setLocale({
 		max: 'Deve ter no máximo ${max} itens',
 	},
 });
+
+export default yup;
