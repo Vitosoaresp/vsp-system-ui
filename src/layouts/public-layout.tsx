@@ -11,7 +11,7 @@ export const PublicLayout = () => {
 					<h1 className='text-zinc-50 font-semibold'>VSP System</h1>
 				</div>
 			</header>
-			<main>
+			<main className='px-4'>
 				<Outlet />
 			</main>
 		</div>
