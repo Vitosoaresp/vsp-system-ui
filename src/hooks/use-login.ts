@@ -15,9 +15,9 @@ export const useLogin = () => {
 		data,
 	} = useMutation({
 		mutationFn: login,
-		onSuccess: (data) => {
-			toast.success('Login realizado com sucesso!');
+		onSuccess: data => {
 			navigate('/');
+			toast.success('Login realizado com sucesso!');
 			handleSignIn(data);
 		},
 		onError: () => {
