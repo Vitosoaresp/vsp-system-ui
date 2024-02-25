@@ -1,3 +1,4 @@
+import { AxiosError } from 'axios';
 import { User } from './user';
 
 export interface LoginPayload {
@@ -16,3 +17,5 @@ export interface RegisterPayload {
 	passwordConfirmation: string;
 	name: string;
 }
+
+export type UnauthorizedError = AxiosError<{ error: string }>;
