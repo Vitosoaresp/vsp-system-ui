@@ -1,5 +1,5 @@
 import { api } from '@/lib/api';
-import { LoginPayload, LoginResponse } from '@/types/auth';
+import { LoginPayload, LoginResponse, RegisterPayload } from '@/types/auth';
 import { User } from '@/types/user';
 import { AxiosResponse } from 'axios';
 import Cookies from 'js-cookie';
@@ -20,5 +20,12 @@ export const logout = () => Cookies.remove(TOKEN_KEY);
 
 export const getMe = async (): Promise<AxiosResponse<User>> => {
 	const data = await api.get<User>('/users/me');
+	return data;
+};
+
+export const register = async (
+	payload: RegisterPayload,
+): Promise<RegisterPayload> => {
+	const { data } = await api.post<RegisterPayload>('/register', payload);
 	return data;
 };

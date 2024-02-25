@@ -1,3 +1,4 @@
+import { LucideIcon } from 'lucide-react';
 import {
 	FieldError,
 	FieldPath,
@@ -17,6 +18,9 @@ type Props<
 	disabled?: boolean;
 	error?: FieldError;
 	placeholder?: string;
+	StartAdornment?: LucideIcon;
+	EndAdornment?: LucideIcon;
+	handleClickAdornment?: () => void;
 };
 
 export function RhfTextField<
@@ -31,6 +35,9 @@ export function RhfTextField<
 	placeholder,
 	defaultValue,
 	disabled,
+	EndAdornment,
+	StartAdornment,
+	handleClickAdornment,
 	...rest
 }: Props<TFieldValues, TName>) {
 	const {
@@ -39,22 +46,44 @@ export function RhfTextField<
 
 	return (
 		<div>
-			<Label className='text-zinc-100' htmlFor={name}>
+			<Label className="text-zinc-100" htmlFor={name}>
 				{label}
 			</Label>
-			<Input
-				value={value}
-				onChange={onChange}
-				id={name}
-				placeholder={placeholder}
-				disabled={disabled}
-				type={type}
-				ref={ref}
-				{...props}
-				{...rest}
-			/>
+			<div className="relative">
+				{StartAdornment && (
+					<span className="absolute inset-y-0 left-0 flex items-center pl-2">
+						{
+							<StartAdornment
+								onClick={handleClickAdornment}
+								className="text-zinc-600 cursor-pointer"
+							/>
+						}
+					</span>
+				)}
+				<Input
+					value={value}
+					onChange={onChange}
+					id={name}
+					placeholder={placeholder}
+					disabled={disabled}
+					type={type}
+					ref={ref}
+					{...props}
+					{...rest}
+				/>
+				{EndAdornment && (
+					<span className="absolute inset-y-0 right-0 flex items-center pr-2">
+						{
+							<EndAdornment
+								className="text-zinc-600 cursor-pointer"
+								onClick={handleClickAdornment}
+							/>
+						}
+					</span>
+				)}
+			</div>
 			{error?.message && (
-				<p className='text-sm text-red-500'>{error.message}</p>
+				<p className="text-sm text-red-500">{error.message}</p>
 			)}
 		</div>
 	);

@@ -9,3 +9,10 @@ export interface LoginResponse {
 	token: string;
 	user: User;
 }
+
+export interface RegisterPayload {
+	email: string;
+	password: string;
+	passwordConfirmation: string;
+	name: string;
+}

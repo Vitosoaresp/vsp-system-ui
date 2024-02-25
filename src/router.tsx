@@ -3,6 +3,7 @@ import { PrivateLayout } from './layouts/private-layout';
 import { PublicLayout } from './layouts/public-layout';
 import { LoginPage } from './pages/login';
 import { ProductsPage } from './pages/products';
+import { RegisterPage } from './pages/register';
 
 export const Router = () => {
 	const router = createBrowserRouter([
@@ -16,8 +17,8 @@ export const Router = () => {
 		{
 			element: <PublicLayout />,
 			children: [
-				{ path: '/home', element: <div>Home</div> },
 				{ path: '/signin', element: <LoginPage /> },
+				{ path: '/register', element: <RegisterPage /> },
 			],
 		},
 	]);
