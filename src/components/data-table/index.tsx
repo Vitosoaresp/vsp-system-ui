@@ -59,18 +59,18 @@ export const DataTable = ({
 		<>
 			<Table>
 				<TableHeader>
-					<TableRow className='hover:bg-zinc-800'>
-						{collumns.map((column) => (
-							<TableHead className='text-zinc-50' key={column.value}>
+					<TableRow className="hover:bg-zinc-800">
+						{collumns.map(column => (
+							<TableHead className="text-zinc-50 uppercase" key={column.value}>
 								{column.disabledSort && column.label}
 								{!column.disabledSort && (
 									<Button
-										variant='link'
-										className='text-zinc-50 hover:no-underline px-0'
+										variant="link"
+										className="text-zinc-50 hover:no-underline px-0"
 										onClick={() => handleChangeOrder(column.value)}
 									>
 										{column.label}
-										<ArrowDownUp size={16} className='text-zinc-200 ml-1' />
+										<ArrowDownUp size={16} className="text-zinc-200 ml-1" />
 									</Button>
 								)}
 							</TableHead>
@@ -79,20 +79,20 @@ export const DataTable = ({
 				</TableHeader>
 				<TableBody>
 					{!isLoading && isEmpty && (
-						<TableRow className='hover:bg-black'>
+						<TableRow className="hover:bg-black">
 							<TableCell
 								colSpan={collumns.length}
-								className='text-center text-zinc-50 text-lg py-6 font-medium'
+								className="text-center text-zinc-50 text-lg py-6 font-medium"
 							>
 								Nenhum registro encontrado
 							</TableCell>
 						</TableRow>
 					)}
 					{isLoading && (
-						<TableRow className='hover:bg-black'>
+						<TableRow className="hover:bg-black">
 							{Array.from({ length: collumns.length }).map((_, index) => (
 								<TableCell key={index}>
-									<Skeleton className=' bg-zinc-800 w-full py-6' />
+									<Skeleton className=" bg-zinc-800 w-full py-6" />
 								</TableCell>
 							))}
 						</TableRow>
@@ -100,8 +100,8 @@ export const DataTable = ({
 					{!isLoading && children}
 				</TableBody>
 			</Table>
-			<div className='border-t border-zinc-100 pt-5'>
-				<Pagination className='bg-black text-zinc-50 justify-end'>
+			<div className="border-t border-zinc-100 pt-5">
+				<Pagination className="bg-black text-zinc-50 justify-end">
 					<PaginationContent>
 						<PaginationItem>
 							<PaginationPrevious
