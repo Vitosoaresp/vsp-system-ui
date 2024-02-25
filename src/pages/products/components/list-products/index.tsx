@@ -1,10 +1,13 @@
 import { Collumn, DataTable } from '@/components/data-table';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import { TableCell, TableRow } from '@/components/ui/table';
 import { useSearchParams } from '@/hooks';
 import { getProducts } from '@/service/product';
 import { formatCurrency } from '@/utils';
 import { useQuery } from '@tanstack/react-query';
 import { Pencil } from 'lucide-react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const tableColumns: Collumn[] = [
@@ -17,6 +20,7 @@ const tableColumns: Collumn[] = [
 ];
 
 export const ListProducts = () => {
+	const [search, setSearch] = useState('');
 	const { params, handleSetParams } = useSearchParams({
 		sort: 'desc',
 		orderBy: 'updatedAt',
@@ -34,29 +38,53 @@ export const ListProducts = () => {
 		});
 	};
 
+	const handleChangeSearch = () => {
+		handleSetParams({ search });
+	};
+
 	return (
-		<div className='p-5'>
+		<div className="p-5">
+			<div className="mb-5 flex md:justify-between md:flex-row flex-col gap-4">
+				<div className="max-w-lg flex gap-4 md:flex-row flex-col">
+					<Input
+						value={search}
+						onChange={({ target }) => setSearch(target.value)}
+						placeholder="Perquisar por nome, email, telefone ou cnpj"
+					/>
+					<Button
+						type="button"
+						variant="outline"
+						className="uppercase"
+						onClick={handleChangeSearch}
+					>
+						Pesquisar
+					</Button>
+				</div>
+				<Button variant="outline" className="uppercase">
+					<Link to="/product/">Criar novo produto</Link>
+				</Button>
+			</div>
 			<DataTable
 				collumns={tableColumns}
 				isEmpty={data?.meta.total === 0}
 				isLoading={isLoading}
 				handleChangeOrder={handleChangeOrder}
 				meta={data?.meta}
-				handleChangePage={(page) => handleSetParams({ page })}
+				handleChangePage={page => handleSetParams({ page })}
 			>
-				{data?.data.map((product) => (
+				{data?.data.map(product => (
 					<TableRow
 						key={product.id}
-						className='text-zinc-50 hover:bg-zinc-800 font-medium'
+						className="text-zinc-50 hover:bg-zinc-800 font-medium"
 					>
-						<TableCell className='py-4'>{product.code}</TableCell>
+						<TableCell className="py-4">{product.code}</TableCell>
 						<TableCell>{product.name}</TableCell>
 						<TableCell>{formatCurrency(product.price)}</TableCell>
 						<TableCell>{product.quantity}</TableCell>
 						<TableCell>{product.updatedAt}</TableCell>
 						<TableCell>
-							<Link to={`/product/${product.id}`} className='px-5 block'>
-								<Pencil size={24} className='text-zinc-50' />
+							<Link to={`/product/${product.id}`} className="px-5 block">
+								<Pencil size={24} className="text-zinc-50" />
 							</Link>
 						</TableCell>
 					</TableRow>
