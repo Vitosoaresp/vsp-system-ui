@@ -2,7 +2,7 @@ import { useLogin } from '@/hooks';
 import { LogIn } from 'lucide-react';
 import { Form } from './components/form';
 
-export const Login = () => {
+export const LoginPage = () => {
 	const { signIn, isLoading } = useLogin();
 
 	return (
