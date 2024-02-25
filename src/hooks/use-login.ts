@@ -1,5 +1,6 @@
 import AuthContext from '@/context/auth';
 import { login } from '@/service/auth';
+import { LoginPayload } from '@/types/auth';
 import { useMutation } from '@tanstack/react-query';
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -15,18 +16,21 @@ export const useLogin = () => {
 		data,
 	} = useMutation({
 		mutationFn: login,
-		onSuccess: data => {
-			navigate('/');
-			toast.success('Login realizado com sucesso!');
-			handleSignIn(data);
-		},
-		onError: () => {
-			toast.error('Crendenciais inválidas!');
-		},
 	});
 
+	const handleLogin = async (data: LoginPayload) => {
+		try {
+			const response = await signIn(data);
+			handleSignIn(response);
+			navigate('/');
+			toast.success('Login realizado com sucesso!');
+		} catch (error) {
+			toast.error('Crendenciais inválidas!');
+		}
+	};
+
 	return {
-		signIn,
+		signIn: handleLogin,
 		isLoading,
 		data,
 	};
