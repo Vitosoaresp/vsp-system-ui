@@ -11,7 +11,8 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const collumns: Collumn[] = [
-	{ label: 'Nome', value: 'name' },
+	{ label: 'Nome', value: 'firstName' },
+	{ label: 'Sobrenome', value: 'lastName' },
 	{ label: 'Email', value: 'email' },
 	{ label: 'Telefone', value: 'phone' },
 	{ label: 'CNPJ', value: 'cnpj' },
@@ -81,13 +82,12 @@ export const ListCustomers = () => {
 						key={customer.id}
 						className="text-zinc-50 hover:bg-zinc-800 font-medium"
 					>
-						<TableCell className="py-4">
-							{customer.firstName + ' ' + customer.lastName}
-						</TableCell>
+						<TableCell className="py-4">{customer.firstName}</TableCell>
+						<TableCell>{customer.lastName}</TableCell>
 						<TableCell>{customer.email}</TableCell>
 						<TableCell>{customer.phone}</TableCell>
-						<TableCell>{customer.cnpj ?? '-'}</TableCell>
-						<TableCell>{customer.cpf ?? '-'}</TableCell>
+						<TableCell>{customer.cnpj || '-'}</TableCell>
+						<TableCell>{customer.cpf || '-'}</TableCell>
 						<TableCell>{formatDate(customer.updatedAt)}</TableCell>
 						<TableCell>{customer.active ? 'Ativo' : 'Desativado'}</TableCell>
 						<TableCell>
