@@ -10,3 +10,13 @@ export interface ApiPaginationResponse<T> {
 	data: T[];
 	meta: Meta;
 }
+
+export interface Address {
+	id?: string;
+	street: string;
+	city: string;
+	state: string;
+	zipCode: string;
+	neighborhood: string;
+	number: string;
+}
