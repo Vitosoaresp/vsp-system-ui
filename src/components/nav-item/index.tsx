@@ -14,15 +14,15 @@ export const NavItem = ({ Icon, label, to }: NavItemProps) => {
 	return (
 		<Link
 			className={clsx(
-				'transition-all duration-75 text-base py-2 px-4 rounded-md whitespace-nowrap inline-flex justify-start items-center h-11 text-zinc-50',
+				'transition-all duration-75 text-base py-2 px-4 rounded-md whitespace-nowrap inline-flex md:justify-start justify-center items-center h-11 text-zinc-50',
 				location.pathname === to
 					? 'bg-zinc-800 hover:bg-zinc-800'
 					: 'hover:bg-zinc-900',
 			)}
 			to={to}
 		>
-			<Icon className='mr-3' />
-			{label}
+			<Icon className='md:mr-3' />
+			<span className='hidden md:inline'>{label}</span>
 		</Link>
 	);
 };

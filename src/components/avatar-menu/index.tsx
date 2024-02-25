@@ -13,7 +13,7 @@ import {
 } from '../ui/dropdown-menu';
 
 interface AvatarMenuProsp {
-	user: User;
+	user: User | null;
 }
 
 export const AvatarMenu = ({ user }: AvatarMenuProsp) => {
@@ -23,7 +23,7 @@ export const AvatarMenu = ({ user }: AvatarMenuProsp) => {
 		<DropdownMenu>
 			<DropdownMenuTrigger>
 				<Avatar>
-					<AvatarFallback>{user.name[0]}</AvatarFallback>
+					<AvatarFallback>{user?.name[0]}</AvatarFallback>
 				</Avatar>
 			</DropdownMenuTrigger>
 
@@ -32,8 +32,8 @@ export const AvatarMenu = ({ user }: AvatarMenuProsp) => {
 				className='bg-zinc-950 w-56 border-zinc-800'
 			>
 				<DropdownMenuLabel>
-					<p className='text-sm text-zinc-100'>{user.name}</p>
-					<p className='text-zinc-400 text-xs'>{user.email}</p>
+					<p className='text-sm text-zinc-100'>{user?.name}</p>
+					<p className='text-zinc-400 text-xs'>{user?.email}</p>
 				</DropdownMenuLabel>
 
 				<DropdownMenuSeparator className='bg-zinc-800' />
