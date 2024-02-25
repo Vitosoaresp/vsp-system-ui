@@ -15,7 +15,7 @@ const buttonVariants = cva(
 				destructive:
 					'bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90',
 				outline:
-					'border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground',
+					'border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground text-black',
 				secondary:
 					'bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80',
 				ghost: 'hover:bg-accent hover:text-accent-foreground',
@@ -55,7 +55,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 				disabled={loading || props.disabled}
 				{...props}
 			>
-				{loading && <Loader2 className='text-zinc-900 animate-spin text-xl' />}
+				{loading && <Loader2 className="text-zinc-900 animate-spin text-xl" />}
 				{!loading && children}
 			</Comp>
 		);
