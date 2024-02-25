@@ -1,15 +1,19 @@
 import { ApiPaginationResponse } from './common';
+import { Supplier } from './supplier';
 
 export interface Product {
-	id: string;
+	id?: string;
+	active: boolean;
 	code: number;
 	name: string;
 	description?: string;
-	price: number;
+	grossPrice: number;
+	salesPrice: number;
 	quantity: number;
 	supplierId: string;
-	createdAt: string;
-	updatedAt: string;
+	supplier?: Supplier;
+	createdAt?: string;
+	updatedAt?: string;
 	deletedAt?: string;
 }
 

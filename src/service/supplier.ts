@@ -3,7 +3,7 @@ import { api } from '@/lib/api';
 import { IListSupplierResponse, Supplier } from '@/types/supplier';
 
 export const listSuppliersFn = async (
-	params?: ListParams,
+	params?: Partial<ListParams>,
 ): Promise<IListSupplierResponse> => {
 	const { data } = await api.get<IListSupplierResponse>('/suppliers', {
 		params,

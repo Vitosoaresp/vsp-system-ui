@@ -10,7 +10,7 @@ import { Users } from 'lucide-react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'sonner';
 import { CustomerForm } from './components';
-import { SupplierSkeleton } from './components/customer-form/skeleton';
+import { CustomerSkeleton } from './components/customer-form/skeleton';
 
 export const CustomerPage = () => {
 	const navigate = useNavigate();
@@ -23,7 +23,7 @@ export const CustomerPage = () => {
 		mutationFn: updateCustomerFn,
 	});
 
-	const { data: supplier, isLoading } = useQuery({
+	const { data: customer, isLoading } = useQuery({
 		queryKey: ['customer'],
 		queryFn: () => getCustomerFn(params.id),
 		enabled: !!params.id,
@@ -53,12 +53,12 @@ export const CustomerPage = () => {
 			/>
 
 			<div className="max-w-3xl px-6 py-10">
-				{isLoading && <SupplierSkeleton />}
+				{isLoading && <CustomerSkeleton />}
 				{!isLoading && (
 					<CustomerForm
 						onSubmit={handleSubmit}
 						isLoading={isSubmiting}
-						initialValues={params.id ? supplier : undefined}
+						initialValues={params.id ? customer : undefined}
 					/>
 				)}
 			</div>

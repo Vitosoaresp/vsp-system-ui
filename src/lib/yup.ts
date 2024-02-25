@@ -13,6 +13,8 @@ yup.setLocale({
 	number: {
 		min: 'Deve ser no mínimo ${min}',
 		max: 'Deve ser no máximo ${max}',
+		lessThan: 'Deve ser menor que ${less}',
+		moreThan: 'Deve ser maior que ${more}',
 	},
 	array: {
 		min: 'Deve ter no mínimo ${min} itens',

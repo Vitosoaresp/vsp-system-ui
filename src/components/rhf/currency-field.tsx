@@ -13,9 +13,9 @@ type Props<
 	TName extends FieldPath<TFieldValues>,
 > = UseControllerProps<TFieldValues, TName> & {
 	label: string;
-	type: string;
 	disabled?: boolean;
 	error?: FieldError;
+	className?: string;
 };
 
 const moneyFormatter = Intl.NumberFormat('pt-BR', {
@@ -35,9 +35,9 @@ export function RhfCurrencyField<
 	name,
 	label,
 	control,
-	type,
 	defaultValue,
 	disabled,
+	className,
 	...rest
 }: Props<TFieldValues, TName>) {
 	const {
@@ -45,7 +45,7 @@ export function RhfCurrencyField<
 	} = useController({ control, name, defaultValue });
 
 	return (
-		<div>
+		<div className={className}>
 			<Label className="text-zinc-100" htmlFor={name}>
 				{label}
 			</Label>
@@ -58,7 +58,7 @@ export function RhfCurrencyField<
 					}}
 					id={name}
 					disabled={disabled}
-					type={type}
+					type="text"
 					ref={ref}
 					{...props}
 					{...rest}

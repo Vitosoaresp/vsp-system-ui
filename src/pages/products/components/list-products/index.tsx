@@ -5,6 +5,7 @@ import { TableCell, TableRow } from '@/components/ui/table';
 import { useSearchParams } from '@/hooks';
 import { getProducts } from '@/service/product';
 import { formatCurrency } from '@/utils';
+import { formatDate } from '@/utils/format-date';
 import { useQuery } from '@tanstack/react-query';
 import { Pencil } from 'lucide-react';
 import { useState } from 'react';
@@ -13,10 +14,12 @@ import { Link } from 'react-router-dom';
 const tableColumns: Collumn[] = [
 	{ label: 'Código', value: 'code' },
 	{ label: 'Nome', value: 'name' },
-	{ label: 'Preço', value: 'price' },
+	{ label: 'Preço de compra', value: 'grossPrice' },
+	{ label: 'Preço de venda', value: 'salesPrice' },
 	{ label: 'Quantidade', value: 'quantity' },
 	{ label: 'Atualizado em', value: 'updatedAt' },
-	{ label: 'Editar/Visalizar', value: '', disabledSort: true },
+	{ label: 'Status', value: 'active' },
+	{ label: 'Editar', value: '', disabledSort: true },
 ];
 
 export const ListProducts = () => {
@@ -79,11 +82,13 @@ export const ListProducts = () => {
 					>
 						<TableCell className="py-4">{product.code}</TableCell>
 						<TableCell>{product.name}</TableCell>
-						<TableCell>{formatCurrency(product.price)}</TableCell>
+						<TableCell>{formatCurrency(product.grossPrice)}</TableCell>
+						<TableCell>{formatCurrency(product.salesPrice)}</TableCell>
 						<TableCell>{product.quantity}</TableCell>
-						<TableCell>{product.updatedAt}</TableCell>
+						<TableCell>{formatDate(product.updatedAt)}</TableCell>
+						<TableCell>{product.active ? 'Ativo' : 'Inativo'}</TableCell>
 						<TableCell>
-							<Link to={`/product/${product.id}`} className="px-5 block">
+							<Link to={`/product/${product.id}`} className="px-2 block">
 								<Pencil size={24} className="text-zinc-50" />
 							</Link>
 						</TableCell>
