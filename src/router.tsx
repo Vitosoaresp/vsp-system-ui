@@ -4,6 +4,8 @@ import { PublicLayout } from './layouts/public-layout';
 import { LoginPage } from './pages/login';
 import { ProductsPage } from './pages/products';
 import { RegisterPage } from './pages/register';
+import { SupplierPage } from './pages/supplier';
+import { SuppliersPage } from './pages/suppliers';
 
 export const Router = () => {
 	const router = createBrowserRouter([
@@ -12,6 +14,8 @@ export const Router = () => {
 			children: [
 				{ path: '/', element: <div>Home</div> },
 				{ path: '/products', element: <ProductsPage /> },
+				{ path: '/suppliers', element: <SuppliersPage /> },
+				{ path: '/supplier/:id?', element: <SupplierPage /> },
 			],
 		},
 		{
