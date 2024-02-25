@@ -1,5 +1,4 @@
-import { AvatarMenu } from '@/components/avatar-menu';
-import { useMe } from '@/hooks';
+import { Header } from '@/components/header';
 import {
 	createSupplierFn,
 	getSupplierFn,
@@ -7,13 +6,13 @@ import {
 } from '@/service/supplier';
 import { Supplier } from '@/types/supplier';
 import { useMutation, useQuery } from '@tanstack/react-query';
+import { Factory } from 'lucide-react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'sonner';
 import { SupplierForm } from './components';
 import { SupplierSkeleton } from './components/supplier-form/skeleton';
 
 export const SupplierPage = () => {
-	const me = useMe();
 	const navigate = useNavigate();
 	const params = useParams();
 
@@ -48,14 +47,10 @@ export const SupplierPage = () => {
 
 	return (
 		<div className="flex flex-col w-full">
-			<header className="flex justify-between w-full p-2 md:px-4 md:py-8 items-center border-b border-zinc-800">
-				<div className="md:ml-10 ml-2">
-					<h1 className="text-zinc-50 md:text-xl text-base font-bold uppercase">
-						{params.id ? 'Editar Fornecedor' : 'Novo Fornecedor'}
-					</h1>
-				</div>
-				<AvatarMenu user={me} />
-			</header>
+			<Header
+				title={params.id ? 'Editar Fornecedor' : 'Novo Fornecedor'}
+				Icon={Factory}
+			/>
 
 			<div className="max-w-3xl px-6 py-10">
 				{isLoading && <SupplierSkeleton />}

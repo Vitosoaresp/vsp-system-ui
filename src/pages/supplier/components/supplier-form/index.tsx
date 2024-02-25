@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Supplier } from '@/types/supplier';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import { supplierSchema } from './schema';
 
 interface SupplierFormProps {
@@ -19,6 +20,7 @@ export const SupplierForm = ({
 	onSubmit,
 	isLoading,
 }: SupplierFormProps) => {
+	const navigate = useNavigate();
 	const {
 		control,
 		formState: { errors },
@@ -27,6 +29,8 @@ export const SupplierForm = ({
 		defaultValues: initialValues,
 		resolver: yupResolver(supplierSchema),
 	});
+
+	const handleBack = () => navigate('/suppliers');
 
 	return (
 		<form onSubmit={handleSubmit(onSubmit)}>
@@ -143,7 +147,10 @@ export const SupplierForm = ({
 				/>
 			</Grid>
 
-			<div className="flex justify-end mt-5">
+			<div className="flex justify-end mt-5 space-x-3">
+				<Button type="button" onClick={handleBack}>
+					Cancelar
+				</Button>
 				<Button loading={isLoading} variant="outline" type="submit">
 					Salvar
 				</Button>
