@@ -1,4 +1,3 @@
-import { LucideIcon } from 'lucide-react';
 import {
 	FieldError,
 	FieldPath,
@@ -17,14 +16,18 @@ type Props<
 	type: string;
 	disabled?: boolean;
 	error?: FieldError;
-	placeholder?: string;
-	StartAdornment?: LucideIcon;
-	EndAdornment?: LucideIcon;
-	handleClickAdornment?: () => void;
-	className?: string;
 };
 
-export function RhfTextField<
+const moneyFormatter = Intl.NumberFormat('pt-BR', {
+	currency: 'BRL',
+	currencyDisplay: 'symbol',
+	currencySign: 'standard',
+	style: 'currency',
+	minimumFractionDigits: 2,
+	maximumFractionDigits: 2,
+});
+
+export function RhfCurrencyField<
 	TFieldValues extends FieldValues,
 	TName extends FieldPath<TFieldValues>,
 >({
@@ -33,13 +36,8 @@ export function RhfTextField<
 	label,
 	control,
 	type,
-	placeholder,
 	defaultValue,
 	disabled,
-	EndAdornment,
-	StartAdornment,
-	className,
-	handleClickAdornment,
 	...rest
 }: Props<TFieldValues, TName>) {
 	const {
@@ -47,42 +45,24 @@ export function RhfTextField<
 	} = useController({ control, name, defaultValue });
 
 	return (
-		<div className={className}>
+		<div>
 			<Label className="text-zinc-100" htmlFor={name}>
 				{label}
 			</Label>
 			<div className="relative">
-				{StartAdornment && (
-					<span className="absolute inset-y-0 left-0 flex items-center pl-2">
-						{
-							<StartAdornment
-								onClick={handleClickAdornment}
-								className="text-zinc-600 cursor-pointer"
-							/>
-						}
-					</span>
-				)}
 				<Input
-					value={value}
-					onChange={onChange}
+					value={moneyFormatter.format(value)}
+					onChange={({ target }) => {
+						const onlyNumber = target.value.replace(/\D/g, '');
+						onChange(Number(onlyNumber) / 100);
+					}}
 					id={name}
-					placeholder={placeholder}
 					disabled={disabled}
 					type={type}
 					ref={ref}
 					{...props}
 					{...rest}
 				/>
-				{EndAdornment && (
-					<span className="absolute inset-y-0 right-0 flex items-center pr-2">
-						{
-							<EndAdornment
-								className="text-zinc-600 cursor-pointer"
-								onClick={handleClickAdornment}
-							/>
-						}
-					</span>
-				)}
 			</div>
 			{error?.message && (
 				<p className="text-sm text-red-500">{error.message}</p>

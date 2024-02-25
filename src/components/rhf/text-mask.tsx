@@ -1,4 +1,4 @@
-import { LucideIcon } from 'lucide-react';
+import { Ref } from 'react';
 import {
 	FieldError,
 	FieldPath,
@@ -6,8 +6,13 @@ import {
 	UseControllerProps,
 	useController,
 } from 'react-hook-form';
+import { IMaskMixin } from 'react-imask';
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
+
+const TextMask = IMaskMixin(({ inputRef, ...props }) => (
+	<Input ref={inputRef as Ref<HTMLInputElement>} {...props} />
+));
 
 type Props<
 	TFieldValues extends FieldValues,
@@ -18,13 +23,11 @@ type Props<
 	disabled?: boolean;
 	error?: FieldError;
 	placeholder?: string;
-	StartAdornment?: LucideIcon;
-	EndAdornment?: LucideIcon;
-	handleClickAdornment?: () => void;
+	mask: string;
 	className?: string;
 };
 
-export function RhfTextField<
+export function RhfTextMask<
 	TFieldValues extends FieldValues,
 	TName extends FieldPath<TFieldValues>,
 >({
@@ -36,10 +39,7 @@ export function RhfTextField<
 	placeholder,
 	defaultValue,
 	disabled,
-	EndAdornment,
-	StartAdornment,
 	className,
-	handleClickAdornment,
 	...rest
 }: Props<TFieldValues, TName>) {
 	const {
@@ -52,17 +52,7 @@ export function RhfTextField<
 				{label}
 			</Label>
 			<div className="relative">
-				{StartAdornment && (
-					<span className="absolute inset-y-0 left-0 flex items-center pl-2">
-						{
-							<StartAdornment
-								onClick={handleClickAdornment}
-								className="text-zinc-600 cursor-pointer"
-							/>
-						}
-					</span>
-				)}
-				<Input
+				<TextMask
 					value={value}
 					onChange={onChange}
 					id={name}
@@ -73,16 +63,6 @@ export function RhfTextField<
 					{...props}
 					{...rest}
 				/>
-				{EndAdornment && (
-					<span className="absolute inset-y-0 right-0 flex items-center pr-2">
-						{
-							<EndAdornment
-								className="text-zinc-600 cursor-pointer"
-								onClick={handleClickAdornment}
-							/>
-						}
-					</span>
-				)}
 			</div>
 			{error?.message && (
 				<p className="text-sm text-red-500">{error.message}</p>
