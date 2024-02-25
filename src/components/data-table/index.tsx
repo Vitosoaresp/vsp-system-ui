@@ -53,7 +53,6 @@ export const DataTable = ({
 		!disabledPrevPage && handleChangePage(currentPage - 1);
 	const handleNextPage = () =>
 		!disabledNextPage && handleChangePage(currentPage + 1);
-	const showNextPage = currentPage < total;
 
 	return (
 		<>
@@ -119,7 +118,7 @@ export const DataTable = ({
 						<PaginationItem>
 							<PaginationLink isActive>{currentPage}</PaginationLink>
 						</PaginationItem>
-						{showNextPage && (
+						{!disabledNextPage && (
 							<PaginationItem>
 								<PaginationLink onClick={handleNextPage}>
 									{currentPage + 1}
