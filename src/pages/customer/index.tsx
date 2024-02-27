@@ -52,7 +52,7 @@ export const CustomerPage = () => {
 				Icon={Users}
 			/>
 
-			<div className="max-w-3xl px-6 py-10">
+			<div className="py-10 container">
 				{isLoading && <CustomerSkeleton />}
 				{!isLoading && (
 					<CustomerForm

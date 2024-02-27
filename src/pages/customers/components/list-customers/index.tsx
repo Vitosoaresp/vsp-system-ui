@@ -46,7 +46,7 @@ export const ListCustomers = () => {
 	};
 
 	return (
-		<div className="p-5">
+		<div className="p-5 container">
 			<div className="mb-5 flex md:justify-between md:flex-row flex-col gap-4">
 				<div className="max-w-lg flex gap-4 md:flex-row flex-col">
 					<Input

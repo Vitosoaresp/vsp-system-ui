@@ -52,7 +52,7 @@ export const SupplierPage = () => {
 				Icon={Factory}
 			/>
 
-			<div className="max-w-3xl px-6 py-10">
+			<div className="container py-10">
 				{isLoading && <SupplierSkeleton />}
 				{!isLoading && (
 					<SupplierForm

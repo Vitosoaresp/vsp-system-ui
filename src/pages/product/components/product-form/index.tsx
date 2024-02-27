@@ -54,7 +54,7 @@ export const ProductForm = ({
 					label="Ativo"
 					error={errors.active}
 					defaultValue={true}
-					className="col-span-2"
+					className="col-span-3"
 				/>
 
 				<RhfTextField
@@ -64,7 +64,7 @@ export const ProductForm = ({
 					label="Código"
 					error={errors.code}
 					defaultValue={0}
-					className="col-span-2 md:col-span-1"
+					className="col-span-3 md:col-span-1"
 				/>
 
 				<RhfTextField
@@ -74,7 +74,16 @@ export const ProductForm = ({
 					label="Nome"
 					error={errors.name}
 					defaultValue=""
-					className="col-span-2 md:col-span-1"
+					className="col-span-3 md:col-span-1"
+				/>
+
+				<RhfSelect
+					control={control}
+					name="supplierId"
+					label="Fornecedor"
+					options={suppliers ?? []}
+					error={errors.supplierId}
+					className="col-span-3 md:col-span-1"
 				/>
 
 				<RhfCurrencyField
@@ -83,7 +92,7 @@ export const ProductForm = ({
 					label="Preço de compra"
 					error={errors.grossPrice}
 					defaultValue={0}
-					className="col-span-2 md:col-span-1"
+					className="col-span-3 md:col-span-1"
 				/>
 
 				<RhfCurrencyField
@@ -92,7 +101,7 @@ export const ProductForm = ({
 					label="Preço de venda"
 					error={errors.salesPrice}
 					defaultValue={0}
-					className="col-span-2 md:col-span-1"
+					className="col-span-3 md:col-span-1"
 				/>
 
 				<RhfTextField
@@ -102,16 +111,7 @@ export const ProductForm = ({
 					label="Quantidade"
 					error={errors.quantity}
 					defaultValue={0}
-					className="col-span-2 md:col-span-1"
-				/>
-
-				<RhfSelect
-					control={control}
-					name="supplierId"
-					label="Fornecedor"
-					options={suppliers ?? []}
-					error={errors.supplierId}
-					className="col-span-2 md:col-span-1"
+					className="col-span-3 md:col-span-1"
 				/>
 
 				<RhfTextField
@@ -121,7 +121,7 @@ export const ProductForm = ({
 					label="Descrição"
 					error={errors.description}
 					defaultValue=""
-					className="col-span-2"
+					className="col-span-3 md:col-span-2"
 				/>
 			</Grid>
 

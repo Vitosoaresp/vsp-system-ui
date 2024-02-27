@@ -41,7 +41,7 @@ export const SupplierForm = ({
 					label="Ativo"
 					error={errors.active}
 					defaultValue={true}
-					className="col-span-2"
+					className="col-span-3"
 				/>
 
 				<RhfTextField
@@ -51,7 +51,7 @@ export const SupplierForm = ({
 					label="Nome"
 					error={errors.name}
 					defaultValue=""
-					className="col-span-2 md:col-span-1"
+					className="col-span-3 md:col-span-1"
 				/>
 
 				<RhfTextField
@@ -61,7 +61,7 @@ export const SupplierForm = ({
 					label="Email"
 					error={errors.email}
 					defaultValue=""
-					className="col-span-2 md:col-span-1"
+					className="col-span-3 md:col-span-1"
 				/>
 
 				<RhfTextMask
@@ -72,7 +72,7 @@ export const SupplierForm = ({
 					label="CNPJ"
 					error={errors.cnpj}
 					defaultValue=""
-					className="col-span-2 md:col-span-1"
+					className="col-span-3 md:col-span-1"
 				/>
 
 				<RhfTextMask
@@ -83,7 +83,7 @@ export const SupplierForm = ({
 					error={errors.phone}
 					defaultValue=""
 					mask="(00) 00000-0000"
-					className="col-span-2 md:col-span-1"
+					className="col-span-3 md:col-span-1"
 				/>
 
 				<RhfTextMask
@@ -94,7 +94,17 @@ export const SupplierForm = ({
 					type="text"
 					defaultValue=""
 					mask="00000-000"
-					className="col-span-2 md:col-span-1"
+					className="col-span-3 md:col-span-1"
+				/>
+
+				<RhfTextField
+					type="text"
+					control={control}
+					name="address.city"
+					label="Cidade"
+					error={errors.address?.city}
+					defaultValue=""
+					className="col-span-3 md:col-span-1"
 				/>
 
 				<RhfTextField
@@ -104,7 +114,7 @@ export const SupplierForm = ({
 					label="Rua"
 					error={errors.address?.street}
 					defaultValue=""
-					className="col-span-2 md:col-span-1"
+					className="col-span-3 md:col-span-1"
 				/>
 
 				<RhfTextField
@@ -114,7 +124,7 @@ export const SupplierForm = ({
 					label="Número"
 					error={errors.address?.number}
 					defaultValue=""
-					className="col-span-2 md:col-span-1"
+					className="col-span-3 md:col-span-1"
 				/>
 
 				<RhfTextField
@@ -123,17 +133,8 @@ export const SupplierForm = ({
 					name="address.neighborhood"
 					label="Bairro"
 					error={errors.address?.neighborhood}
-					className="col-span-2 md:col-span-1"
+					className="col-span-3 md:col-span-1"
 					defaultValue=""
-				/>
-				<RhfTextField
-					type="text"
-					control={control}
-					name="address.city"
-					label="Cidade"
-					error={errors.address?.city}
-					defaultValue=""
-					className="col-span-2 md:col-span-1"
 				/>
 
 				<RhfTextField
@@ -143,7 +144,7 @@ export const SupplierForm = ({
 					label="Estado"
 					error={errors.address?.state}
 					defaultValue=""
-					className="col-span-2 md:col-span-1"
+					className="col-span-3 md:col-span-1"
 				/>
 			</Grid>
 

@@ -34,14 +34,14 @@ export const CustomerForm = ({
 
 	return (
 		<form onSubmit={handleSubmit(onSubmit)}>
-			<Grid>
+			<Grid className="">
 				<RhfCheckbox
 					control={control}
 					name="active"
 					label="Ativo"
 					error={errors.active}
 					defaultValue={true}
-					className="col-span-2"
+					className="col-span-3"
 				/>
 
 				<RhfTextField
@@ -51,7 +51,7 @@ export const CustomerForm = ({
 					label="Nome"
 					error={errors.firstName}
 					defaultValue=""
-					className="col-span-2 md:col-span-1"
+					className="col-span-3 md:col-span-1"
 				/>
 
 				<RhfTextField
@@ -61,7 +61,7 @@ export const CustomerForm = ({
 					label="Sobrenome"
 					error={errors.lastName}
 					defaultValue=""
-					className="col-span-2 md:col-span-1"
+					className="col-span-3 md:col-span-1"
 				/>
 
 				<RhfTextField
@@ -71,7 +71,7 @@ export const CustomerForm = ({
 					label="Email"
 					error={errors.email}
 					defaultValue=""
-					className="col-span-2 md:col-span-1"
+					className="col-span-3 md:col-span-1"
 				/>
 
 				<RhfTextMask
@@ -82,7 +82,7 @@ export const CustomerForm = ({
 					label="CNPJ"
 					error={errors.cnpj}
 					defaultValue=""
-					className="col-span-2 md:col-span-1"
+					className="col-span-3 md:col-span-1"
 				/>
 
 				<RhfTextMask
@@ -93,7 +93,7 @@ export const CustomerForm = ({
 					label="CPF"
 					error={errors.cpf}
 					defaultValue=""
-					className="col-span-2 md:col-span-1"
+					className="col-span-3 md:col-span-1"
 				/>
 
 				<RhfTextMask
@@ -104,7 +104,7 @@ export const CustomerForm = ({
 					error={errors.phone}
 					defaultValue=""
 					mask="(00) 00000-0000"
-					className="col-span-2 md:col-span-1"
+					className="col-span-3 md:col-span-1"
 				/>
 
 				<RhfTextMask
@@ -115,7 +115,7 @@ export const CustomerForm = ({
 					type="text"
 					defaultValue=""
 					mask="00000-000"
-					className="col-span-2 md:col-span-1"
+					className="col-span-3 md:col-span-1"
 				/>
 
 				<RhfTextField
@@ -125,7 +125,7 @@ export const CustomerForm = ({
 					label="Rua"
 					error={errors.address?.street}
 					defaultValue=""
-					className="col-span-2 md:col-span-1"
+					className="col-span-3 md:col-span-1"
 				/>
 
 				<RhfTextField
@@ -135,7 +135,7 @@ export const CustomerForm = ({
 					label="Número"
 					error={errors.address?.number}
 					defaultValue=""
-					className="col-span-2 md:col-span-1"
+					className="col-span-3 md:col-span-1"
 				/>
 
 				<RhfTextField
@@ -144,7 +144,7 @@ export const CustomerForm = ({
 					name="address.neighborhood"
 					label="Bairro"
 					error={errors.address?.neighborhood}
-					className="col-span-2 md:col-span-1"
+					className="col-span-3 md:col-span-1"
 					defaultValue=""
 				/>
 				<RhfTextField
@@ -154,7 +154,7 @@ export const CustomerForm = ({
 					label="Cidade"
 					error={errors.address?.city}
 					defaultValue=""
-					className="col-span-2 md:col-span-1"
+					className="col-span-3 md:col-span-1"
 				/>
 
 				<RhfTextField
@@ -164,7 +164,7 @@ export const CustomerForm = ({
 					label="Estado"
 					error={errors.address?.state}
 					defaultValue=""
-					className="col-span-2 md:col-span-1"
+					className="col-span-3 md:col-span-1"
 				/>
 			</Grid>
 

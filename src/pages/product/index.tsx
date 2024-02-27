@@ -52,7 +52,7 @@ export const ProductPage = () => {
 				Icon={Package}
 			/>
 
-			<div className="max-w-4xl px-6 py-10">
+			<div className="container py-10">
 				{isLoading && <ProductSkeleton />}
 				{!isLoading && (
 					<ProductForm

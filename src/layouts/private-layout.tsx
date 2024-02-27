@@ -17,9 +17,9 @@ export const PrivateLayout = () => {
 	}
 
 	return (
-		<main className="container flex items-stretch px-3">
+		<main className="min-h-screen md:pl-64 pl-20">
 			<Sidebar />
-			<div className="min-h-screen w-full border-l border-l-zinc-800 ">
+			<div className="relative w-full">
 				<Outlet />
 			</div>
 		</main>
