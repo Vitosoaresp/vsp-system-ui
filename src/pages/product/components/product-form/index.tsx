@@ -10,6 +10,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useQuery } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import { ProductHistory } from '../product-history';
 import { productSchema } from './schema';
 
 interface ProductFormProps {
@@ -126,6 +127,9 @@ export const ProductForm = ({
 			</Grid>
 
 			<div className="flex justify-end mt-5 space-x-3">
+				{initialValues?.id && (
+					<ProductHistory data={initialValues.ProductHistory ?? []} />
+				)}
 				<Button type="button" onClick={handleBack}>
 					Cancelar
 				</Button>
