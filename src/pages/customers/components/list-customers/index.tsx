@@ -46,9 +46,9 @@ export const ListCustomers = () => {
 	};
 
 	return (
-		<div className="p-5 container">
+		<div className="py-5 container">
 			<div className="mb-5 flex md:justify-between md:flex-row flex-col gap-4">
-				<div className="max-w-lg flex gap-4 md:flex-row flex-col">
+				<div className="max-w-lg flex gap-4 md:flex-row flex-col w-full">
 					<Input
 						value={search}
 						onChange={({ target }) => setSearch(target.value)}
@@ -56,8 +56,8 @@ export const ListCustomers = () => {
 					/>
 					<Button
 						type="button"
-						variant="outline"
-						className="uppercase"
+						variant="ghost"
+						className="uppercase text-zinc-50 border border-zinc-800 duration-300"
 						onClick={handleChangeSearch}
 					>
 						Pesquisar
