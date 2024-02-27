@@ -1,19 +1,31 @@
 import {
 	Building2,
+	Coins,
 	Factory,
+	HandCoins,
+	Landmark,
 	LayoutDashboard,
 	Package,
+	ShoppingCart,
 	UserRoundCog,
 	Users,
+	Wallet,
 } from 'lucide-react';
+import { NavCollapsibleItem } from '../nav-collapsible-item';
 import { NavItem, NavItemProps } from '../nav-item';
 
 const navItems: NavItemProps[] = [
 	{ label: 'Dashboard', to: '/', Icon: LayoutDashboard },
+	{ label: 'Vendas', to: '/sales', Icon: ShoppingCart },
 	{ label: 'Produtos', to: '/products', Icon: Package },
 	{ label: 'Clientes', to: '/customers', Icon: Users },
 	{ label: 'Fornecedores', to: '/suppliers', Icon: Factory },
 	{ label: 'Usuarios', to: '/users', Icon: UserRoundCog },
+];
+const collapsibleItems: NavItemProps[] = [
+	{ label: 'Caixa', to: '/cash', Icon: Landmark },
+	{ label: 'Contas a Pagar', to: '/payable', Icon: Coins },
+	{ label: 'Contas a Receber', to: '/receivable', Icon: HandCoins },
 ];
 
 export const Sidebar = () => {
@@ -31,6 +43,11 @@ export const Sidebar = () => {
 				{navItems.map(item => (
 					<NavItem key={item.to} {...item} />
 				))}
+				<NavCollapsibleItem
+					items={collapsibleItems}
+					Icon={Wallet}
+					label="Finanças"
+				/>
 			</nav>
 		</aside>
 	);
