@@ -7,6 +7,7 @@ import { LoginPage } from './pages/login';
 import { ProductPage } from './pages/product';
 import { ProductsPage } from './pages/products';
 import { RegisterPage } from './pages/register';
+import { SalesPage } from './pages/sales';
 import { SupplierPage } from './pages/supplier';
 import { SuppliersPage } from './pages/suppliers';
 
@@ -22,6 +23,7 @@ export const Router = () => {
 				{ path: '/supplier/:id?', element: <SupplierPage /> },
 				{ path: '/customers', element: <CustomersPage /> },
 				{ path: '/customer/:id?', element: <CustomerPage /> },
+				{ path: '/sales', element: <SalesPage /> },
 			],
 		},
 		{
