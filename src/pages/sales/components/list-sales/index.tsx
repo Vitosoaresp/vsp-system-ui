@@ -7,9 +7,10 @@ import { listSalesFn } from '@/service/sale';
 import { formatCurrency } from '@/utils';
 import { formatDate } from '@/utils/format-date';
 import { useQuery } from '@tanstack/react-query';
-import { Pencil } from 'lucide-react';
+import { endOfDay, startOfDay } from 'date-fns';
 import { DateRange } from 'react-day-picker';
 import { Link } from 'react-router-dom';
+import { ShowDetails } from '../show-details';
 
 const collumns: Collumn[] = [
 	{ label: 'Id', value: 'id' },
@@ -17,7 +18,7 @@ const collumns: Collumn[] = [
 	{ label: 'Vendedor', value: 'user' },
 	{ label: 'Valor da venda', value: 'total' },
 	{ label: 'Status', value: 'status' },
-	{ label: 'Atualizado em', value: 'updatedAt' },
+	{ label: 'Data da venda', value: 'saleDate' },
 	{ label: 'Visualizar', value: '', disabledSort: true },
 ];
 
@@ -42,8 +43,8 @@ export const ListSales = () => {
 	const handleChangeDate = (date?: DateRange) => {
 		if (date?.from || date?.to) {
 			handleSetParams({
-				startAt: date?.from?.toISOString() ?? '',
-				endAt: date?.to?.toISOString() ?? '',
+				startAt: date.from ? startOfDay(date.from).toISOString() : '',
+				endAt: date.to ? endOfDay(date.to).toISOString() : '',
 			});
 		}
 	};
@@ -95,15 +96,13 @@ export const ListSales = () => {
 						className="text-zinc-50 hover:bg-zinc-800 font-medium"
 					>
 						<TableCell className="py-4">{sale.id}</TableCell>
-						<TableCell>{`${sale.customer.firstName} + ${sale.customer.lastName}`}</TableCell>
+						<TableCell>{`${sale.customer.firstName} ${sale.customer.lastName}`}</TableCell>
 						<TableCell>{sale.user.name}</TableCell>
 						<TableCell>{formatCurrency(sale.total)}</TableCell>
 						<TableCell>{sale.status}</TableCell>
-						<TableCell>{formatDate(sale.updatedAt)}</TableCell>
+						<TableCell>{formatDate(sale.saleDate)}</TableCell>
 						<TableCell>
-							<Link to={`/sale/${sale.id}`}>
-								<Pencil size={24} className="text-zinc-50" />
-							</Link>
+							<ShowDetails sale={sale} />
 						</TableCell>
 					</TableRow>
 				))}

@@ -1,9 +1,14 @@
+import { AccountReceivable } from './account-receivable';
 import { ApiPaginationResponse } from './common';
 import { Customer } from './customer';
+import { Product, ProductHistory } from './product';
 import { User } from './user';
 
-interface Items {
+export interface Items {
 	productId: string;
+	name: string;
+	code: number;
+	maxQuantity: number;
 	quantity: number;
 	price: number;
 	total: number;
@@ -11,11 +16,10 @@ interface Items {
 
 export interface SalePayload {
 	customerId: string;
-	userId: string;
+	userId?: string;
 	items: Items[];
 	total: number;
-	installmentValue: number;
-	installmentQuantity: number;
+	saleDate: string;
 }
 
 export interface Sale extends Omit<SalePayload, 'items'> {
@@ -26,11 +30,14 @@ export interface Sale extends Omit<SalePayload, 'items'> {
 		id: string;
 		productId: string;
 		quantity: number;
+		product?: Product;
 		price: number;
 		total: number;
 		createdAt: string;
 		updatedAt: string;
 	}[];
+	ProductHistory: ProductHistory;
+	AccountReceivable: AccountReceivable[];
 	status: string;
 	createdAt: string;
 	updatedAt: string;
