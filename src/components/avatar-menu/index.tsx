@@ -23,46 +23,48 @@ export const AvatarMenu = ({ user }: AvatarMenuProsp) => {
 		<DropdownMenu>
 			<DropdownMenuTrigger>
 				<Avatar>
-					<AvatarFallback>{user?.name[0]}</AvatarFallback>
+					<AvatarFallback className="text-zinc-950">
+						{user?.name[0]}
+					</AvatarFallback>
 				</Avatar>
 			</DropdownMenuTrigger>
 
 			<DropdownMenuContent
-				align='end'
-				className='bg-zinc-950 w-56 border-zinc-800'
+				align="end"
+				className="bg-zinc-950 w-56 border-zinc-800"
 			>
 				<DropdownMenuLabel>
-					<p className='text-sm text-zinc-100'>{user?.name}</p>
-					<p className='text-zinc-400 text-xs'>{user?.email}</p>
+					<p className="text-sm text-zinc-100">{user?.name}</p>
+					<p className="text-zinc-400 text-xs">{user?.email}</p>
 				</DropdownMenuLabel>
 
-				<DropdownMenuSeparator className='bg-zinc-800' />
+				<DropdownMenuSeparator className="bg-zinc-800" />
 
 				<DropdownMenuItem
-					className='text-zinc-100 focus:bg-zinc-800 focus:text-zinc-50'
+					className="text-zinc-100 focus:bg-zinc-800 focus:text-zinc-50"
 					asChild
 				>
-					<Link to='/profile'>
-						<CircleUser className='text-base mr-2' />
+					<Link to="/profile">
+						<CircleUser className="text-base mr-2" />
 						Perfil
 					</Link>
 				</DropdownMenuItem>
-				<DropdownMenuItem className='text-zinc-100 focus:bg-zinc-800 focus:text-zinc-50'>
-					<CircleUser className='text-base mr-2' />
+				<DropdownMenuItem className="text-zinc-100 focus:bg-zinc-800 focus:text-zinc-50">
+					<CircleUser className="text-base mr-2" />
 					Perfil
 				</DropdownMenuItem>
-				<DropdownMenuItem className='text-zinc-100 focus:bg-zinc-800 focus:text-zinc-50'>
-					<CircleUser className='text-base mr-2' />
+				<DropdownMenuItem className="text-zinc-100 focus:bg-zinc-800 focus:text-zinc-50">
+					<CircleUser className="text-base mr-2" />
 					Perfil
 				</DropdownMenuItem>
 
-				<DropdownMenuSeparator className='bg-zinc-800' />
+				<DropdownMenuSeparator className="bg-zinc-800" />
 
 				<DropdownMenuItem
-					className='text-zinc-100 focus:bg-zinc-800 focus:text-zinc-50'
+					className="text-zinc-100 focus:bg-zinc-800 focus:text-zinc-50"
 					onClick={handleLogout}
 				>
-					<LogOut className='text-base mr-2' />
+					<LogOut className="text-base mr-2" />
 					Sair
 				</DropdownMenuItem>
 			</DropdownMenuContent>
