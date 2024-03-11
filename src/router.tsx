@@ -6,7 +6,9 @@ import { CustomersPage } from './pages/customers';
 import { LoginPage } from './pages/login';
 import { ProductPage } from './pages/product';
 import { ProductsPage } from './pages/products';
+import { ReceivablePage } from './pages/receivables';
 import { RegisterPage } from './pages/register';
+import { SalePage } from './pages/sale';
 import { SalesPage } from './pages/sales';
 import { SupplierPage } from './pages/supplier';
 import { SuppliersPage } from './pages/suppliers';
@@ -24,6 +26,8 @@ export const Router = () => {
 				{ path: '/customers', element: <CustomersPage /> },
 				{ path: '/customer/:id?', element: <CustomerPage /> },
 				{ path: '/sales', element: <SalesPage /> },
+				{ path: '/sale/', element: <SalePage /> },
+				{ path: '/receivables', element: <ReceivablePage /> },
 			],
 		},
 		{

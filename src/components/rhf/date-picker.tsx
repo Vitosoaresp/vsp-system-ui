@@ -49,7 +49,7 @@ export function RhfDatePicker<
 					<Button
 						variant={'outline'}
 						className={cn(
-							'w-[300px] block justify-start text-left font-normal bg-black hover:bg-zinc-800 text-zinc-300 hover:text-zinc-50',
+							'w-full block justify-start text-left font-normal bg-transparent hover:bg-transparent text-zinc-300 hover:text-zinc-50',
 							!value && 'text-zinc-50',
 						)}
 					>

@@ -24,8 +24,8 @@ const navItems: NavItemProps[] = [
 ];
 const collapsibleItems: NavItemProps[] = [
 	{ label: 'Caixa', to: '/cash', Icon: Landmark },
-	{ label: 'Contas a Pagar', to: '/payable', Icon: Coins },
-	{ label: 'Contas a Receber', to: '/receivable', Icon: HandCoins },
+	{ label: 'Contas a Pagar', to: '/payables', Icon: Coins },
+	{ label: 'Contas a Receber', to: '/receivables', Icon: HandCoins },
 ];
 
 export const Sidebar = () => {
