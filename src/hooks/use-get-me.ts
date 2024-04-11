@@ -2,7 +2,7 @@ import AuthContext from '@/context/auth';
 import { getMe } from '@/service/auth';
 import { UnauthorizedError } from '@/types/auth';
 import { useQuery } from '@tanstack/react-query';
-import { useContext, useEffect } from 'react';
+import { useContext, useLayoutEffect } from 'react';
 
 export const useGetMe = () => {
 	const { setUser, user } = useContext(AuthContext);
@@ -15,7 +15,7 @@ export const useGetMe = () => {
 		refetchOnWindowFocus: 'always',
 	});
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		if (data && !user) {
 			setUser(data);
 		}
