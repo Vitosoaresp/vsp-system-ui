@@ -18,9 +18,10 @@ import {
 type Props<
 	TFieldValues extends FieldValues,
 	TName extends FieldPath<TFieldValues>,
+	T,
 > = UseControllerProps<TFieldValues, TName> & {
 	label: string;
-	options: Option[];
+	options: Option<T>[];
 	disabled?: boolean;
 	error?: FieldError;
 	className?: string;
@@ -29,6 +30,7 @@ type Props<
 export function RhfSelect<
 	TFieldValues extends FieldValues,
 	TName extends FieldPath<TFieldValues>,
+	T,
 >({
 	error,
 	name,
@@ -39,7 +41,7 @@ export function RhfSelect<
 	className,
 	options,
 	...rest
-}: Props<TFieldValues, TName>) {
+}: Props<TFieldValues, TName, T>) {
 	const {
 		field: { onChange, value },
 	} = useController({ control, name, defaultValue });
@@ -60,7 +62,7 @@ export function RhfSelect<
 				</SelectTrigger>
 				<SelectContent className="bg-black text-zinc-100">
 					{options.map(option => (
-						<SelectItem key={option.value} value={option.value}>
+						<SelectItem key={String(option.value)} value={String(option.value)}>
 							{option.label}
 						</SelectItem>
 					))}
