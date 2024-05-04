@@ -128,6 +128,8 @@ export const ListReceivables = () => {
 				handleChangeOrder={handleChangeOrder}
 				meta={data?.meta}
 				handleChangePage={page => handleSetParams({ page })}
+				orderBy={params.orderBy}
+				sort={params.sort}
 			>
 				{data?.data.map(receivable => (
 					<TableRow

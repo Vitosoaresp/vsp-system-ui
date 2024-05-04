@@ -69,6 +69,8 @@ export const ListSuppliers = () => {
 
 			<DataTable
 				collumns={tableColumns}
+				orderBy={params.orderBy}
+				sort={params.sort}
 				isEmpty={data?.meta.total === 0}
 				isLoading={isLoading}
 				handleChangeOrder={handleChangeOrder}

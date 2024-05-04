@@ -1,6 +1,6 @@
+import { cn } from '@/lib/utils';
 import { Meta } from '@/types/common';
-import { ArrowDownUp } from 'lucide-react';
-import { Button } from '../ui/button';
+import { ArrowUp } from 'lucide-react';
 import {
 	Pagination,
 	PaginationContent,
@@ -34,6 +34,8 @@ interface DataTableProps {
 	handleChangeOrder: (orderBy: string) => void;
 	meta?: Meta;
 	handleChangePage: (page: number) => void;
+	orderBy: string;
+	sort: string;
 }
 
 export const DataTable = ({
@@ -44,6 +46,8 @@ export const DataTable = ({
 	handleChangeOrder,
 	meta,
 	handleChangePage,
+	orderBy,
+	sort,
 }: DataTableProps) => {
 	const currentPage = meta?.currentPage || 1;
 	const total = meta?.total || 0;
@@ -60,17 +64,27 @@ export const DataTable = ({
 				<TableHeader>
 					<TableRow className="hover:bg-zinc-800">
 						{collumns.map(column => (
-							<TableHead className="text-zinc-50 uppercase" key={column.value}>
-								{column.disabledSort && column.label}
+							<TableHead className="text-zinc-50" key={column.value}>
+								{column.disabledSort && (
+									<span className="ml-4">{column.label}</span>
+								)}
 								{!column.disabledSort && (
-									<Button
-										variant="link"
-										className="text-zinc-50 hover:no-underline px-0"
+									<span
+										className="text-zinc-50 hover:no-underline px-0 inline-flex items-center gap-1 whitespace-nowrap cursor-pointer"
 										onClick={() => handleChangeOrder(column.value)}
 									>
 										{column.label}
-										<ArrowDownUp size={16} className="text-zinc-200 ml-1" />
-									</Button>
+										<ArrowUp
+											size={16}
+											className={cn(
+												'size-4 text-zinc-50 transition-all',
+												orderBy !== column.value
+													? 'opacity-0 flex-shrink-0'
+													: 'opacity-100',
+												sort === 'asc' ? 'rotate-0' : 'rotate-180',
+											)}
+										/>
+									</span>
 								)}
 							</TableHead>
 						))}

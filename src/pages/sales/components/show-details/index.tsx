@@ -20,14 +20,14 @@ import { Sale } from '@/types/sale';
 import { formatCurrency, getCustomerName } from '@/utils';
 import { formatDate } from '@/utils/format-date';
 import { formatInvoiceId } from '@/utils/format-invoice-id';
-import { Pencil } from 'lucide-react';
+import { ShoppingBag } from 'lucide-react';
 
 export const ShowDetails = ({ sale }: { sale: Sale }) => {
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
 				<Button variant="ghost" className="hover:bg-transparent">
-					<Pencil size={24} className="text-zinc-50" />
+					<ShoppingBag size={24} className="text-zinc-50" />
 				</Button>
 			</DialogTrigger>
 

@@ -89,6 +89,8 @@ export const ListSales = () => {
 				handleChangeOrder={handleChangeOrder}
 				meta={data?.meta}
 				handleChangePage={page => handleSetParams({ page })}
+				orderBy={params.orderBy}
+				sort={params.sort}
 			>
 				{data?.data.map(sale => (
 					<TableRow
