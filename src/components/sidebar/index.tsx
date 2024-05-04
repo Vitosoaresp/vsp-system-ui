@@ -6,6 +6,7 @@ import {
 	Landmark,
 	LayoutDashboard,
 	Package,
+	ShoppingBag,
 	ShoppingCart,
 	UserRoundCog,
 	Users,
@@ -16,6 +17,7 @@ import { NavItem, NavItemProps } from '../nav-item';
 
 const navItems: NavItemProps[] = [
 	{ label: 'Dashboard', to: '/', Icon: LayoutDashboard },
+	{ label: 'Entrada NF', to: '/buy', Icon: ShoppingBag },
 	{ label: 'Vendas', to: '/sales', Icon: ShoppingCart },
 	{ label: 'Produtos', to: '/products', Icon: Package },
 	{ label: 'Clientes', to: '/customers', Icon: Users },

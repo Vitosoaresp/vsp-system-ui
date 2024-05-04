@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { PrivateLayout } from './layouts/private-layout';
 import { PublicLayout } from './layouts/public-layout';
+import BuyPage from './pages/buy';
 import { CustomerPage } from './pages/customer';
 import { CustomersPage } from './pages/customers';
 import { LoginPage } from './pages/login';
@@ -28,6 +29,7 @@ export const Router = () => {
 				{ path: '/sales', element: <SalesPage /> },
 				{ path: '/sale/', element: <SalePage /> },
 				{ path: '/receivables', element: <ReceivablePage /> },
+				{ path: '/buy', element: <BuyPage /> },
 			],
 		},
 		{
