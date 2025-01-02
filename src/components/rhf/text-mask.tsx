@@ -59,7 +59,7 @@ export function RhfTextMask<
 					placeholder={placeholder}
 					disabled={disabled}
 					type={type}
-					ref={ref}
+					inputRef={ref}
 					{...props}
 					{...rest}
 				/>

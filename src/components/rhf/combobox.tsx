@@ -39,7 +39,7 @@ export function RhfCombobox<
 	} = useController({ control, name, defaultValue });
 
 	return (
-		<div className={cn('flex flex-col', className)}>
+		<div className={cn('flex flex-col w-full', className)}>
 			<Label className="text-zinc-100 mb-1" htmlFor={name}>
 				{label}
 			</Label>

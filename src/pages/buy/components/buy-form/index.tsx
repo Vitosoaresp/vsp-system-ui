@@ -6,6 +6,7 @@ import { getProducts } from '@/service/product';
 import { listSuppliersFn } from '@/service/supplier';
 import { Buy } from '@/types/account-payable';
 import { useQuery } from '@tanstack/react-query';
+import { format } from 'date-fns';
 import { FormProvider, useForm } from 'react-hook-form';
 
 export const BuyForm = () => {
@@ -68,13 +69,20 @@ export const BuyForm = () => {
 
 						<div className="flex flex-col">
 							<Label className="text-zinc-100 mb-1" htmlFor="cnpj">
+								Data da NF
+							</Label>
+							<Input disabled value={format(new Date(), 'dd/MM/yyyy')} />
+						</div>
+					</Grid>
+
+					<Grid>
+						<div className="flex flex-col">
+							<Label className="text-zinc-100 mb-1" htmlFor="cnpj">
 								CNPJ
 							</Label>
 							<Input disabled name="cnpj" value={selectedSupplier?.cnpj} />
 						</div>
 					</Grid>
-
-					<Grid></Grid>
 				</form>
 			</div>
 		</FormProvider>

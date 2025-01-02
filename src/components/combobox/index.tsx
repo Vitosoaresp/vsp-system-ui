@@ -57,7 +57,7 @@ export function Combobox<T>({
 					<ChevronsUpDown className="ml-1 h-4 w-4 shrink-0 opacity-50" />
 				</Button>
 			</PopoverTrigger>
-			<PopoverContent className="w-80 p-0">
+			<PopoverContent className="xl:w-[429px] w-80 p-0">
 				<Command className="bg-zinc-950" shouldFilter={false} value={value}>
 					<CommandInput
 						placeholder="Procurar ..."
