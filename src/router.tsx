@@ -15,32 +15,32 @@ import { SupplierPage } from './pages/supplier';
 import { SuppliersPage } from './pages/suppliers';
 
 export const Router = () => {
-	const router = createBrowserRouter([
-		{
-			element: <PrivateLayout />,
-			children: [
-				{ path: '/', element: <Navigate to='/dashboard' /> },
-				{ path: '/dashboard', element: <div>Dashboard</div> },
-				{ path: '/produtos', element: <ProductsPage /> },
-				{ path: '/produto/:id?', element: <ProductPage /> },
-				{ path: '/fornecedores', element: <SuppliersPage /> },
-				{ path: '/fornecedor/:id?', element: <SupplierPage /> },
-				{ path: '/clientes', element: <CustomersPage /> },
-				{ path: '/cliente/:id?', element: <CustomerPage /> },
-				{ path: '/vendas', element: <SalesPage /> },
-				{ path: '/venda/', element: <SalePage /> },
-				{ path: '/contas-a-receber', element: <ReceivablePage /> },
-				{ path: '/comprar', element: <BuyPage /> },
-			],
-		},
-		{
-			element: <PublicLayout />,
-			children: [
-				{ path: '/entrar', element: <LoginPage /> },
-				{ path: '/registrar', element: <RegisterPage /> },
-			],
-		},
-	]);
+  const router = createBrowserRouter([
+    {
+      element: <PrivateLayout />,
+      children: [
+        { path: '/', element: <Navigate to="/dashboard" /> },
+        { path: '/dashboard', element: <div>Dashboard</div> },
+        { path: '/produtos', element: <ProductsPage /> },
+        { path: '/produto/:id?', element: <ProductPage /> },
+        { path: '/fornecedores', element: <SuppliersPage /> },
+        { path: '/fornecedor/:id?', element: <SupplierPage /> },
+        { path: '/clientes', element: <CustomersPage /> },
+        { path: '/cliente/:id?', element: <CustomerPage /> },
+        { path: '/vendas', element: <SalesPage /> },
+        { path: '/venda/', element: <SalePage /> },
+        { path: '/contas-a-receber', element: <ReceivablePage /> },
+        { path: '/comprar', element: <BuyPage /> },
+      ],
+    },
+    {
+      element: <PublicLayout />,
+      children: [
+        { path: '/entrar', element: <LoginPage /> },
+        { path: '/registrar', element: <RegisterPage /> },
+      ],
+    },
+  ]);
 
-	return <RouterProvider router={router} />;
+  return <RouterProvider router={router} />;
 };

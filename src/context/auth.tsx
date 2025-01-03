@@ -1,4 +1,4 @@
-import { getUser, logout, setToken } from '@/lib/secure-storage';
+import { getUser, logout, setToken, setUser } from '@/lib/secure-storage';
 import { LoginResponse } from '@/types/auth';
 import { User } from '@/types/user';
 import { createContext, useCallback, useMemo, useState } from 'react';
@@ -22,16 +22,16 @@ const AuthContext = createContext<AuthContext>({
 });
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
-  const [user, setUser] = useState<User | null>(getUser());
+  const [user, setCurrentUser] = useState<User | null>(getUser());
 
   const signIn = useCallback((data: LoginResponse) => {
     setToken(data.token);
     setUser(data.user);
+    setCurrentUser(data.user);
   }, []);
 
   const handleLogout = useCallback(() => {
     logout();
-    setUser(null);
   }, []);
 
   const value: AuthContext = useMemo(
