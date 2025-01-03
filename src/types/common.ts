@@ -20,3 +20,9 @@ export interface Address {
 	neighborhood: string;
 	number: string;
 }
+
+export enum FinancialStatus {
+	PENDING = 'PENDING',
+	PAID = 'PAID',
+	CANCELED = 'CANCELED',
+}

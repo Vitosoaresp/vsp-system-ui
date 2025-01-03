@@ -8,10 +8,8 @@ import {
 	listReceivablesFn,
 	payReceivableFn,
 } from '@/service/receivable';
-import {
-	AccountReceivableStatus,
-	PayReceivable,
-} from '@/types/account-receivable';
+import { PayReceivable } from '@/types/account-receivable';
+import { FinancialStatus } from '@/types/common';
 import { formatCurrency } from '@/utils';
 import { getLabelByEnum, receivableStatusOptions } from '@/utils/enum-options';
 import { formatDate } from '@/utils/format-date';
@@ -48,14 +46,12 @@ export const ListReceivables = () => {
 
 	const { mutateAsync: handlePay, isPending: isPaying } = useMutation({
 		mutationFn: payReceivableFn,
-		onSuccess: () =>
-			query.invalidateQueries({ queryKey: ['account-receivables'] }),
+		onSuccess: () => query.invalidateQueries({ queryKey: ['account-receivables'] }),
 	});
 
 	const { mutateAsync: handleDelete, isPending: isDeleting } = useMutation({
 		mutationFn: deleteReceivableFn,
-		onSuccess: () =>
-			query.invalidateQueries({ queryKey: ['account-receivables'] }),
+		onSuccess: () => query.invalidateQueries({ queryKey: ['account-receivables'] }),
 	});
 
 	const handleChangeOrder = (column: string) => {
@@ -101,9 +97,9 @@ export const ListReceivables = () => {
 	};
 
 	return (
-		<div className="py-5 container">
-			<div className="mb-5 flex md:justify-between md:flex-row flex-col gap-4">
-				<div className="max-w-lg flex gap-4 md:flex-row flex-col w-full">
+		<div className='py-5 container'>
+			<div className='mb-5 flex md:justify-between md:flex-row flex-col gap-4'>
+				<div className='max-w-lg flex gap-4 md:flex-row flex-col w-full'>
 					<DateRangePicker
 						handleChange={handleChangeDate}
 						value={{
@@ -112,8 +108,8 @@ export const ListReceivables = () => {
 						}}
 					/>
 					<Button
-						variant="link"
-						className="text-zinc-50 hover:no-underline"
+						variant='link'
+						className='text-zinc-50 hover:no-underline'
 						onClick={handleClearParams}
 					>
 						Limpar filtros
@@ -134,9 +130,9 @@ export const ListReceivables = () => {
 				{data?.data.map(receivable => (
 					<TableRow
 						key={receivable.id}
-						className="text-zinc-50 hover:bg-zinc-800 font-medium"
+						className='text-zinc-50 hover:bg-zinc-800 font-medium'
 					>
-						<TableCell className="py-4">
+						<TableCell className='py-4'>
 							{formatInvoiceId(receivable.saleId)}
 						</TableCell>
 						<TableCell>{formatCurrency(receivable.amount)}</TableCell>
@@ -157,16 +153,14 @@ export const ListReceivables = () => {
 								receivableData={receivable}
 								onSubmit={handleSubmit}
 								isLoading={isPaying || isDeleting}
-								disabled={receivable.status === AccountReceivableStatus.PAID}
+								disabled={receivable.status === FinancialStatus.PAID}
 							/>
 						</TableCell>
 						<TableCell>
 							<CancelReceivable
 								handleCancel={handleCancel}
 								id={receivable.id as string}
-								disabled={
-									receivable.status === AccountReceivableStatus.CANCELED
-								}
+								disabled={receivable.status === FinancialStatus.CANCELED}
 							/>
 						</TableCell>
 					</TableRow>

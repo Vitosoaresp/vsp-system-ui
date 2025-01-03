@@ -46,25 +46,25 @@ export const ListProducts = () => {
 	};
 
 	return (
-		<div className="py-5 container">
-			<div className="mb-5 flex md:justify-between md:flex-row flex-col gap-4">
-				<div className="max-w-lg flex gap-4 md:flex-row flex-col w-full">
+		<div className='py-5 container'>
+			<div className='mb-5 flex md:justify-between md:flex-row flex-col gap-4'>
+				<div className='max-w-lg flex gap-4 md:flex-row flex-col w-full'>
 					<Input
 						value={search}
 						onChange={({ target }) => setSearch(target.value)}
-						placeholder="Perquisar por nome, email, telefone ou cnpj"
+						placeholder='Perquisar por nome, email, telefone ou cnpj'
 					/>
 					<Button
-						type="button"
-						variant="ghost"
-						className="uppercase text-zinc-50 border border-zinc-800 duration-300"
+						type='button'
+						variant='ghost'
+						className='uppercase text-zinc-50 border border-zinc-800 duration-300'
 						onClick={handleChangeSearch}
 					>
 						Pesquisar
 					</Button>
 				</div>
-				<Button variant="outline" className="uppercase">
-					<Link to="/product/">Criar novo produto</Link>
+				<Button variant='outline' className='uppercase'>
+					<Link to='/produto/'>Criar novo produto</Link>
 				</Button>
 			</div>
 			<DataTable
@@ -80,9 +80,9 @@ export const ListProducts = () => {
 				{data?.data.map(product => (
 					<TableRow
 						key={product.id}
-						className="text-zinc-50 hover:bg-zinc-800 font-medium"
+						className='text-zinc-50 hover:bg-zinc-800 font-medium'
 					>
-						<TableCell className="py-4">{product.code}</TableCell>
+						<TableCell className='py-4'>{product.code}</TableCell>
 						<TableCell>{product.name}</TableCell>
 						<TableCell>{formatCurrency(product.grossPrice)}</TableCell>
 						<TableCell>{formatCurrency(product.salesPrice)}</TableCell>
@@ -90,8 +90,8 @@ export const ListProducts = () => {
 						<TableCell>{formatDate(product.updatedAt)}</TableCell>
 						<TableCell>{product.active ? 'Ativo' : 'Inativo'}</TableCell>
 						<TableCell>
-							<Link to={`/product/${product.id}`} className="px-2 block">
-								<Pencil size={24} className="text-zinc-50" />
+							<Link to={`/produto/${product.id}`} className='px-2 block'>
+								<Pencil size={24} className='text-zinc-50' />
 							</Link>
 						</TableCell>
 					</TableRow>

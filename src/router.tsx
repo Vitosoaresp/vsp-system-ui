@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
 import { PrivateLayout } from './layouts/private-layout';
 import { PublicLayout } from './layouts/public-layout';
 import BuyPage from './pages/buy';
@@ -19,24 +19,25 @@ export const Router = () => {
 		{
 			element: <PrivateLayout />,
 			children: [
-				{ path: '/', element: <div>Home</div> },
-				{ path: '/products', element: <ProductsPage /> },
-				{ path: '/product/:id?', element: <ProductPage /> },
-				{ path: '/suppliers', element: <SuppliersPage /> },
-				{ path: '/supplier/:id?', element: <SupplierPage /> },
-				{ path: '/customers', element: <CustomersPage /> },
-				{ path: '/customer/:id?', element: <CustomerPage /> },
-				{ path: '/sales', element: <SalesPage /> },
-				{ path: '/sale/', element: <SalePage /> },
-				{ path: '/receivables', element: <ReceivablePage /> },
-				{ path: '/buy', element: <BuyPage /> },
+				{ path: '/', element: <Navigate to='/dashboard' /> },
+				{ path: '/dashboard', element: <div>Dashboard</div> },
+				{ path: '/produtos', element: <ProductsPage /> },
+				{ path: '/produto/:id?', element: <ProductPage /> },
+				{ path: '/fornecedores', element: <SuppliersPage /> },
+				{ path: '/fornecedor/:id?', element: <SupplierPage /> },
+				{ path: '/clientes', element: <CustomersPage /> },
+				{ path: '/cliente/:id?', element: <CustomerPage /> },
+				{ path: '/vendas', element: <SalesPage /> },
+				{ path: '/venda/', element: <SalePage /> },
+				{ path: '/contas-a-receber', element: <ReceivablePage /> },
+				{ path: '/comprar', element: <BuyPage /> },
 			],
 		},
 		{
 			element: <PublicLayout />,
 			children: [
-				{ path: '/signin', element: <LoginPage /> },
-				{ path: '/register', element: <RegisterPage /> },
+				{ path: '/entrar', element: <LoginPage /> },
+				{ path: '/registrar', element: <RegisterPage /> },
 			],
 		},
 	]);

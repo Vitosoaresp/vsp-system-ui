@@ -1,12 +1,8 @@
-import AuthContext from '@/context/auth';
 import { getMe } from '@/service/auth';
 import { UnauthorizedError } from '@/types/auth';
 import { useQuery } from '@tanstack/react-query';
-import { useContext, useLayoutEffect } from 'react';
 
 export const useGetMe = () => {
-	const { setUser, user } = useContext(AuthContext);
-
 	const { data, isPending, isFetched, error } = useQuery({
 		queryKey: ['me'],
 		queryFn: getMe,
@@ -14,12 +10,6 @@ export const useGetMe = () => {
 		retry: 1,
 		refetchOnWindowFocus: 'always',
 	});
-
-	useLayoutEffect(() => {
-		if (data && !user) {
-			setUser(data);
-		}
-	}, [data, setUser, user]);
 
 	const err: UnauthorizedError = error as UnauthorizedError;
 

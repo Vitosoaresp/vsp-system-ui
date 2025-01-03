@@ -14,7 +14,7 @@ export const useRegister = () => {
 		mutationFn: register,
 		onSuccess: () => {
 			toast.success('Cadastro realizado com sucesso!');
-			navigate('/signin');
+			navigate('/entrar');
 		},
 		onError: () => {
 			toast.error('Erro ao realizar cadastro!');

@@ -9,7 +9,7 @@ export const useLogout = () => {
 
 	const handleLogout = () => {
 		logout();
-		navigate('/signin');
+		navigate('/entrar');
 		toast.success('Você saiu da sua conta!', {
 			action: {
 				label: 'Fechar',

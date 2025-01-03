@@ -1,14 +1,13 @@
-import AuthContext from '@/context/auth';
 import { login } from '@/service/auth';
 import { LoginPayload } from '@/types/auth';
 import { useMutation } from '@tanstack/react-query';
-import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
+import { useAuthContext } from './use-auth-context';
 
 export const useLogin = () => {
 	const navigate = useNavigate();
-	const { signIn: handleSignIn } = useContext(AuthContext);
+	const { signIn: handleSignIn } = useAuthContext();
 
 	const {
 		mutateAsync: signIn,
@@ -22,7 +21,7 @@ export const useLogin = () => {
 		try {
 			const response = await signIn(data);
 			handleSignIn(response);
-			navigate('/');
+			navigate('/produtos');
 			toast.success('Login realizado com sucesso!');
 		} catch (error) {
 			toast.error('Crendenciais inválidas!');

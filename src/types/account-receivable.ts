@@ -1,15 +1,9 @@
-import { ApiPaginationResponse } from './common';
-
-export enum AccountReceivableStatus {
-	PENDING = 'pending',
-	PAID = 'paid',
-	CANCELED = 'canceled',
-}
+import { ApiPaginationResponse, FinancialStatus } from './common';
 
 export interface AccountReceivable {
 	id?: string;
 	saleId: number;
-	status: AccountReceivableStatus;
+	status: FinancialStatus;
 	amount: number;
 	amountReceived?: number;
 	duoDate: string;

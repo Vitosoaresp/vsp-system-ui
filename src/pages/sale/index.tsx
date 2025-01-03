@@ -8,31 +8,29 @@ import { toast } from 'sonner';
 import { SaleForm } from './components';
 
 export const SalePage = () => {
-	const navigate = useNavigate();
+  const navigate = useNavigate();
 
-	const { mutateAsync: create, isPending: isLoading } = useMutation({
-		mutationFn: createSaleFn,
-	});
+  const { mutateAsync: create, isPending: isLoading } = useMutation({
+    mutationFn: createSaleFn,
+  });
 
-	const handleSubmit = async (data: SalePayload) => {
-		try {
-			await create(data);
-			toast.success('Venda criada com sucesso!');
-			navigate('/sales');
-		} catch (error) {
-			toast.error('Erro ao criar venda');
-		}
-	};
+  const handleSubmit = async (data: SalePayload) => {
+    try {
+      await create(data);
+      toast.success('Venda criada com sucesso!');
+      navigate('/vendas');
+    } catch (error) {
+      toast.error('Erro ao criar venda');
+    }
+  };
 
-	return (
-		<div className="flex flex-col w-full">
-			<Header title="Criar venda" Icon={ShoppingCart} />
+  return (
+    <div className="flex flex-col w-full">
+      <Header title="Criar venda" Icon={ShoppingCart} />
 
-			<div className="py-10 container">
-				{!isLoading && (
-					<SaleForm onSubmit={handleSubmit} isLoading={isLoading} />
-				)}
-			</div>
-		</div>
-	);
+      <div className="py-10 container">
+        {!isLoading && <SaleForm onSubmit={handleSubmit} isLoading={isLoading} />}
+      </div>
+    </div>
+  );
 };

@@ -58,9 +58,9 @@ export const ListSales = () => {
 	};
 
 	return (
-		<div className="py-5 container">
-			<div className="mb-5 flex md:justify-between md:flex-row flex-col gap-4">
-				<div className="max-w-lg flex gap-4 md:flex-row flex-col w-full">
+		<div className='py-5 container'>
+			<div className='mb-5 flex md:justify-between md:flex-row flex-col gap-4'>
+				<div className='max-w-lg flex gap-4 md:flex-row flex-col w-full'>
 					<DateRangePicker
 						handleChange={handleChangeDate}
 						value={{
@@ -69,16 +69,16 @@ export const ListSales = () => {
 						}}
 					/>
 					<Button
-						variant="link"
-						className="text-zinc-50 hover:no-underline"
+						variant='link'
+						className='text-zinc-50 hover:no-underline'
 						onClick={handleClearParams}
 					>
 						Limpar filtros
 					</Button>
 				</div>
 
-				<Button variant="outline" className="uppercase">
-					<Link to="/sale/">Criar nova venda</Link>
+				<Button variant='outline' className='uppercase'>
+					<Link to='/venda/'>Criar nova venda</Link>
 				</Button>
 			</div>
 
@@ -95,9 +95,9 @@ export const ListSales = () => {
 				{data?.data.map(sale => (
 					<TableRow
 						key={sale.id}
-						className="text-zinc-50 hover:bg-zinc-800 font-medium"
+						className='text-zinc-50 hover:bg-zinc-800 font-medium'
 					>
-						<TableCell className="py-4">{sale.id}</TableCell>
+						<TableCell className='py-4'>{sale.id}</TableCell>
 						<TableCell>{`${sale.customer.firstName} ${sale.customer.lastName}`}</TableCell>
 						<TableCell>{sale.user.name}</TableCell>
 						<TableCell>{formatCurrency(sale.total)}</TableCell>
