@@ -1,6 +1,7 @@
-import { Sidebar } from '@/components/sidebar';
+import { SidebarProvider } from '@/components/ui/sidebar';
 import { getToken } from '@/lib/secure-storage';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
+import { Sidebar } from './components/sidebar';
 
 export const PrivateLayout = () => {
   const location = useLocation();
@@ -11,11 +12,11 @@ export const PrivateLayout = () => {
   }
 
   return (
-    <main className="min-h-screen md:pl-64 pl-20">
+    <SidebarProvider>
       <Sidebar />
-      <div className="relative w-full">
+      <main className="w-full">
         <Outlet />
-      </div>
-    </main>
+      </main>
+    </SidebarProvider>
   );
 };

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { toast } from 'sonner';
 import { getToken } from './secure-storage';
 
 export const api = axios.create({
@@ -14,11 +15,14 @@ api.interceptors.request.use(config => {
   return config;
 });
 
-axios.interceptors.response.use(
+api.interceptors.response.use(
   response => response,
   err => {
-    if (err.response?.status === 401) {
-      window.location.href = '/signin';
+    if (err.response?.status === 401 && window.location.pathname !== '/entrar') {
+      toast('Sessão expirada, Faça o login novamente.');
+      setTimeout(() => {
+        window.location.href = '/entrar';
+      }, 600);
     }
 
     return Promise.reject(err);
