@@ -1,4 +1,10 @@
-import { Header } from '@/components/header';
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbSeparator,
+} from '@/components/ui/breadcrumb';
 import { createProductFn, getProductFn, updateProductFn } from '@/service/product';
 import { Product } from '@/types/product';
 import { useMutation, useQuery } from '@tanstack/react-query';
@@ -40,13 +46,28 @@ export const ProductPage = () => {
   const isSubmiting = isCreating || isUpdating;
 
   return (
-    <div className="flex flex-col w-full">
-      <Header
-        title={params.id ? 'Editar Produto' : 'Novo Produto'}
-        Icon={Package}
-      />
+    <div className="flex flex-col w-full space-y-10">
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/produtos" className="flex gap-2 items-center">
+              <Package className="size-4" />
+              <span>Produtos</span>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbLink
+              href={`/produto/${params.id ?? ''}`}
+              className="flex gap-2 items-center"
+            >
+              <span>Produto</span>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
 
-      <div className="container py-10">
+      <div className="border border-border rounded py-5 px-4 bg-card">
         {isLoading && <ProductSkeleton />}
         {!isLoading && (
           <ProductForm

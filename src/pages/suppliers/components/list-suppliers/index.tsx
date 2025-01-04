@@ -44,9 +44,9 @@ export const ListSuppliers = () => {
   };
 
   return (
-    <div className="py-5 container">
+    <div>
       <div className="mb-5 flex md:justify-between md:flex-row flex-col gap-4">
-        <div className="max-w-lg flex gap-4 md:flex-row flex-col w-full">
+        <div className="max-w-lg flex gap-4 md:flex-row flex-col w-full items-center  ">
           <Input
             value={search}
             onChange={({ target }) => setSearch(target.value)}
@@ -54,8 +54,8 @@ export const ListSuppliers = () => {
           />
           <Button
             type="button"
-            variant="ghost"
-            className="uppercase text-zinc-50 border border-zinc-800 duration-300"
+            variant="outline"
+            className="uppercase"
             onClick={handleChangeSearch}
           >
             Pesquisar
@@ -78,10 +78,7 @@ export const ListSuppliers = () => {
         handleChangePage={page => handleSetParams({ page })}
       >
         {data?.data.map(supplier => (
-          <TableRow
-            key={supplier.id}
-            className="text-zinc-50 hover:bg-zinc-800 font-medium"
-          >
+          <TableRow key={supplier.id} className="font-medium">
             <TableCell className="py-4">{supplier.name}</TableCell>
             <TableCell>{supplier.email}</TableCell>
             <TableCell>{supplier.phone}</TableCell>
@@ -93,7 +90,7 @@ export const ListSuppliers = () => {
                 to={`/fornecedor/${supplier.id}`}
                 className="flex items-center justify-center"
               >
-                <Pencil size={24} className="text-zinc-50" />
+                <Pencil size={24} className="text-foreground" />
               </Link>
             </TableCell>
           </TableRow>

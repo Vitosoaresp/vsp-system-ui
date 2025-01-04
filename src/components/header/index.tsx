@@ -1,6 +1,4 @@
-import { useAuthContext } from '@/hooks';
 import { LucideIcon } from 'lucide-react';
-import { AvatarMenu } from '../avatar-menu';
 
 interface HeaderProps {
   title: string;
@@ -8,16 +6,13 @@ interface HeaderProps {
 }
 
 export const Header = ({ title, Icon }: HeaderProps) => {
-  const { user } = useAuthContext();
-
   return (
     <header className="border-b border-zinc-800">
       <div className="container flex justify-between w-full py-8 items-center">
-        <h1 className="text-zinc-50 text-xl font-bold uppercase flex gap-2">
+        <h4 className="text-zinc-50 text-xl font-bold uppercase flex gap-2">
           <Icon />
           {title}
-        </h1>
-        <AvatarMenu user={user} />
+        </h4>
       </div>
     </header>
   );

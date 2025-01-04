@@ -62,22 +62,25 @@ export const DataTable = ({
     <>
       <Table>
         <TableHeader>
-          <TableRow className="hover:bg-zinc-800">
+          <TableRow className="hover:bg-muted">
             {collumns.map(column => (
-              <TableHead className="text-zinc-50 text-center" key={column.value}>
+              <TableHead
+                className="text-foreground text-center group"
+                key={column.value}
+              >
                 {column.disabledSort && (
                   <span className="ml-4">{column.label}</span>
                 )}
                 {!column.disabledSort && (
                   <span
-                    className="text-zinc-50 hover:no-underline px-0 inline-flex items-center gap-1 whitespace-nowrap cursor-pointer"
+                    className="text-foreground hover:no-underline px-0 inline-flex items-center gap-1 whitespace-nowrap cursor-pointer"
                     onClick={() => handleChangeOrder(column.value)}
                   >
                     {column.label}
                     <ArrowUp
                       size={16}
                       className={cn(
-                        'size-4 text-zinc-50 transition-all',
+                        'size-4 text-foreground transition-all group-hover:opacity-100',
                         orderBy !== column.value
                           ? 'opacity-0 flex-shrink-0'
                           : 'opacity-100',
@@ -92,20 +95,20 @@ export const DataTable = ({
         </TableHeader>
         <TableBody>
           {!isLoading && isEmpty && (
-            <TableRow className="hover:bg-black">
+            <TableRow className="hover:bg-muted">
               <TableCell
                 colSpan={collumns.length}
-                className="text-center text-zinc-50 text-lg py-6 font-medium"
+                className="text-center text-foreground py-6 font-medium"
               >
                 Nenhum registro encontrado
               </TableCell>
             </TableRow>
           )}
           {isLoading && (
-            <TableRow className="hover:bg-black">
+            <TableRow className="hover:bg-muted">
               {Array.from({ length: collumns.length }).map((_, index) => (
                 <TableCell key={index}>
-                  <Skeleton className=" bg-zinc-800 w-full py-6" />
+                  <Skeleton className="bg-secondary w-full py-6" />
                 </TableCell>
               ))}
             </TableRow>
@@ -113,8 +116,8 @@ export const DataTable = ({
           {!isLoading && children}
         </TableBody>
       </Table>
-      <div className="border-t border-zinc-100 pt-5">
-        <Pagination className="bg-black text-zinc-50 justify-end">
+      <div className="border-t border-foreground pt-5">
+        <Pagination className="text-foreground justify-end">
           <PaginationContent>
             <PaginationItem>
               <PaginationPrevious

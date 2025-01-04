@@ -9,61 +9,57 @@ import { Link } from 'react-router-dom';
 import { loginSchema } from '../schema';
 
 interface FormProps {
-	onSubmit: (data: LoginPayload) => void;
-	isLoading: boolean;
+  onSubmit: (data: LoginPayload) => void;
+  isLoading: boolean;
 }
 
 export const Form = ({ onSubmit, isLoading }: FormProps) => {
-	const {
-		control,
-		formState: { errors },
-		handleSubmit,
-	} = useForm<LoginPayload>({
-		resolver: yupResolver(loginSchema),
-	});
-	const [showPassword, setShowPassword] = useState(false);
+  const {
+    control,
+    formState: { errors },
+    handleSubmit,
+  } = useForm<LoginPayload>({
+    resolver: yupResolver(loginSchema),
+  });
+  const [showPassword, setShowPassword] = useState(false);
 
-	const handleTogglePassword = () => setShowPassword(prev => !prev);
+  const handleTogglePassword = () => setShowPassword(prev => !prev);
 
-	return (
-		<form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
-			<RhfTextField
-				control={control}
-				name="email"
-				type="text"
-				defaultValue=""
-				label="E-mail"
-				error={errors.email}
-			/>
+  return (
+    <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
+      <RhfTextField
+        control={control}
+        name="email"
+        type="text"
+        defaultValue=""
+        label="E-mail"
+        error={errors.email}
+      />
 
-			<RhfTextField
-				control={control}
-				name="password"
-				type={showPassword ? 'text' : 'password'}
-				defaultValue=""
-				label="Senha"
-				error={errors.password}
-				EndAdornment={showPassword ? EyeOff : Eye}
-				handleClickAdornment={handleTogglePassword}
-			/>
+      <RhfTextField
+        control={control}
+        name="password"
+        type={showPassword ? 'text' : 'password'}
+        defaultValue=""
+        label="Senha"
+        error={errors.password}
+        EndAdornment={showPassword ? EyeOff : Eye}
+        handleClickAdornment={handleTogglePassword}
+      />
 
-			<div className="flex justify-end">
-				<Button
-					type="button"
-					variant="link"
-					className="text-zinc-50 hover:underline"
-					disabled={isLoading}
-				>
-					<Link to="/register">Registrar</Link>
-				</Button>
-				<Button
-					type="submit"
-					className="bg-zinc-50 text-zinc-900 hover:bg-zinc-300 w-24"
-					loading={isLoading}
-				>
-					Entrar
-				</Button>
-			</div>
-		</form>
-	);
+      <div className="flex justify-end">
+        <Button
+          type="button"
+          variant="link"
+          className="hover:underline"
+          disabled={isLoading}
+        >
+          <Link to="/register">Registrar</Link>
+        </Button>
+        <Button type="submit" className="w-24" loading={isLoading}>
+          Entrar
+        </Button>
+      </div>
+    </form>
+  );
 };

@@ -3,6 +3,7 @@ import { RhfDatePicker } from '@/components/rhf/date-picker';
 import { RhfSelect } from '@/components/rhf/select';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import { listCustomersFn } from '@/service/customer';
 import { Product } from '@/types/product';
 import { SalePayload } from '@/types/sale';
@@ -88,15 +89,15 @@ export const SaleForm = ({ onSubmit, isLoading }: SaleFormProps) => {
 
   return (
     <FormProvider {...methods}>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Grid className="h-20">
+      <form className="max-w-5xl" onSubmit={handleSubmit(onSubmit)}>
+        <Grid className="h-20 grid-cols-4">
           <RhfDatePicker
             control={control}
             name="saleDate"
             label="Data da Venda"
             error={errors.saleDate}
             mode="single"
-            className="md:col-span-1 col-span-3"
+            className="md:col-span-2 col-span-4"
             defaultValue={new Date().toISOString()}
           />
           <RhfSelect
@@ -106,7 +107,7 @@ export const SaleForm = ({ onSubmit, isLoading }: SaleFormProps) => {
             error={errors.customerId}
             defaultValue=""
             options={customers || []}
-            className="md:col-span-1 col-span-3"
+            className="md:col-span-2 col-span-4"
           />
         </Grid>
 
@@ -121,14 +122,16 @@ export const SaleForm = ({ onSubmit, isLoading }: SaleFormProps) => {
           selectedProducts={selectedProducts}
         />
 
-        <h2 className="text-zinc-50 text-xl font-medium mt-10 flex items-center">
-          <CircleDollarSign className="text-zinc-50 mr-3" />
-          Total
+        <h2 className="text-foreground text-xl font-medium mt-5 flex items-center">
+          <CircleDollarSign className="text-foreground mr-3" />
+          Financeiro
         </h2>
 
-        <Grid>
+        <div className="col-span-3 mt-5">
+          <Label>Total</Label>
           <Input
             disabled
+            className="col-span-3"
             value={formatCurrency(
               watchedProducts?.reduce(
                 (acc, field) => acc + field.price * field.quantity,
@@ -136,14 +139,14 @@ export const SaleForm = ({ onSubmit, isLoading }: SaleFormProps) => {
               ),
             )}
           />
-        </Grid>
+        </div>
 
-        <div className="flex justify-end mt-5 space-x-3">
-          <Button type="button" onClick={handleBack}>
-            Cancelar
-          </Button>
+        <div className="flex mt-5 space-x-3">
           <Button loading={isLoading} variant="outline" type="submit">
             Salvar
+          </Button>
+          <Button type="button" variant="outline" onClick={handleBack}>
+            Cancelar
           </Button>
         </div>
       </form>

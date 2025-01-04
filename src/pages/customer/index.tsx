@@ -1,4 +1,10 @@
-import { Header } from '@/components/header';
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbSeparator,
+} from '@/components/ui/breadcrumb';
 import {
   createCustomerFn,
   getCustomerFn,
@@ -44,10 +50,30 @@ export const CustomerPage = () => {
   const isSubmiting = isCreating || isUpdating;
 
   return (
-    <div className="flex flex-col w-full">
-      <Header title={params.id ? 'Editar Cliente' : 'Novo Cliente'} Icon={Users} />
+    <div className="flex flex-col w-full space-y-10">
+      <div>
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/clientes" className="flex gap-2 items-center">
+                <Users className="size-4" />
+                <span>Clientes</span>
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbLink
+                href={`/cliente/${params.id ?? ''}`}
+                className="flex gap-2 items-center"
+              >
+                <span>Cliente</span>
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
+      </div>
 
-      <div className="py-10 container">
+      <div className="border border-border rounded py-5 px-4 bg-card">
         {isLoading && <CustomerSkeleton />}
         {!isLoading && (
           <CustomerForm

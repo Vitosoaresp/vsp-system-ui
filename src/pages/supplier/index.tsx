@@ -1,4 +1,10 @@
-import { Header } from '@/components/header';
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbSeparator,
+} from '@/components/ui/breadcrumb';
 import {
   createSupplierFn,
   getSupplierFn,
@@ -46,13 +52,31 @@ export const SupplierPage = () => {
   const isSubmiting = isCreating || isUpdating;
 
   return (
-    <div className="flex flex-col w-full">
-      <Header
-        title={params.id ? 'Editar Fornecedor' : 'Novo Fornecedor'}
-        Icon={Factory}
-      />
+    <div className="flex flex-col w-full space-y-10">
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink
+              href="/fornecedores"
+              className="flex gap-2 items-center"
+            >
+              <Factory className="size-4" />
+              <span>Fornecedores</span>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbLink
+              href={`/fornecedor/${params.id ?? ''}`}
+              className="flex gap-2 items-center"
+            >
+              <span>Fornecedor</span>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
 
-      <div className="container py-10">
+      <div className="border border-border rounded py-5 px-4 bg-card">
         {isLoading && <SupplierSkeleton />}
         {!isLoading && (
           <SupplierForm

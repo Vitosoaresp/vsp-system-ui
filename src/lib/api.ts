@@ -22,7 +22,7 @@ api.interceptors.response.use(
       toast('Sessão expirada, Faça o login novamente.');
       setTimeout(() => {
         window.location.href = '/entrar';
-      }, 600);
+      }, 900);
     }
 
     return Promise.reject(err);

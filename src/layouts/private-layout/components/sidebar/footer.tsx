@@ -16,17 +16,24 @@ import {
   SidebarMenuItem,
 } from '@/components/ui/sidebar';
 import { useAuthContext } from '@/hooks';
+import { useTheme } from '@/hooks/use-theme';
 import { ChevronRight, LogOut, Moon, UserCircle } from 'lucide-react';
+import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export const SidebarFooter = () => {
   const { user, logout } = useAuthContext();
+  const { setTheme, theme } = useTheme();
   const navigate = useNavigate();
 
   const handleLogout = () => {
     logout();
     navigate('/entrar');
   };
+
+  const handleToggleTheme = useCallback(() => {
+    setTheme(theme === 'dark' ? 'light' : 'dark');
+  }, [theme, setTheme]);
 
   return (
     <SidebarFooterUi>
@@ -36,15 +43,13 @@ export const SidebarFooter = () => {
             <DropdownMenuTrigger asChild>
               <SidebarMenuButton className="py-5">
                 <Avatar className="size-8">
-                  <AvatarFallback className="bg-zinc-600">
-                    {user?.name.charAt(0)}
-                  </AvatarFallback>
+                  <AvatarFallback>{user?.name.charAt(0)}</AvatarFallback>
                 </Avatar>
                 <div className="flex flex-col">
-                  <span className="text-sm font-medium text-zinc-50">
+                  <span className="text-sm font-medium text-foreground">
                     {user?.name}
                   </span>
-                  <span className="text-xs text-zinc-100">{user?.email}</span>
+                  <span className="text-xs text-foreground/90">{user?.email}</span>
                 </div>
                 <SidebarMenuBadge>
                   <ChevronRight className="size-5" />
@@ -57,15 +62,13 @@ export const SidebarFooter = () => {
             >
               <DropdownMenuLabel className="flex gap-2">
                 <Avatar className="size-8">
-                  <AvatarFallback className="bg-zinc-600">
-                    {user?.name.charAt(0)}
-                  </AvatarFallback>
+                  <AvatarFallback>{user?.name.charAt(0)}</AvatarFallback>
                 </Avatar>
                 <div className="flex flex-col">
-                  <span className="text-sm font-medium text-zinc-50">
+                  <span className="text-sm font-medium text-foreground">
                     {user?.name}
                   </span>
-                  <span className="text-xs text-zinc-100">{user?.email}</span>
+                  <span className="text-xs text-foreground/90">{user?.email}</span>
                 </div>
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
@@ -76,7 +79,7 @@ export const SidebarFooter = () => {
                     <span>Perfil</span>
                   </a>
                 </DropdownMenuItem>
-                <DropdownMenuItem className="gap-2">
+                <DropdownMenuItem className="gap-2" onClick={handleToggleTheme}>
                   <Moon />
                   <span>Mudar tema</span>
                 </DropdownMenuItem>

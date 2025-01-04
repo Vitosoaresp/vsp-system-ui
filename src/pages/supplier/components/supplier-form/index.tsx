@@ -148,12 +148,12 @@ export const SupplierForm = ({
         />
       </Grid>
 
-      <div className="flex justify-end mt-5 space-x-3">
-        <Button type="button" onClick={handleBack}>
-          Cancelar
-        </Button>
+      <div className="flex mt-5 space-x-3">
         <Button loading={isLoading} variant="outline" type="submit">
           Salvar
+        </Button>
+        <Button type="button" variant="outline" onClick={handleBack}>
+          Cancelar
         </Button>
       </div>
     </form>

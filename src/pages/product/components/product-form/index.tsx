@@ -48,7 +48,7 @@ export const ProductForm = ({
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Grid>
+      <Grid className="grid-cols-4">
         <RhfCheckbox
           control={control}
           name="active"
@@ -59,23 +59,13 @@ export const ProductForm = ({
         />
 
         <RhfTextField
-          type="number"
-          control={control}
-          name="code"
-          label="Código"
-          error={errors.code}
-          defaultValue={0}
-          className="col-span-3 md:col-span-1"
-        />
-
-        <RhfTextField
           type="text"
           control={control}
           name="name"
-          label="Nome"
+          label="Nome do produto"
           error={errors.name}
           defaultValue=""
-          className="col-span-3 md:col-span-1"
+          className="col-span-4 md:col-span-2"
         />
 
         <RhfSelect
@@ -84,7 +74,7 @@ export const ProductForm = ({
           label="Fornecedor"
           options={suppliers ?? []}
           error={errors.supplierId}
-          className="col-span-3 md:col-span-1"
+          className="col-span-4 md:col-span-2"
         />
 
         <RhfCurrencyField
@@ -93,7 +83,7 @@ export const ProductForm = ({
           label="Preço de compra"
           error={errors.grossPrice}
           defaultValue={0}
-          className="col-span-3 md:col-span-1"
+          className="col-span-4 md:col-span-2"
         />
 
         <RhfCurrencyField
@@ -102,7 +92,17 @@ export const ProductForm = ({
           label="Preço de venda"
           error={errors.salesPrice}
           defaultValue={0}
-          className="col-span-3 md:col-span-1"
+          className="col-span-4 md:col-span-2"
+        />
+
+        <RhfTextField
+          type="number"
+          control={control}
+          name="code"
+          label="Código"
+          error={errors.code}
+          defaultValue={0}
+          className="col-span-4 md:col-span-1"
         />
 
         <RhfTextField
@@ -112,7 +112,7 @@ export const ProductForm = ({
           label="Quantidade"
           error={errors.quantity}
           defaultValue={0}
-          className="col-span-3 md:col-span-1"
+          className="col-span-4 md:col-span-1"
         />
 
         <RhfTextField
@@ -122,20 +122,20 @@ export const ProductForm = ({
           label="Descrição"
           error={errors.description}
           defaultValue=""
-          className="col-span-3 md:col-span-2"
+          className="col-span-4 md:col-span-2"
         />
       </Grid>
 
-      <div className="flex justify-end mt-5 space-x-3">
-        {initialValues?.id && (
-          <ProductHistory data={initialValues.ProductHistory ?? []} />
-        )}
-        <Button type="button" onClick={handleBack}>
-          Cancelar
-        </Button>
+      <div className="flex mt-5 space-x-3">
         <Button loading={isLoading} variant="outline" type="submit">
           Salvar
         </Button>
+        <Button variant="outline" type="button" onClick={handleBack}>
+          Cancelar
+        </Button>
+        {initialValues?.id && (
+          <ProductHistory data={initialValues.ProductHistory ?? []} />
+        )}
       </div>
     </form>
   );

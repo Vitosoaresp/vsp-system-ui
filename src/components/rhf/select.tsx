@@ -48,14 +48,14 @@ export function RhfSelect<
 
   return (
     <div className={className}>
-      <Label className="text-zinc-100" htmlFor={name}>
+      <Label className="text-foreground" htmlFor={name}>
         {label}
       </Label>
       <Select value={value} onValueChange={onChange} disabled={disabled} {...rest}>
-        <SelectTrigger className="text-zinc-100">
+        <SelectTrigger className="text-foreground">
           <SelectValue placeholder={label} />
         </SelectTrigger>
-        <SelectContent className="bg-black text-zinc-100">
+        <SelectContent className="bg-background text-foreground">
           {options.map(option => (
             <SelectItem key={String(option.value)} value={String(option.value)}>
               {option.label}
@@ -68,7 +68,9 @@ export function RhfSelect<
           )}
         </SelectContent>
       </Select>
-      {error?.message && <p className="text-sm text-red-500">{error.message}</p>}
+      {error?.message && (
+        <p className="text-sm text-destructive">{error.message}</p>
+      )}
     </div>
   );
 }
