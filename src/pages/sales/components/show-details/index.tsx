@@ -75,9 +75,9 @@ export const ShowDetails = ({ sale }: { sale: Sale }) => {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {sale.AccountReceivable.map(receivable => (
+              {sale.accountReceivable?.map(receivable => (
                 <TableRow key={receivable.id} className="h-14">
-                  <TableCell>{formatInvoiceId(receivable.saleId)}</TableCell>
+                  <TableCell>{formatInvoiceId(sale.id)}</TableCell>
                   <TableCell>{formatCurrency(receivable.amount)}</TableCell>
                   <TableCell>{formatDate(receivable.duoDate, 'L')}</TableCell>
                   <TableCell>
@@ -106,7 +106,7 @@ export const ShowDetails = ({ sale }: { sale: Sale }) => {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {sale.SaleItem.map(item => (
+              {sale.items?.map(item => (
                 <TableRow key={item.id} className="h-14">
                   <TableCell>{item.product?.name}</TableCell>
                   <TableCell>{item.quantity}</TableCell>
@@ -121,7 +121,7 @@ export const ShowDetails = ({ sale }: { sale: Sale }) => {
         </div>
         <DialogFooter>
           <DialogClose asChild>
-            <Button className="bg-background">Fechar</Button>
+            <Button>Fechar</Button>
           </DialogClose>
         </DialogFooter>
       </DialogContent>

@@ -43,7 +43,7 @@ export const TableProducts = ({
 
   return (
     <>
-      <h2 className="text-foreground text-xl font-medium flex items-center">
+      <h2 className="text-foreground text-xl font-medium flex items-center mt-5">
         <Package2 className="text-foreground mr-3" />
         Produtos
       </h2>

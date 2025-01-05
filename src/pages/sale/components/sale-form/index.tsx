@@ -4,6 +4,7 @@ import { RhfSelect } from '@/components/rhf/select';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { useAuthContext } from '@/hooks';
 import { listCustomersFn } from '@/service/customer';
 import { Product } from '@/types/product';
 import { SalePayload } from '@/types/sale';
@@ -11,10 +12,11 @@ import { formatCurrency, getCustomerName } from '@/utils';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useQuery } from '@tanstack/react-query';
 import { CircleDollarSign } from 'lucide-react';
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { TableProducts } from './components';
+import { CustomerDataForm } from './components/customer-data-form';
 import { SelectProducts } from './components/select-products';
 import { saleSchema } from './schema';
 
@@ -24,10 +26,12 @@ interface SaleFormProps {
 }
 
 export const SaleForm = ({ onSubmit, isLoading }: SaleFormProps) => {
+  const { user } = useAuthContext();
   const [selectedProducts, setSelectedProducts] = useState<Product[]>([]);
   const methods = useForm<SalePayload>({
     resolver: yupResolver(saleSchema),
     mode: 'onBlur',
+    defaultValues: { userId: user?.id },
   });
   const navigate = useNavigate();
   const {
@@ -38,6 +42,7 @@ export const SaleForm = ({ onSubmit, isLoading }: SaleFormProps) => {
   } = methods;
 
   const watchedProducts = watch('items');
+  const watchedCustomerId = watch('customerId');
   const { append, fields, remove } = useFieldArray({
     control,
     name: 'items',
@@ -48,12 +53,14 @@ export const SaleForm = ({ onSubmit, isLoading }: SaleFormProps) => {
   const { data: customers } = useQuery({
     queryKey: ['customers'],
     queryFn: () => listCustomersFn(),
-    select: data =>
-      data.data.map(customer => ({
-        label: getCustomerName(customer),
-        value: String(customer.id),
-      })),
+    select: data => data.data ?? [],
   });
+
+  const customerOptions =
+    customers?.map(customer => ({
+      label: getCustomerName(customer),
+      value: String(customer.id),
+    })) ?? [];
 
   const handleBack = () => navigate('/vendas');
 
@@ -87,6 +94,11 @@ export const SaleForm = ({ onSubmit, isLoading }: SaleFormProps) => {
     });
   }, [selectedProducts, watchedProducts, append]);
 
+  const address = useMemo(
+    () => customers?.find(customer => customer.id === watchedCustomerId)?.address,
+    [watchedCustomerId, customers],
+  );
+
   return (
     <FormProvider {...methods}>
       <form className="max-w-5xl" onSubmit={handleSubmit(onSubmit)}>
@@ -106,10 +118,12 @@ export const SaleForm = ({ onSubmit, isLoading }: SaleFormProps) => {
             label="Cliente"
             error={errors.customerId}
             defaultValue=""
-            options={customers || []}
+            options={customerOptions}
             className="md:col-span-2 col-span-4"
           />
         </Grid>
+
+        <CustomerDataForm address={address} />
 
         <TableProducts
           handleRemoveProduct={handleRemoveProduct}

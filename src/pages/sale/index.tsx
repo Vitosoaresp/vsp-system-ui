@@ -50,7 +50,7 @@ export const SalePage = () => {
       </Breadcrumb>
 
       <div>
-        {!isLoading && <SaleForm onSubmit={handleSubmit} isLoading={isLoading} />}
+        <SaleForm onSubmit={handleSubmit} isLoading={isLoading} />
       </div>
     </div>
   );
