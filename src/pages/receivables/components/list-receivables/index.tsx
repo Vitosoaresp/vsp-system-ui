@@ -26,9 +26,9 @@ const collumns: Collumn[] = [
   { label: 'Valor', value: 'amount' },
   { label: 'Data de Vencimento', value: 'duoDate' },
   { label: 'Status', value: 'status' },
-  { label: 'Data de Pagamento', value: 'paidAt' },
+  { label: 'Data do Recebimento', value: 'paidAt' },
   { label: 'Valor pago', value: 'amountReceived' },
-  { label: 'Pagamento', value: '', disabledSort: true },
+  { label: 'Confirmar Recebimento', value: '', disabledSort: true },
   { label: 'Cancelar', value: '', disabledSort: true },
 ];
 
@@ -97,7 +97,7 @@ export const ListReceivables = () => {
   };
 
   return (
-    <div className="py-5 container">
+    <div className="py-5">
       <div className="mb-5 flex md:justify-between md:flex-row flex-col gap-4">
         <div className="max-w-lg flex gap-4 md:flex-row flex-col w-full">
           <DateRangePicker
