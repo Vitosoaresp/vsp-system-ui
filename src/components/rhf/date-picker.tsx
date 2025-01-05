@@ -49,9 +49,10 @@ export function RhfDatePicker<
           <Button
             variant={'outline'}
             className={cn(
-              'w-full block justify-start text-left font-normal bg-transparent hover:bg-transparent text-foreground',
+              'w-full block justify-start text-left font-normal bg-transparent hover:bg-transparent text-foreground px-3',
               !value && 'text-foreground/80',
             )}
+            size="lg"
           >
             {value ? format(value, 'dd/MM/yyyy') : <span>Selecione uma data</span>}
           </Button>
