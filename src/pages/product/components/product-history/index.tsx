@@ -1,49 +1,59 @@
-import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 import {
-	Dialog,
-	DialogContent,
-	DialogTitle,
-	DialogTrigger,
-} from '@/components/ui/dialog';
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
 import { ProductHistory as ProductHistoryProp } from '@/types/product';
 import { formatCurrency } from '@/utils';
+import { ProductAction } from '@/utils/enum';
 import { formatDate } from '@/utils/format-date';
+import { getProductHistoryActionLabel } from '@/utils/helpers';
 
 interface ProductHistoryProps {
-	data: ProductHistoryProp[];
+  data?: ProductHistoryProp[];
 }
 
 export const ProductHistory = ({ data }: ProductHistoryProps) => {
-	return (
-		<Dialog>
-			<DialogTrigger asChild>
-				<Button variant="default">Ver histórico do produto</Button>
-			</DialogTrigger>
-
-			<DialogContent className="bg-zinc-950 border-zinc-800 max-w-xl">
-				<DialogTitle className="text-zinc-50">Historico do produto</DialogTitle>
-				<div className="py-4">
-					<div className="flex text-zinc-200 justify-between py-2 border-b border-zinc-800">
-						<p className="w-24">Data</p>
-						<p className="w-10">Ação</p>
-						<p>P. custo</p>
-						<p>Quant.</p>
-						<p>P. venda</p>
-					</div>
-					{data.map(history => (
-						<div
-							key={history.id}
-							className="flex text-zinc-200 justify-between py-3 border-b border-zinc-800"
-						>
-							<p className="w-24">{formatDate(history.createdAt, 'L')}</p>
-							<p>{history.action}</p>
-							<p>{formatCurrency(history.grossPrice)}</p>
-							<p>{history.quantity}</p>
-							<p>{formatCurrency(history.salesPrice)}</p>
-						</div>
-					))}
-				</div>
-			</DialogContent>
-		</Dialog>
-	);
+  return (
+    <div className="p-3 bg-muted rounded border border-border mt-4 dark:bg-background">
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead className="text-center">Data</TableHead>
+            <TableHead className="text-center">Ação</TableHead>
+            <TableHead className="text-center">Preço de custo</TableHead>
+            <TableHead className="text-center">Quantidade</TableHead>
+            <TableHead className="text-center">Preço de venda</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody className="max-h-[550px] overflow-scroll">
+          {data?.map(history => (
+            <TableRow key={history.id}>
+              <TableCell>{formatDate(history.createdAt)}</TableCell>
+              <TableCell>
+                <Badge variant="outline">
+                  {getProductHistoryActionLabel(history.action)}
+                </Badge>
+              </TableCell>
+              <TableCell>
+                {history.action === ProductAction.SELL
+                  ? formatCurrency(history.grossPrice)
+                  : '-'}
+              </TableCell>
+              <TableCell>{history.quantity}</TableCell>
+              <TableCell>
+                {history.action === ProductAction.SELL
+                  ? formatCurrency(history.salesPrice)
+                  : '-'}
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </div>
+  );
 };

@@ -1,17 +1,12 @@
-import { Grid } from '@/components/grid';
-import { RhfCurrencyField } from '@/components/rhf/currency-field';
-import { RhfSelect } from '@/components/rhf/select';
-import { RhfCheckbox } from '@/components/rhf/switch';
-import { RhfTextField } from '@/components/rhf/text-field';
-import { Button } from '@/components/ui/button';
-import { listSuppliersFn } from '@/service/supplier';
-import { Product } from '@/types/product';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useQuery } from '@tanstack/react-query';
-import { useForm } from 'react-hook-form';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Product, ProductGeneralData, ProductPrices } from '@/types/product';
+import { emptyProduct } from '@/utils/helpers';
+import { TabsContent } from '@radix-ui/react-tabs';
+import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ProductHistory } from '../product-history';
-import { productSchema } from './schema';
+import { GeneralDataForm } from './components/general-data-form';
+import { PricesForm } from './components/prices-form';
 
 interface ProductFormProps {
   onSubmit: (data: Product) => void;
@@ -20,123 +15,83 @@ interface ProductFormProps {
 }
 
 export const ProductForm = ({
-  initialValues,
+  initialValues = emptyProduct,
   onSubmit,
   isLoading,
 }: ProductFormProps) => {
-  const {
-    control,
-    formState: { errors },
-    handleSubmit,
-  } = useForm<Product>({
-    defaultValues: initialValues,
-    resolver: yupResolver(productSchema),
-  });
+  const [currentValues, setCurrentValues] =
+    useState<Partial<Product>>(initialValues);
+  const [tab, setTab] = useState<string>('geral-data');
   const navigate = useNavigate();
-
-  const { data: suppliers } = useQuery({
-    queryKey: ['suppliers'],
-    queryFn: () => listSuppliersFn({ perPage: 99999 }),
-    select: data =>
-      data.data.map(supplier => ({
-        label: supplier.name,
-        value: supplier.id as string,
-      })),
-  });
-
+  const isNewProduct = useMemo(() => !initialValues?.id, [initialValues]);
   const handleBack = () => navigate('/produtos');
 
+  const handleGeneralDataSubmit = (data: ProductGeneralData) => {
+    if (isNewProduct) {
+      setCurrentValues(prev => ({ ...prev, ...data }));
+      return setTab('prices');
+    }
+    onSubmit({ ...initialValues, ...data });
+  };
+
+  const handleProductPricesSubmit = (data: ProductPrices) => {
+    const payload = isNewProduct
+      ? { ...currentValues, ...data }
+      : { ...initialValues, ...data };
+    onSubmit(payload as Product);
+  };
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <Grid className="grid-cols-4">
-        <RhfCheckbox
-          control={control}
-          name="active"
-          label="Ativo"
-          error={errors.active}
-          defaultValue={true}
-          className="col-span-3"
-        />
+    <div>
+      <h4 className="text-foreground text-xl font-medium mb-4">
+        {!isNewProduct ? 'Editar Produto' : 'Novo Produto'}
+      </h4>
 
-        <RhfTextField
-          type="text"
-          control={control}
-          name="name"
-          label="Nome do produto"
-          error={errors.name}
-          defaultValue=""
-          className="col-span-4 md:col-span-2"
-        />
+      <Tabs defaultValue="geral-data" value={tab} onValueChange={setTab}>
+        <TabsList className="w-full justify-start bg-transparent border-b border-b-muted rounded-none p-0 h-auto">
+          <TabsTrigger
+            className="data-[state=active]:shadow-[inset_0_-1px_0_0,0_1px_0_0] rounded-none hover:text-primary"
+            value="geral-data"
+          >
+            Dados gerais
+          </TabsTrigger>
+          <TabsTrigger
+            className="data-[state=active]:shadow-[inset_0_-1px_0_0,0_1px_0_0] rounded-none hover:text-primary"
+            value="prices"
+            disabled={isNewProduct}
+          >
+            Preços
+          </TabsTrigger>
 
-        <RhfSelect
-          control={control}
-          name="supplierId"
-          label="Fornecedor"
-          options={suppliers ?? []}
-          error={errors.supplierId}
-          className="col-span-4 md:col-span-2"
-        />
+          <TabsTrigger
+            className="data-[state=active]:shadow-[inset_0_-1px_0_0,0_1px_0_0] rounded-none hover:text-primary"
+            value="product-history"
+            disabled={isNewProduct}
+          >
+            Historico do Produto
+          </TabsTrigger>
+        </TabsList>
 
-        <RhfCurrencyField
-          control={control}
-          name="grossPrice"
-          label="Preço de compra"
-          error={errors.grossPrice}
-          defaultValue={0}
-          className="col-span-4 md:col-span-2"
-        />
-
-        <RhfCurrencyField
-          control={control}
-          name="salesPrice"
-          label="Preço de venda"
-          error={errors.salesPrice}
-          defaultValue={0}
-          className="col-span-4 md:col-span-2"
-        />
-
-        <RhfTextField
-          type="number"
-          control={control}
-          name="code"
-          label="Código"
-          error={errors.code}
-          defaultValue={0}
-          className="col-span-4 md:col-span-1"
-        />
-
-        <RhfTextField
-          type="number"
-          control={control}
-          name="quantity"
-          label="Quantidade"
-          error={errors.quantity}
-          defaultValue={0}
-          className="col-span-4 md:col-span-1"
-        />
-
-        <RhfTextField
-          type="text"
-          control={control}
-          name="description"
-          label="Descrição"
-          error={errors.description}
-          defaultValue=""
-          className="col-span-4 md:col-span-2"
-        />
-      </Grid>
-
-      <div className="flex mt-5 space-x-3">
-        <Button loading={isLoading} variant="outline" type="submit">
-          Salvar
-        </Button>
-        <Button variant="outline" type="button" onClick={handleBack}>
-          Cancelar
-        </Button>
-        {initialValues?.id && (
-          <ProductHistory data={initialValues.ProductHistory ?? []} />
-        )}
-      </div>
-    </form>
+        <TabsContent value="geral-data">
+          <GeneralDataForm
+            isLoading={isLoading}
+            handleBack={handleBack}
+            handleGeneralDataSubmit={handleGeneralDataSubmit}
+            initialValues={initialValues}
+          />
+        </TabsContent>
+        <TabsContent value="prices">
+          <PricesForm
+            isLoading={isLoading}
+            handleBack={handleBack}
+            handlePricesSubmit={handleProductPricesSubmit}
+            initialValues={initialValues}
+          />
+        </TabsContent>
+        <TabsContent value="product-history">
+          <ProductHistory data={initialValues.histories} />
+        </TabsContent>
+      </Tabs>
+    </div>
   );
 };

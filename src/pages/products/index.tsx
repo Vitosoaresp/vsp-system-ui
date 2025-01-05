@@ -3,8 +3,9 @@ import {
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
+  BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
-import { Package } from 'lucide-react';
+import { Home, Package } from 'lucide-react';
 import { ListProducts } from './components';
 
 export const ProductsPage = () => {
@@ -12,6 +13,13 @@ export const ProductsPage = () => {
     <div className="flex flex-col w-full space-y-10">
       <Breadcrumb>
         <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/" className="flex gap-2 items-center">
+              <Home className="size-4" />
+              <span>Inicio</span>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
           <BreadcrumbItem>
             <BreadcrumbLink href="/produtos" className="flex gap-2 items-center">
               <Package className="size-4" />

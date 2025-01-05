@@ -1,4 +1,5 @@
 import { Collumn, DataTable } from '@/components/data-table';
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { TableCell, TableRow } from '@/components/ui/table';
@@ -7,9 +8,9 @@ import { getProducts } from '@/service/product';
 import { formatCurrency } from '@/utils';
 import { formatDate } from '@/utils/format-date';
 import { useQuery } from '@tanstack/react-query';
-import { Pencil } from 'lucide-react';
+import { Check, Pencil, X } from 'lucide-react';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const tableColumns: Collumn[] = [
   { label: 'Código', value: 'code' },
@@ -28,6 +29,7 @@ export const ListProducts = () => {
     sort: 'desc',
     orderBy: 'updatedAt',
   });
+  const navigate = useNavigate();
 
   const { data, isLoading } = useQuery({
     queryKey: ['products'],
@@ -44,6 +46,8 @@ export const ListProducts = () => {
   const handleChangeSearch = () => {
     handleSetParams({ search });
   };
+
+  const handleAddNewProduct = () => navigate('/produto');
 
   return (
     <div>
@@ -63,8 +67,8 @@ export const ListProducts = () => {
             Pesquisar
           </Button>
         </div>
-        <Button variant="outline" className="uppercase">
-          <Link to="/produto/">Criar novo produto</Link>
+        <Button onClick={handleAddNewProduct} variant="outline">
+          Criar novo produto
         </Button>
       </div>
       <DataTable
@@ -88,7 +92,21 @@ export const ListProducts = () => {
             <TableCell>{formatCurrency(product.salesPrice)}</TableCell>
             <TableCell>{product.quantity}</TableCell>
             <TableCell>{formatDate(product.updatedAt)}</TableCell>
-            <TableCell>{product.active ? 'Ativo' : 'Inativo'}</TableCell>
+            <TableCell>
+              <Badge className="items-center justify-center gap-1">
+                {product.active ? (
+                  <>
+                    <Check className="text-green-500 size-4" />
+                    <span className="font-medium">Ativo</span>
+                  </>
+                ) : (
+                  <>
+                    <X className="text-destructive size-4" />
+                    <span className="font-medium">Inativo</span>
+                  </>
+                )}
+              </Badge>
+            </TableCell>
             <TableCell>
               <Link
                 to={`/produto/${product.id}`}

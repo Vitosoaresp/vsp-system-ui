@@ -8,7 +8,7 @@ import {
 import { createProductFn, getProductFn, updateProductFn } from '@/service/product';
 import { Product } from '@/types/product';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { Package } from 'lucide-react';
+import { Home, Package } from 'lucide-react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'sonner';
 import { ProductForm } from './components';
@@ -50,6 +50,13 @@ export const ProductPage = () => {
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
+            <BreadcrumbLink href="/" className="flex gap-2 items-center">
+              <Home className="size-4" />
+              <span>Inicio</span>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
             <BreadcrumbLink href="/produtos" className="flex gap-2 items-center">
               <Package className="size-4" />
               <span>Produtos</span>
@@ -67,7 +74,7 @@ export const ProductPage = () => {
         </BreadcrumbList>
       </Breadcrumb>
 
-      <div className="border border-border rounded py-5 px-4 bg-card">
+      <div>
         {isLoading && <ProductSkeleton />}
         {!isLoading && (
           <ProductForm
