@@ -82,10 +82,7 @@ export const ListProducts = () => {
         sort={params.sort}
       >
         {data?.data.map(product => (
-          <TableRow
-            key={product.id}
-            className="text-foreground hover:bg-muted font-medium"
-          >
+          <TableRow key={product.id} className="font-medium">
             <TableCell>{product.code}</TableCell>
             <TableCell>{product.name}</TableCell>
             <TableCell>{formatCurrency(product.grossPrice)}</TableCell>

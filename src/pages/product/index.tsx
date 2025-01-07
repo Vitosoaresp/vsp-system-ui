@@ -1,14 +1,13 @@
+import { Navigation } from '@/components/navigation';
 import {
-  Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
-  BreadcrumbList,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
 import { createProductFn, getProductFn, updateProductFn } from '@/service/product';
 import { Product } from '@/types/product';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { Home, Package } from 'lucide-react';
+import { Package } from 'lucide-react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'sonner';
 import { ProductForm } from './components';
@@ -47,32 +46,23 @@ export const ProductPage = () => {
 
   return (
     <div className="flex flex-col w-full space-y-10">
-      <Breadcrumb>
-        <BreadcrumbList>
-          <BreadcrumbItem>
-            <BreadcrumbLink href="/" className="flex gap-2 items-center">
-              <Home className="size-4" />
-              <span>Inicio</span>
-            </BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbSeparator />
-          <BreadcrumbItem>
-            <BreadcrumbLink href="/produtos" className="flex gap-2 items-center">
-              <Package className="size-4" />
-              <span>Produtos</span>
-            </BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbSeparator />
-          <BreadcrumbItem>
-            <BreadcrumbLink
-              href={`/produto/${params.id ?? ''}`}
-              className="flex gap-2 items-center"
-            >
-              <span>Produto</span>
-            </BreadcrumbLink>
-          </BreadcrumbItem>
-        </BreadcrumbList>
-      </Breadcrumb>
+      <Navigation>
+        <BreadcrumbItem>
+          <BreadcrumbLink href="/produtos" className="flex gap-2 items-center">
+            <Package className="size-4" />
+            <span>Produtos</span>
+          </BreadcrumbLink>
+        </BreadcrumbItem>
+        <BreadcrumbSeparator />
+        <BreadcrumbItem>
+          <BreadcrumbLink
+            href={`/produto/${params.id ?? ''}`}
+            className="flex gap-2 items-center"
+          >
+            <span>Produto</span>
+          </BreadcrumbLink>
+        </BreadcrumbItem>
+      </Navigation>
 
       <div>
         {isLoading && <ProductSkeleton />}

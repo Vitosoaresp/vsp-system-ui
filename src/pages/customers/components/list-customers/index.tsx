@@ -80,8 +80,8 @@ export const ListCustomers = () => {
         sort={params.sort}
       >
         {data?.data.map(customer => (
-          <TableRow key={customer.id} className=" font-medium">
-            <TableCell className="py-4">{customer.firstName}</TableCell>
+          <TableRow key={customer.id} className="font-medium">
+            <TableCell>{customer.firstName}</TableCell>
             <TableCell>{customer.lastName}</TableCell>
             <TableCell>{customer.email}</TableCell>
             <TableCell>{customer.phone}</TableCell>

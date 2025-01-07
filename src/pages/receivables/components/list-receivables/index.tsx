@@ -128,10 +128,7 @@ export const ListReceivables = () => {
         sort={params.sort}
       >
         {data?.data.map(receivable => (
-          <TableRow
-            key={receivable.id}
-            className="text-foreground hover:bg-muted font-medium"
-          >
+          <TableRow key={receivable.id} className="font-medium">
             <TableCell>{formatInvoiceId(receivable.saleId)}</TableCell>
             <TableCell>{formatCurrency(receivable.amount)}</TableCell>
             <TableCell>{formatDate(receivable.duoDate, 'L')}</TableCell>

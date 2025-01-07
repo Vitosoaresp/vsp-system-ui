@@ -1,8 +1,7 @@
+import { Navigation } from '@/components/navigation';
 import {
-  Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
-  BreadcrumbList,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
 import {
@@ -53,28 +52,23 @@ export const SupplierPage = () => {
 
   return (
     <div className="flex flex-col w-full space-y-10">
-      <Breadcrumb>
-        <BreadcrumbList>
-          <BreadcrumbItem>
-            <BreadcrumbLink
-              href="/fornecedores"
-              className="flex gap-2 items-center"
-            >
-              <Factory className="size-4" />
-              <span>Fornecedores</span>
-            </BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbSeparator />
-          <BreadcrumbItem>
-            <BreadcrumbLink
-              href={`/fornecedor/${params.id ?? ''}`}
-              className="flex gap-2 items-center"
-            >
-              <span>Fornecedor</span>
-            </BreadcrumbLink>
-          </BreadcrumbItem>
-        </BreadcrumbList>
-      </Breadcrumb>
+      <Navigation>
+        <BreadcrumbItem>
+          <BreadcrumbLink href="/fornecedores" className="flex gap-2 items-center">
+            <Factory className="size-4" />
+            <span>Fornecedores</span>
+          </BreadcrumbLink>
+        </BreadcrumbItem>
+        <BreadcrumbSeparator />
+        <BreadcrumbItem>
+          <BreadcrumbLink
+            href={`/fornecedor/${params.id ?? ''}`}
+            className="flex gap-2 items-center"
+          >
+            <span>Fornecedor</span>
+          </BreadcrumbLink>
+        </BreadcrumbItem>
+      </Navigation>
 
       <div className="border border-border rounded py-5 px-4 bg-card">
         {isLoading && <SupplierSkeleton />}

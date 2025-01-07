@@ -1,8 +1,7 @@
+import { Navigation } from '@/components/navigation';
 import {
-  Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
-  BreadcrumbList,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
 import { createSaleFn } from '@/service/sale';
@@ -32,22 +31,20 @@ export const SalePage = () => {
 
   return (
     <div className="flex flex-col w-full space-y-10">
-      <Breadcrumb>
-        <BreadcrumbList>
-          <BreadcrumbItem>
-            <BreadcrumbLink href="/vendas" className="flex gap-2 items-center">
-              <ShoppingCart className="size-4" />
-              <span>Vendas</span>
-            </BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbSeparator />
-          <BreadcrumbItem>
-            <BreadcrumbLink href="/venda/" className="flex gap-2 items-center">
-              <span>Nova venda</span>
-            </BreadcrumbLink>
-          </BreadcrumbItem>
-        </BreadcrumbList>
-      </Breadcrumb>
+      <Navigation>
+        <BreadcrumbItem>
+          <BreadcrumbLink href="/vendas" className="flex gap-2 items-center">
+            <ShoppingCart className="size-4" />
+            <span>Vendas</span>
+          </BreadcrumbLink>
+        </BreadcrumbItem>
+        <BreadcrumbSeparator />
+        <BreadcrumbItem>
+          <BreadcrumbLink href="/venda/" className="flex gap-2 items-center">
+            <span>Nova venda</span>
+          </BreadcrumbLink>
+        </BreadcrumbItem>
+      </Navigation>
 
       <div>
         <SaleForm onSubmit={handleSubmit} isLoading={isLoading} />

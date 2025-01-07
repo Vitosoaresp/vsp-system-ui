@@ -60,63 +60,66 @@ export const DataTable = ({
 
   return (
     <>
-      <Table>
-        <TableHeader>
-          <TableRow className="hover:bg-muted">
-            {collumns.map(column => (
-              <TableHead
-                className="text-foreground text-center group"
-                key={column.value}
-              >
-                {column.disabledSort && (
-                  <span className="ml-4">{column.label}</span>
-                )}
-                {!column.disabledSort && (
-                  <span
-                    className="text-foreground hover:no-underline px-0 inline-flex items-center gap-1 whitespace-nowrap cursor-pointer"
-                    onClick={() => handleChangeOrder(column.value)}
-                  >
-                    {column.label}
-                    <ArrowUp
-                      size={16}
-                      className={cn(
-                        'size-4 text-foreground transition-all group-hover:opacity-100',
-                        orderBy !== column.value
-                          ? 'opacity-0 flex-shrink-0'
-                          : 'opacity-100',
-                        sort === 'asc' ? 'rotate-0' : 'rotate-180',
-                      )}
-                    />
-                  </span>
-                )}
-              </TableHead>
-            ))}
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {!isLoading && isEmpty && (
-            <TableRow className="hover:bg-muted">
-              <TableCell
-                colSpan={collumns.length}
-                className="text-center text-foreground py-6 font-medium"
-              >
-                Nenhum registro encontrado
-              </TableCell>
-            </TableRow>
-          )}
-          {isLoading && (
-            <TableRow className="hover:bg-muted">
-              {Array.from({ length: collumns.length }).map((_, index) => (
-                <TableCell key={index}>
-                  <Skeleton className="bg-secondary w-full py-6" />
-                </TableCell>
+      <div className="border rounded">
+        <Table>
+          <TableHeader>
+            <TableRow className="bg-muted">
+              {collumns.map(column => (
+                <TableHead
+                  className="text-foreground text-center group"
+                  key={column.value}
+                >
+                  {column.disabledSort && (
+                    <span className="ml-4">{column.label}</span>
+                  )}
+                  {!column.disabledSort && (
+                    <span
+                      className="text-foreground hover:no-underline px-0 inline-flex items-center gap-1 whitespace-nowrap cursor-pointer"
+                      onClick={() => handleChangeOrder(column.value)}
+                    >
+                      {column.label}
+                      <ArrowUp
+                        size={16}
+                        className={cn(
+                          'size-4 text-foreground transition-all group-hover:opacity-100',
+                          orderBy !== column.value
+                            ? 'opacity-0 flex-shrink-0'
+                            : 'opacity-100',
+                          sort === 'asc' ? 'rotate-0' : 'rotate-180',
+                        )}
+                      />
+                    </span>
+                  )}
+                </TableHead>
               ))}
             </TableRow>
-          )}
-          {!isLoading && children}
-        </TableBody>
-      </Table>
-      <div className="border-t border-foreground pt-5">
+          </TableHeader>
+          <TableBody>
+            {!isLoading && isEmpty && (
+              <TableRow className="">
+                <TableCell
+                  colSpan={collumns.length}
+                  className="text-center text-foreground py-6 font-medium"
+                >
+                  Nenhum registro encontrado
+                </TableCell>
+              </TableRow>
+            )}
+            {isLoading && (
+              <TableRow className="">
+                {Array.from({ length: collumns.length }).map((_, index) => (
+                  <TableCell key={index}>
+                    <Skeleton className="bg-secondary w-full py-6" />
+                  </TableCell>
+                ))}
+              </TableRow>
+            )}
+            {!isLoading && children}
+          </TableBody>
+        </Table>
+      </div>
+
+      <div className="pt-5">
         <Pagination className="text-foreground justify-end">
           <PaginationContent>
             <PaginationItem>

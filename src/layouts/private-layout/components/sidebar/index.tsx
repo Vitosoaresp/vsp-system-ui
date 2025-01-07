@@ -4,7 +4,6 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarTrigger,
   Sidebar as SidebarUi,
   useSidebar,
 } from '@/components/ui/sidebar';
@@ -51,12 +50,13 @@ export const Sidebar = () => {
   return (
     <SidebarUi collapsible="icon">
       <SidebarHeader className="p-3">
-        <SidebarMenuItem className="flex items-center justify-between">
+        <SidebarMenuItem className="flex items-center gap-2 justify-center">
           <Building2 className={open ? 'size-7' : 'size-6'} />
-          <h1 className={cn(open ? 'block text-xl font-bold' : 'hidden')}>
+          <h1
+            className={cn(open ? 'block text-xl font-bold text-primary' : 'hidden')}
+          >
             VSP SYSTEM
           </h1>
-          <SidebarTrigger />
         </SidebarMenuItem>
       </SidebarHeader>
       <SidebarContent>
