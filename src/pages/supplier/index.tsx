@@ -35,10 +35,10 @@ export const SupplierPage = () => {
     retry: 1,
   });
 
-  const handleSubmit = async (data: Supplier) => {
+  const handleSubmit = async (data: Omit<Supplier, 'id'>) => {
     try {
       const method = params.id ? update : create;
-      await method(data);
+      await method({ ...data, id: params.id });
       toast.success(
         `Fornecedor ${params.id ? 'atualizado' : 'criado'} com sucesso`,
       );

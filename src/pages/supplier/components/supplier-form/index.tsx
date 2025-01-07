@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { supplierSchema } from './schema';
 
 interface SupplierFormProps {
-  onSubmit: (data: Supplier) => void;
+  onSubmit: (data: Omit<Supplier, 'id'>) => void;
   initialValues?: Supplier;
   isLoading?: boolean;
 }
@@ -25,7 +25,7 @@ export const SupplierForm = ({
     control,
     formState: { errors },
     handleSubmit,
-  } = useForm<Supplier>({
+  } = useForm<Omit<Supplier, 'id'>>({
     defaultValues: initialValues,
     resolver: yupResolver(supplierSchema),
   });

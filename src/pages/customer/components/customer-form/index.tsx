@@ -3,14 +3,14 @@ import { RhfCheckbox } from '@/components/rhf/switch';
 import { RhfTextField } from '@/components/rhf/text-field';
 import { RhfTextMask } from '@/components/rhf/text-mask';
 import { Button } from '@/components/ui/button';
-import { Customer } from '@/types/customer';
+import { Customer, CustomerPayload } from '@/types/customer';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { customerSchema } from './schema';
 
 interface CustomerFormProps {
-  onSubmit: (data: Customer) => void;
+  onSubmit: (data: CustomerPayload) => void;
   initialValues?: Customer;
   isLoading?: boolean;
 }
@@ -24,7 +24,7 @@ export const CustomerForm = ({
     control,
     formState: { errors },
     handleSubmit,
-  } = useForm<Customer>({
+  } = useForm<CustomerPayload>({
     defaultValues: initialValues,
     resolver: yupResolver(customerSchema),
   });

@@ -9,7 +9,7 @@ import {
   getCustomerFn,
   updateCustomerFn,
 } from '@/service/customer';
-import { Customer } from '@/types/customer';
+import { CustomerPayload } from '@/types/customer';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { Users } from 'lucide-react';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -35,10 +35,10 @@ export const CustomerPage = () => {
     retry: 1,
   });
 
-  const handleSubmit = async (data: Customer) => {
+  const handleSubmit = async (data: CustomerPayload) => {
     try {
       const method = params.id ? update : create;
-      await method(data);
+      await method({ ...data, id: params.id });
       toast.success(`Cliente ${params.id ? 'atualizado' : 'criado'} com sucesso`);
       navigate('/clientes');
     } catch (error) {
