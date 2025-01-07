@@ -46,21 +46,23 @@ const navItems: NavItem[] = [
 ];
 
 export const Sidebar = () => {
-  const { open } = useSidebar();
+  const { open, isMobile } = useSidebar();
   return (
     <SidebarUi collapsible="icon">
       <SidebarHeader className="p-3">
         <SidebarMenuItem className="flex items-center gap-2 justify-center">
           <Building2 className={open ? 'size-7' : 'size-6'} />
           <h1
-            className={cn(open ? 'block text-xl font-bold text-primary' : 'hidden')}
+            className={cn(
+              open || isMobile ? 'block text-xl font-bold text-primary' : 'hidden',
+            )}
           >
             VSP SYSTEM
           </h1>
         </SidebarMenuItem>
       </SidebarHeader>
       <SidebarContent>
-        <SidebarMenu className="px-2 mt-5">
+        <SidebarMenu className={cn('px-2 mt-5', !open && 'lg:items-center')}>
           {navItems.map(navItem => {
             if (navItem.to) {
               return (
