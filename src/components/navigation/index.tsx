@@ -10,8 +10,11 @@ import { SidebarTrigger } from '../ui/sidebar';
 
 export const Navigation = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="flex items-center gap-6">
+    <div className="flex items-center gap-3">
       <SidebarTrigger />
+
+      <div data-orientation="vertical" className="shrink-0 bg-border w-px h-4" />
+
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
