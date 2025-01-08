@@ -9,7 +9,7 @@ export const login = async (payload: LoginPayload): Promise<LoginResponse> => {
 };
 
 export const getMe = async (): Promise<AxiosResponse<User>> => {
-  const data = await api.get<User>('/auth/me');
+  const data = await api.get<User>('/users/me');
   return data;
 };
 
