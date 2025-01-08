@@ -5,6 +5,7 @@ import BuyPage from './pages/buy';
 import { CustomerPage } from './pages/customer';
 import { CustomersPage } from './pages/customers';
 import { LoginPage } from './pages/login';
+import PayablesPage from './pages/payables';
 import { ProductPage } from './pages/product';
 import { ProductsPage } from './pages/products';
 import { ReceivablePage } from './pages/receivables';
@@ -30,6 +31,7 @@ export const Router = () => {
         { path: '/vendas', element: <SalesPage /> },
         { path: '/venda/', element: <SalePage /> },
         { path: '/contas-a-receber', element: <ReceivablePage /> },
+        { path: '/contas-a-pagar', element: <PayablesPage /> },
         { path: '/comprar', element: <BuyPage /> },
       ],
     },
