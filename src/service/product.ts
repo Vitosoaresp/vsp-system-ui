@@ -1,6 +1,7 @@
 import { ListParams } from '@/hooks';
 import { api } from '@/lib/api';
-import { IListProductResponse, Product } from '@/types/product';
+import { ApiPaginationResponse } from '@/types/common';
+import { IListProductResponse, Product, ProductHistory } from '@/types/product';
 
 export const getProducts = async (
   params?: Partial<ListParams>,
@@ -21,5 +22,16 @@ export const createProductFn = async (payload: Product): Promise<Product> => {
 
 export const updateProductFn = async (payload: Product): Promise<Product> => {
   const { data } = await api.put<Product>(`/products/${payload.id}`, payload);
+  return data;
+};
+
+export const getProductHistoiresFn = async (
+  id: string,
+  params: Partial<ListParams>,
+): Promise<ApiPaginationResponse<ProductHistory>> => {
+  const { data } = await api.get<ApiPaginationResponse<ProductHistory>>(
+    `/products/${id}/histories`,
+    { params },
+  );
   return data;
 };

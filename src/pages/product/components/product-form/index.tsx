@@ -89,7 +89,7 @@ export const ProductForm = ({
           />
         </TabsContent>
         <TabsContent value="product-history">
-          <ProductHistory data={initialValues.histories} />
+          <ProductHistory />
         </TabsContent>
       </Tabs>
     </div>
