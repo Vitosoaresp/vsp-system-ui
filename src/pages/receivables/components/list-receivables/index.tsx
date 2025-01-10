@@ -1,5 +1,8 @@
 import { Collumn, DataTable } from '@/components/data-table';
 import { DateRangePicker } from '@/components/date-range-picker';
+import { SearchBar } from '@/components/search-bar';
+import { StatusCombobox } from '@/components/status-combobox';
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { TableCell, TableRow } from '@/components/ui/table';
 import { useSearchParams } from '@/hooks';
@@ -16,6 +19,7 @@ import { formatDate } from '@/utils/format-date';
 import { formatInvoiceId } from '@/utils/format-invoice-id';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { endOfDay, startOfDay } from 'date-fns';
+import { CircleCheck, CircleEllipsis, CircleX } from 'lucide-react';
 import { DateRange } from 'react-day-picker';
 import { toast } from 'sonner';
 import { CancelReceivable } from '../cancel-receivable';
@@ -24,12 +28,13 @@ import { PayReceivableForm } from '../pay-receivable-form';
 const collumns: Collumn[] = [
   { label: 'Fatura', value: 'saleId' },
   { label: 'Valor', value: 'amount' },
-  { label: 'Data de Vencimento', value: 'duoDate' },
   { label: 'Status', value: 'status' },
+  { label: 'Data de Criação', value: 'createdAt' },
+  { label: 'Data de Vencimento', value: 'duoDate' },
   { label: 'Data do Recebimento', value: 'paidAt' },
   { label: 'Valor pago', value: 'amountReceived' },
-  { label: 'Confirmar Recebimento', value: '', disabledSort: true },
-  { label: 'Cancelar', value: '', disabledSort: true },
+  { label: 'Confirmar Recebimento', value: 'confirm', disabledSort: true },
+  { label: 'Cancelar', value: 'deletedAt', disabledSort: true },
 ];
 
 export const ListReceivables = () => {
@@ -42,6 +47,7 @@ export const ListReceivables = () => {
   const { data, isLoading } = useQuery({
     queryKey: ['account-receivables', params],
     queryFn: () => listReceivablesFn(params),
+    placeholderData: data => data,
   });
 
   const { mutateAsync: handlePay, isPending: isPaying } = useMutation({
@@ -70,17 +76,22 @@ export const ListReceivables = () => {
     }
   };
 
+  const handleChangeSearch = (search: string) => {
+    handleSetParams({ search });
+  };
+
   const handleClearParams = () => {
     handleSetParams({
       startAt: '',
       endAt: '',
       status: '',
+      search: '',
     });
   };
 
-  const handleSubmit = (data: PayReceivable) => {
+  const handleSubmit = async (data: PayReceivable) => {
     try {
-      handlePay(data);
+      await handlePay(data);
       toast.success('Conta paga com sucesso');
     } catch (error) {
       toast.error('Erro ao pagar conta');
@@ -96,10 +107,19 @@ export const ListReceivables = () => {
     }
   };
 
+  const handleChangeStatus = (status: FinancialStatus | null) => {
+    handleSetParams({ status: status ?? '' });
+  };
+
   return (
     <div className="py-5">
       <div className="mb-5 flex md:justify-between md:flex-row flex-col gap-4">
-        <div className="max-w-lg flex gap-4 md:flex-row flex-col w-full">
+        <div className="max-w-2xl flex gap-4 md:flex-row flex-col w-full items-center">
+          <SearchBar
+            value={params.search}
+            onChange={handleChangeSearch}
+            placeholder="Pesquise por cliente ou vendedor"
+          />
           <DateRangePicker
             handleChange={handleChangeDate}
             value={{
@@ -107,9 +127,14 @@ export const ListReceivables = () => {
               to: params.endAt ? new Date(params.endAt) : undefined,
             }}
           />
+          <StatusCombobox
+            value={params.status as FinancialStatus}
+            onChange={handleChangeStatus}
+          />
           <Button
-            variant="link"
+            variant="outline"
             className="text-foreground hover:no-underline"
+            size="lg"
             onClick={handleClearParams}
           >
             Limpar filtros
@@ -131,10 +156,23 @@ export const ListReceivables = () => {
           <TableRow key={receivable.id} className="font-medium">
             <TableCell>{formatInvoiceId(receivable.saleId)}</TableCell>
             <TableCell>{formatCurrency(receivable.amount)}</TableCell>
-            <TableCell>{formatDate(receivable.duoDate, 'L')}</TableCell>
             <TableCell>
-              {getLabelByEnum(receivableStatusOptions, receivable.status)}
+              <Badge
+                variant="outline"
+                className="flex items-center gap-1 w-fit mx-auto uppercase"
+              >
+                {receivable.status === FinancialStatus.PAID ? (
+                  <CircleCheck className="size-4" />
+                ) : receivable.status === FinancialStatus.CANCELED ? (
+                  <CircleX className="size-4" />
+                ) : (
+                  <CircleEllipsis className="size-4" />
+                )}
+                {getLabelByEnum(receivableStatusOptions, receivable.status)}
+              </Badge>
             </TableCell>
+            <TableCell>{formatDate(receivable.createdAt, 'LLL')}</TableCell>
+            <TableCell>{formatDate(receivable.duoDate, 'L')}</TableCell>
             <TableCell>
               {receivable.paidAt ? formatDate(receivable.paidAt, 'L') : '-'}
             </TableCell>
@@ -148,7 +186,7 @@ export const ListReceivables = () => {
                 receivableData={receivable}
                 onSubmit={handleSubmit}
                 isLoading={isPaying || isDeleting}
-                disabled={receivable.status === FinancialStatus.PAID}
+                disabled={receivable.status !== FinancialStatus.PENDING}
               />
             </TableCell>
             <TableCell>

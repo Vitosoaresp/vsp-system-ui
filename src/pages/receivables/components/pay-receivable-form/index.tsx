@@ -19,7 +19,7 @@ import { payRecevableSchema } from './schema';
 interface PayReceivableFormProps {
   receivableData: AccountReceivable;
   disabled?: boolean;
-  onSubmit: (data: PayReceivable) => void;
+  onSubmit: (data: PayReceivable) => Promise<void>;
   isLoading?: boolean;
 }
 
@@ -42,9 +42,9 @@ export const PayReceivableForm = ({
     handleChangeStep(0);
   }, [handleChangeStep]);
 
-  const handleSubmitWithDuplicate = useCallback(() => {
+  const handleSubmitWithDuplicate = useCallback(async () => {
     const values = getValues();
-    onSubmit({
+    await onSubmit({
       ...values,
       id: receivableData.id,
       remaningAmount: receivableData.amount - values.amountReceived,
@@ -53,9 +53,9 @@ export const PayReceivableForm = ({
     handleBeforeSubmit();
   }, [getValues, onSubmit, receivableData, handleBeforeSubmit]);
 
-  const handleSubmitWithoutDuplicate = useCallback(() => {
+  const handleSubmitWithoutDuplicate = useCallback(async () => {
     const values = getValues();
-    onSubmit({
+    await onSubmit({
       ...values,
       id: receivableData.id,
       remaningAmount: 0,
@@ -69,7 +69,7 @@ export const PayReceivableForm = ({
     if (difference > 0) {
       return handleChangeStep(1);
     }
-    onSubmit({
+    await onSubmit({
       ...data,
       id: receivableData.id,
       generateDuplicate: false,
@@ -83,11 +83,7 @@ export const PayReceivableForm = ({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button
-          variant="ghost"
-          className="hover:bg-transparent"
-          disabled={disabled}
-        >
+        <Button variant="ghost" disabled={disabled}>
           <Banknote size={24} className="text-foreground" />
         </Button>
       </DialogTrigger>
@@ -104,6 +100,7 @@ export const PayReceivableForm = ({
                 handleBackStep={handleBackStep}
                 handleSubmitWithDuplicate={handleSubmitWithDuplicate}
                 handleSubmitWithoutDuplicate={handleSubmitWithoutDuplicate}
+                isLoading={isLoading}
               />
             )}
           </form>

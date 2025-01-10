@@ -21,7 +21,8 @@ api.interceptors.response.use(
     if (err.response?.status === 401 && window.location.pathname !== '/entrar') {
       toast('Sessão expirada, Faça o login novamente.');
       setTimeout(() => {
-        window.location.href = '/entrar';
+        const pathname = window.location.pathname;
+        window.location.href = `/entrar?redirect=${pathname}`;
       }, 900);
     }
 

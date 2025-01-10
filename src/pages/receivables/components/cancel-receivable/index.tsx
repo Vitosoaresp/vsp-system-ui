@@ -24,12 +24,7 @@ export const CancelReceivable = ({
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button
-          type="button"
-          variant="ghost"
-          className="hover:bg-transparent"
-          disabled={disabled}
-        >
+        <Button type="button" variant="ghost" disabled={disabled}>
           <Ban size={16} />
         </Button>
       </DialogTrigger>
@@ -46,11 +41,11 @@ export const CancelReceivable = ({
         </div>
         <DialogFooter>
           <DialogClose asChild>
-            <Button type="button" variant="ghost">
+            <Button type="button" variant="outline">
               Não
             </Button>
           </DialogClose>
-          <Button type="button" variant="ghost" onClick={() => handleCancel(id)}>
+          <Button type="button" variant="default" onClick={() => handleCancel(id)}>
             Sim
           </Button>
         </DialogFooter>

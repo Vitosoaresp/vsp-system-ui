@@ -18,7 +18,7 @@ export const listPayablesFn = async (
 export const payPayableFn = async (
   data: PayPayable & { id: string },
 ): Promise<AccountPayable> => {
-  const { data: response } = await api.patch<AccountPayable>(
+  const { data: response } = await api.post<AccountPayable>(
     `/bank/payables/${data.id}/pay`,
     data,
   );

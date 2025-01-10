@@ -18,7 +18,7 @@ export const listReceivablesFn = async (
 export const payReceivableFn = async (
   data: PayReceivable,
 ): Promise<AccountReceivable> => {
-  const { data: response } = await api.patch<AccountReceivable>(
+  const { data: response } = await api.post<AccountReceivable>(
     `/bank/receivables/${data.id}/pay`,
     data,
   );
