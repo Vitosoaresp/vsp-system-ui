@@ -1,11 +1,11 @@
 import { Collumn, DataTable } from '@/components/data-table';
 import { DateRangePicker } from '@/components/date-range-picker';
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { PersonAvatar } from '@/components/person-avatar';
 import { Button } from '@/components/ui/button';
 import { TableCell, TableRow } from '@/components/ui/table';
 import { useSearchParams } from '@/hooks';
 import { listSalesFn } from '@/service/sale';
-import { formatCurrency } from '@/utils';
+import { formatCurrency, getCustomerName } from '@/utils';
 import { formatDate } from '@/utils/format-date';
 import { formatInvoiceId } from '@/utils/format-invoice-id';
 import { useQuery } from '@tanstack/react-query';
@@ -97,16 +97,14 @@ export const ListSales = () => {
         {data?.data.map(sale => (
           <TableRow key={sale.id} className="font-medium">
             <TableCell className="py-4">{formatInvoiceId(sale.id)}</TableCell>
-            <TableCell>{`${sale.customer.firstName} ${sale.customer.lastName}`}</TableCell>
             <TableCell>
-              <div className="flex items-center justify-center gap-2">
-                <Avatar className="size-5">
-                  <AvatarFallback className="text-sm">
-                    {sale.user.name[0]}
-                  </AvatarFallback>
-                </Avatar>
-                {sale.user.name}
-              </div>
+              <PersonAvatar
+                name={getCustomerName(sale.customer)}
+                email={sale.customer.email}
+              />
+            </TableCell>
+            <TableCell>
+              <PersonAvatar name={sale.user.name} email={sale.user.email} />
             </TableCell>
             <TableCell>{formatCurrency(sale.total)}</TableCell>
             <TableCell>{sale.status}</TableCell>

@@ -29,10 +29,10 @@ const collumns: Collumn[] = [
   { label: 'Fatura', value: 'saleId' },
   { label: 'Valor', value: 'amount' },
   { label: 'Status', value: 'status' },
-  { label: 'Data de Criação', value: 'createdAt' },
-  { label: 'Data de Vencimento', value: 'duoDate' },
-  { label: 'Data do Recebimento', value: 'paidAt' },
   { label: 'Valor pago', value: 'amountReceived' },
+  { label: 'Data do Recebimento', value: 'paidAt' },
+  { label: 'Data de Vencimento', value: 'duoDate' },
+  { label: 'Data de Criação', value: 'createdAt' },
   { label: 'Confirmar Recebimento', value: 'confirm', disabledSort: true },
   { label: 'Cancelar', value: 'deletedAt', disabledSort: true },
 ];
@@ -171,16 +171,18 @@ export const ListReceivables = () => {
                 {getLabelByEnum(receivableStatusOptions, receivable.status)}
               </Badge>
             </TableCell>
-            <TableCell>{formatDate(receivable.createdAt, 'LLL')}</TableCell>
-            <TableCell>{formatDate(receivable.duoDate, 'L')}</TableCell>
-            <TableCell>
-              {receivable.paidAt ? formatDate(receivable.paidAt, 'L') : '-'}
-            </TableCell>
             <TableCell>
               {receivable.amountReceived
                 ? formatCurrency(receivable.amountReceived)
                 : '-'}
             </TableCell>
+            <TableCell>
+              {receivable.paidAt
+                ? formatDate(receivable.paidAt, 'DD/MM/YYYY')
+                : '-'}
+            </TableCell>
+            <TableCell>{formatDate(receivable.duoDate, 'DD/MM/YYYY')}</TableCell>
+            <TableCell>{formatDate(receivable.createdAt, 'DD/MM/YYYY')}</TableCell>
             <TableCell>
               <PayReceivableForm
                 receivableData={receivable}
