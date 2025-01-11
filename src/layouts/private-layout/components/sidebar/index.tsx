@@ -19,6 +19,7 @@ import {
   Package,
   ShoppingBag,
   ShoppingCart,
+  UserRound,
   UserRoundCog,
   Users,
   Wallet,
@@ -28,12 +29,18 @@ import { SidebarFooter } from './footer';
 
 const navItems: NavItem[] = [
   { label: 'Dashboard', to: '/dashboard', Icon: LayoutDashboard },
-  { label: 'Entrada NF', to: '/comprar', Icon: ShoppingBag },
   { label: 'Vendas', to: '/vendas', Icon: ShoppingCart },
-  { label: 'Produtos', to: '/produtos', Icon: Package },
-  { label: 'Clientes', to: '/clientes', Icon: Users },
-  { label: 'Fornecedores', to: '/fornecedores', Icon: Factory },
-  { label: 'Usuarios', to: '/usuarios', Icon: UserRoundCog },
+  { label: 'Entrada NF', to: '/comprar', Icon: ShoppingBag },
+  {
+    label: 'Cadastros',
+    Icon: Users,
+    childrens: [
+      { label: 'Produtos', to: '/produtos', Icon: Package },
+      { label: 'Clientes', to: '/clientes', Icon: UserRound },
+      { label: 'Fornecedores', to: '/fornecedores', Icon: Factory },
+      { label: 'Usuarios', to: '/usuarios', Icon: UserRoundCog },
+    ],
+  },
   {
     label: 'Finanças',
     Icon: Wallet,

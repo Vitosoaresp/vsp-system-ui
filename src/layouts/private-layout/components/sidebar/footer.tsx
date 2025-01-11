@@ -1,4 +1,3 @@
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,7 +15,8 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from '@/components/ui/sidebar';
-import { useAuthContext } from '@/hooks';
+import { UserAvatar } from '@/components/user-avatar';
+import { useAuthContext, useGetMe } from '@/hooks';
 import { useTheme } from '@/hooks/use-theme';
 import { cn } from '@/lib/utils';
 import { ChevronsUpDown, LogOut, Moon, UserCircle } from 'lucide-react';
@@ -24,7 +24,8 @@ import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export const SidebarFooter = () => {
-  const { user, logout } = useAuthContext();
+  const { logout } = useAuthContext();
+  const { data: user, isLoading } = useGetMe();
   const { setTheme, theme } = useTheme();
   const navigate = useNavigate();
   const { open, isMobile } = useSidebar();
@@ -45,17 +46,7 @@ export const SidebarFooter = () => {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <SidebarMenuButton size="lg" className={cn(open ? 'py-5' : 'px-0')}>
-                <Avatar className="size-8 rounded-lg">
-                  <AvatarFallback className="rounded-lg">
-                    {user?.name.slice(0, 2).toUpperCase()}
-                  </AvatarFallback>
-                </Avatar>
-                <div className={cn('flex flex-col', !open && 'hidden')}>
-                  <span className="text-sm font-semibold text-foreground">
-                    {user?.name}
-                  </span>
-                  <span className="text-xs text-foreground/90">{user?.email}</span>
-                </div>
+                <UserAvatar user={user} loading={isLoading} />
                 <SidebarMenuBadge className="right-px">
                   <ChevronsUpDown className="size-5" />
                 </SidebarMenuBadge>
@@ -66,19 +57,7 @@ export const SidebarFooter = () => {
               className="w-[--radix-popper-anchor-width] min-w-fit"
             >
               <DropdownMenuLabel className="flex gap-2">
-                <Avatar className="size-8 rounded-lg">
-                  <AvatarFallback className="rounded-lg">
-                    {user?.name.slice(0, 2).toUpperCase()}
-                  </AvatarFallback>
-                </Avatar>
-                <div className="flex flex-col">
-                  <span className="text-sm font-semibold text-foreground">
-                    {user?.name}
-                  </span>
-                  <span className="text-xs text-foreground/90 font-normal">
-                    {user?.email}
-                  </span>
-                </div>
+                <UserAvatar user={user} loading={isLoading} />
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuGroup>
