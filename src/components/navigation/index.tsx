@@ -8,7 +8,7 @@ import {
 } from '../ui/breadcrumb';
 import { SidebarTrigger } from '../ui/sidebar';
 
-export const Navigation = ({ children }: { children: React.ReactNode }) => {
+export const Navigation = ({ children }: { children?: React.ReactNode }) => {
   return (
     <div className="flex items-center gap-3">
       <SidebarTrigger />
@@ -23,7 +23,7 @@ export const Navigation = ({ children }: { children: React.ReactNode }) => {
               <span>Inicio</span>
             </BreadcrumbLink>
           </BreadcrumbItem>
-          <BreadcrumbSeparator />
+          {children && <BreadcrumbSeparator />}
           {children}
         </BreadcrumbList>
       </Breadcrumb>
