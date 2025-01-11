@@ -4,6 +4,7 @@ import { PublicLayout } from './layouts/public-layout';
 import BuyPage from './pages/buy';
 import { CustomerPage } from './pages/customer';
 import { CustomersPage } from './pages/customers';
+import DashboardPage from './pages/dashboard';
 import { LoginPage } from './pages/login';
 import PayablesPage from './pages/payables';
 import { ProductPage } from './pages/product';
@@ -21,7 +22,7 @@ export const Router = () => {
       element: <PrivateLayout />,
       children: [
         { path: '/', element: <Navigate to="/dashboard" /> },
-        { path: '/dashboard', element: <div>Dashboard</div> },
+        { path: '/dashboard', element: <DashboardPage /> },
         { path: '/produtos', element: <ProductsPage /> },
         { path: '/produto/:id?', element: <ProductPage /> },
         { path: '/fornecedores', element: <SuppliersPage /> },
