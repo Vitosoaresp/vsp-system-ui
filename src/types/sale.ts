@@ -22,6 +22,11 @@ export interface SalePayload {
   saleDate: string;
 }
 
+export interface SaleDashboard {
+  month: string;
+  total: number;
+}
+
 export interface Sale extends Omit<SalePayload, 'items'> {
   id: number;
   customer: Customer;
