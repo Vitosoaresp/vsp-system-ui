@@ -1,15 +1,12 @@
-import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from '@/components/ui/dialog';
 import { AccountReceivable, PayReceivable } from '@/types/account-receivable';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Banknote } from 'lucide-react';
-import { useCallback, useContext, useState } from 'react';
+import { useCallback, useContext } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import StepsContext from '../../providers/steps';
 import { StepOne } from './components/step-one';
@@ -18,19 +15,20 @@ import { payRecevableSchema } from './schema';
 
 interface PayReceivableFormProps {
   receivableData: AccountReceivable;
-  disabled?: boolean;
   onSubmit: (data: PayReceivable) => Promise<void>;
   isLoading?: boolean;
+  open: boolean;
+  onOpenChange: (value: boolean) => void;
 }
 
 export const PayReceivableForm = ({
   receivableData,
-  disabled = false,
   onSubmit,
   isLoading = false,
+  onOpenChange,
+  open,
 }: PayReceivableFormProps) => {
   const { handleChangeStep, step } = useContext(StepsContext);
-  const [open, setOpen] = useState<boolean>(false);
   const methods = useForm<PayReceivable>({
     resolver: yupResolver(payRecevableSchema),
   });
@@ -38,7 +36,7 @@ export const PayReceivableForm = ({
   const { handleSubmit, getValues } = methods;
 
   const handleBeforeSubmit = useCallback(() => {
-    setOpen(false);
+    onOpenChange(false);
     handleChangeStep(0);
   }, [handleChangeStep]);
 
@@ -81,13 +79,7 @@ export const PayReceivableForm = ({
   const handleBackStep = () => handleChangeStep(0);
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <Button variant="ghost" disabled={disabled}>
-          <Banknote size={24} className="text-foreground" />
-        </Button>
-      </DialogTrigger>
-
+    <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="bg-background border-muted max-w-sm">
         <DialogHeader>
           <DialogTitle className="text-foreground">Confirmar Pagamento</DialogTitle>

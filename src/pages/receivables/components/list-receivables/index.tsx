@@ -4,6 +4,12 @@ import { SearchBar } from '@/components/search-bar';
 import { StatusCombobox } from '@/components/status-combobox';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { TableCell, TableRow } from '@/components/ui/table';
 import { useSearchParams } from '@/hooks';
 import {
@@ -19,7 +25,15 @@ import { formatDate } from '@/utils/format-date';
 import { formatInvoiceId } from '@/utils/format-invoice-id';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { endOfDay, startOfDay } from 'date-fns';
-import { CircleCheck, CircleEllipsis, CircleX } from 'lucide-react';
+import {
+  Ban,
+  Banknote,
+  CircleCheck,
+  CircleEllipsis,
+  CircleX,
+  Ellipsis,
+} from 'lucide-react';
+import { useState } from 'react';
 import { DateRange } from 'react-day-picker';
 import { toast } from 'sonner';
 import { CancelReceivable } from '../cancel-receivable';
@@ -33,8 +47,7 @@ const collumns: Collumn[] = [
   { label: 'Data do Recebimento', value: 'paidAt' },
   { label: 'Data de Vencimento', value: 'duoDate' },
   { label: 'Data de Criação', value: 'createdAt' },
-  { label: 'Confirmar Recebimento', value: 'confirm', disabledSort: true },
-  { label: 'Cancelar', value: 'deletedAt', disabledSort: true },
+  { label: '', value: 'confirm', disabledSort: true },
 ];
 
 export const ListReceivables = () => {
@@ -42,6 +55,8 @@ export const ListReceivables = () => {
     sort: 'desc',
     orderBy: 'updatedAt',
   });
+  const [isOpenReceivableDialog, setIsOpenReceivableDialog] = useState(false);
+  const [isOpenCancelDialog, setIsOpenCancelDialog] = useState(false);
   const query = useQueryClient();
 
   const { data, isLoading } = useQuery({
@@ -184,18 +199,39 @@ export const ListReceivables = () => {
             <TableCell>{formatDate(receivable.duoDate, 'DD/MM/YYYY')}</TableCell>
             <TableCell>{formatDate(receivable.createdAt, 'DD/MM/YYYY')}</TableCell>
             <TableCell>
+              <DropdownMenu>
+                <DropdownMenuTrigger>
+                  <Ellipsis />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  <DropdownMenuItem
+                    onClick={() => setIsOpenReceivableDialog(true)}
+                    disabled={receivable.status !== FinancialStatus.PENDING}
+                  >
+                    <Banknote className="size-4 mr-2" />
+                    Receber
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    onClick={() => setIsOpenCancelDialog(true)}
+                    disabled={receivable.status === FinancialStatus.CANCELED}
+                  >
+                    <Ban className="size-4 mr-2" />
+                    Cancelar
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
               <PayReceivableForm
                 receivableData={receivable}
                 onSubmit={handleSubmit}
+                open={isOpenReceivableDialog}
+                onOpenChange={setIsOpenReceivableDialog}
                 isLoading={isPaying || isDeleting}
-                disabled={receivable.status !== FinancialStatus.PENDING}
               />
-            </TableCell>
-            <TableCell>
               <CancelReceivable
                 handleCancel={handleCancel}
                 id={receivable.id as string}
-                disabled={receivable.status === FinancialStatus.CANCELED}
+                open={isOpenCancelDialog}
+                onOpenChange={setIsOpenCancelDialog}
               />
             </TableCell>
           </TableRow>

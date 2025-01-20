@@ -6,29 +6,23 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from '@/components/ui/dialog';
-import { Ban } from 'lucide-react';
 
 interface CancelReceivableProps {
   id: string;
   handleCancel: (id: string) => void;
-  disabled: boolean;
+  open: boolean;
+  onOpenChange: (value: boolean) => void;
 }
 
 export const CancelReceivable = ({
   id,
   handleCancel,
-  disabled,
+  onOpenChange,
+  open,
 }: CancelReceivableProps) => {
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button type="button" variant="ghost" disabled={disabled}>
-          <Ban size={16} />
-        </Button>
-      </DialogTrigger>
-
+    <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="bg-background max-w-sm">
         <DialogHeader>
           <DialogTitle>Cancelar conta a receber</DialogTitle>
