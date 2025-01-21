@@ -1,6 +1,6 @@
 import { RhfTextField } from '@/components/rhf/text-field';
 import { Button } from '@/components/ui/button';
-import { RegisterPayload } from '@/types/auth';
+import { Register } from '@/types/user';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Eye, EyeOff } from 'lucide-react';
 import { useState } from 'react';
@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 import { registerSchema } from '../schema';
 
 interface FormProps {
-  onSubmit: (data: RegisterPayload) => void;
+  onSubmit: (data: Register) => void;
   isLoading: boolean;
 }
 
@@ -20,7 +20,7 @@ export const Form = ({ onSubmit, isLoading }: FormProps) => {
     control,
     formState: { errors },
     handleSubmit,
-  } = useForm<RegisterPayload>({
+  } = useForm<Register>({
     resolver: yupResolver(registerSchema),
   });
 

@@ -1,4 +1,4 @@
-import { ApiPaginationResponse } from './common';
+import { ApiListResponse } from './common';
 import { Product } from './product';
 import { Supplier } from './supplier';
 
@@ -32,5 +32,4 @@ export interface AccountPayable {
   deletedAt?: string;
 }
 
-export interface IListPayablesResponse
-  extends ApiPaginationResponse<AccountPayable> {}
+export interface IListPayablesResponse extends ApiListResponse<AccountPayable> {}

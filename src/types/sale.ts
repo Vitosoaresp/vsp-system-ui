@@ -1,5 +1,5 @@
 import { AccountReceivable } from './account-receivable';
-import { ApiPaginationResponse } from './common';
+import { ApiListResponse } from './common';
 import { Customer } from './customer';
 import { Product, ProductHistory } from './product';
 import { User } from './user';
@@ -49,4 +49,4 @@ export interface Sale extends Omit<SalePayload, 'items'> {
   deleteAt?: string;
 }
 
-export interface IListSaleResponse extends ApiPaginationResponse<Sale> {}
+export interface IListSaleResponse extends ApiListResponse<Sale> {}

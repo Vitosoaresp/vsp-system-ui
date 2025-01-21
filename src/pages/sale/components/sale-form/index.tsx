@@ -4,13 +4,12 @@ import { RhfSelect } from '@/components/rhf/select';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { listCustomersFn } from '@/services/customer';
+import { useGetCustomersQuery } from '@/services/customer';
 import { useMeQuery } from '@/services/session';
 import { Product } from '@/types/product';
 import { SalePayload } from '@/types/sale';
 import { formatCurrency, getCustomerName } from '@/utils';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useQuery } from '@tanstack/react-query';
 import { CircleDollarSign } from 'lucide-react';
 import { useCallback, useMemo, useState } from 'react';
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
@@ -50,11 +49,8 @@ export const SaleForm = ({ onSubmit, isLoading }: SaleFormProps) => {
 
   const handleRemoveProduct = (index: number) => remove(index);
 
-  const { data: customers } = useQuery({
-    queryKey: ['customers'],
-    queryFn: () => listCustomersFn(),
-    select: data => data.data ?? [],
-  });
+  const { data } = useGetCustomersQuery({ perPage: 99999 });
+  const customers = data?.data;
 
   const customerOptions =
     customers?.map(customer => ({

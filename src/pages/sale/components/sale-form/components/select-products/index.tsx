@@ -15,10 +15,9 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { getProducts } from '@/services/product';
+import { useGetProductsQuery } from '@/services/product';
 import { Product } from '@/types/product';
 import { formatCurrency } from '@/utils';
-import { useQuery } from '@tanstack/react-query';
 import { PackageCheck } from 'lucide-react';
 
 interface SelectProductsProps {
@@ -32,11 +31,9 @@ export const SelectProducts = ({
   handleToggleProduct,
   handleAppendProducts,
 }: SelectProductsProps) => {
-  const { data: products } = useQuery({
-    queryKey: ['products'],
-    queryFn: () => getProducts(),
-    select: data => data.data,
-  });
+  const { data } = useGetProductsQuery({});
+
+  const products = data?.data;
 
   return (
     <Dialog>

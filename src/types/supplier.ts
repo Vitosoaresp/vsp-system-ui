@@ -1,4 +1,4 @@
-import { Address, ApiPaginationResponse } from './common';
+import { Address, ApiListResponse } from './common';
 
 export interface Supplier {
   id: string;
@@ -13,4 +13,4 @@ export interface Supplier {
   deleteAt?: string;
 }
 
-export interface IListSupplierResponse extends ApiPaginationResponse<Supplier> {}
+export interface IListSupplierResponse extends ApiListResponse<Supplier> {}
