@@ -1,7 +1,7 @@
-import { Address, ApiPaginationResponse } from './common';
+import { Address, ApiListResponse } from './common';
 
 export interface Customer {
-  id: string;
+  id?: string;
   active: boolean;
   firstName: string;
   lastName: string;
@@ -15,6 +15,4 @@ export interface Customer {
   deleteAt?: string;
 }
 
-export interface CustomerPayload extends Omit<Customer, 'id'> {}
-
-export interface IListCustomerResponse extends ApiPaginationResponse<Customer> {}
+export interface IListCustomerResponse extends ApiListResponse<Customer> {}

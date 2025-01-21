@@ -3,7 +3,7 @@ import { DateRangePicker } from '@/components/date-range-picker';
 import { Button } from '@/components/ui/button';
 import { TableCell, TableRow } from '@/components/ui/table';
 import { useSearchParams } from '@/hooks';
-import { listPayablesFn } from '@/service/payable';
+import { listPayablesFn } from '@/services/payable';
 import { formatCurrency } from '@/utils';
 import { getLabelByEnum, receivableStatusOptions } from '@/utils/enum-options';
 import { formatDate } from '@/utils/format-date';

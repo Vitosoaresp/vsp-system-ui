@@ -4,7 +4,7 @@ import {
   BreadcrumbLink,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
-import { createSaleFn } from '@/service/sale';
+import { createSaleFn } from '@/services/sale';
 import { SalePayload } from '@/types/sale';
 import { useMutation } from '@tanstack/react-query';
 import { ShoppingCart } from 'lucide-react';

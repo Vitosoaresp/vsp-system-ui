@@ -2,7 +2,7 @@ import { Grid } from '@/components/grid';
 import { RhfCombobox } from '@/components/rhf/combobox';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { listSuppliersFn } from '@/service/supplier';
+import { listSuppliersFn } from '@/services/supplier';
 import { Buy } from '@/types/account-payable';
 import { useQuery } from '@tanstack/react-query';
 import { format } from 'date-fns';

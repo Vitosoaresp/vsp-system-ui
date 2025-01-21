@@ -4,10 +4,9 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { TableCell, TableRow } from '@/components/ui/table';
 import { useSearchParams } from '@/hooks';
-import { getProducts } from '@/service/product';
+import { useGetProductsQuery } from '@/services/product';
 import { formatCurrency } from '@/utils';
 import { formatDate } from '@/utils/format-date';
-import { useQuery } from '@tanstack/react-query';
 import { Check, Pencil, X } from 'lucide-react';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -31,10 +30,7 @@ export const ListProducts = () => {
   });
   const navigate = useNavigate();
 
-  const { data, isLoading } = useQuery({
-    queryKey: ['products'],
-    queryFn: () => getProducts(params),
-  });
+  const { data, isLoading } = useGetProductsQuery(params);
 
   const handleChangeOrder = (column: string) => {
     handleSetParams({

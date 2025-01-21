@@ -4,9 +4,12 @@ import {
   BreadcrumbLink,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
-import { createProductFn, getProductFn, updateProductFn } from '@/service/product';
+import {
+  useCreateProductMutation,
+  useGetProductQuery,
+  useUpdateProductMutation,
+} from '@/services/product';
 import { Product } from '@/types/product';
-import { useMutation, useQuery } from '@tanstack/react-query';
 import { Package } from 'lucide-react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'sonner';
@@ -17,18 +20,11 @@ export const ProductPage = () => {
   const navigate = useNavigate();
   const params = useParams();
 
-  const { mutateAsync: create, isPending: isCreating } = useMutation({
-    mutationFn: createProductFn,
-  });
-  const { mutateAsync: update, isPending: isUpdating } = useMutation({
-    mutationFn: updateProductFn,
-  });
+  const [create, { isLoading: isCreating }] = useCreateProductMutation();
+  const [update, { isLoading: isUpdating }] = useUpdateProductMutation();
 
-  const { data: product, isLoading } = useQuery({
-    queryKey: ['product'],
-    queryFn: () => getProductFn(params.id),
-    enabled: !!params.id,
-    retry: 1,
+  const { data: product, isLoading } = useGetProductQuery(params.id!, {
+    skip: !!params.id,
   });
 
   const handleSubmit = async (data: Product) => {

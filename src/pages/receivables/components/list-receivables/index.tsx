@@ -10,7 +10,7 @@ import {
   deleteReceivableFn,
   listReceivablesFn,
   payReceivableFn,
-} from '@/service/receivable';
+} from '@/services/receivable';
 import { PayReceivable } from '@/types/account-receivable';
 import { FinancialStatus } from '@/types/common';
 import { formatCurrency } from '@/utils';

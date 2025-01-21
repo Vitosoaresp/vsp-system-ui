@@ -3,7 +3,7 @@ import { RhfSelect } from '@/components/rhf/select';
 import { RhfCheckbox } from '@/components/rhf/switch';
 import { RhfTextField } from '@/components/rhf/text-field';
 import { Button } from '@/components/ui/button';
-import { listSuppliersFn } from '@/service/supplier';
+import { listSuppliersFn } from '@/services/supplier';
 import { Product, ProductGeneralData } from '@/types/product';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useQuery } from '@tanstack/react-query';

@@ -3,9 +3,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { TableCell, TableRow } from '@/components/ui/table';
 import { useSearchParams } from '@/hooks';
-import { listCustomersFn } from '@/service/customer';
+import { useGetCustomersQuery } from '@/services/customer';
 import { formatDate } from '@/utils/format-date';
-import { useQuery } from '@tanstack/react-query';
 import { Pencil } from 'lucide-react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -29,10 +28,7 @@ export const ListCustomers = () => {
     orderBy: 'updatedAt',
   });
 
-  const { data, isLoading } = useQuery({
-    queryKey: ['customers', params],
-    queryFn: () => listCustomersFn(params),
-  });
+  const { data, isLoading } = useGetCustomersQuery(params);
 
   const handleChangeOrder = (column: string) => {
     handleSetParams({

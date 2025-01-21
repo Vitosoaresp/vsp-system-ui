@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { TableCell, TableRow } from '@/components/ui/table';
 import { useSearchParams } from '@/hooks';
-import { listSuppliersFn } from '@/service/supplier';
+import { listSuppliersFn } from '@/services/supplier';
 import { formatDate } from '@/utils/format-date';
 import { useQuery } from '@tanstack/react-query';
 import { Pencil } from 'lucide-react';
