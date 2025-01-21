@@ -8,7 +8,7 @@ export interface Meta {
   perPage: number;
 }
 
-export interface ApiPaginationResponse<T> {
+export interface ApiListResponse<T> {
   data: T[];
   meta: Meta;
 }

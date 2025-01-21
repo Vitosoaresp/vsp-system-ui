@@ -1,15 +1,15 @@
 import { RhfTextField } from '@/components/rhf/text-field';
 import { Button } from '@/components/ui/button';
-import { LoginPayload } from '@/types/auth';
+import { Credentials } from '@/types/user';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Eye, EyeOff } from 'lucide-react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
-import { loginSchema } from '../schema';
+import { loginSchema } from './schemas';
 
 interface FormProps {
-  onSubmit: (data: LoginPayload) => void;
+  onSubmit: (data: Credentials) => void;
   isLoading: boolean;
 }
 
@@ -18,7 +18,7 @@ export const Form = ({ onSubmit, isLoading }: FormProps) => {
     control,
     formState: { errors },
     handleSubmit,
-  } = useForm<LoginPayload>({
+  } = useForm<Credentials>({
     resolver: yupResolver(loginSchema),
   });
   const [showPassword, setShowPassword] = useState(false);
@@ -54,7 +54,7 @@ export const Form = ({ onSubmit, isLoading }: FormProps) => {
           className="hover:underline"
           disabled={isLoading}
         >
-          <Link to="/register">Registrar</Link>
+          <Link to="/registrar">Registrar</Link>
         </Button>
         <Button type="submit" className="w-24" loading={isLoading}>
           Entrar

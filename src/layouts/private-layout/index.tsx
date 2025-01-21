@@ -1,22 +1,27 @@
 import { SidebarProvider } from '@/components/ui/sidebar';
-import { getToken } from '@/lib/secure-storage';
-import { Navigate, Outlet, useLocation } from 'react-router-dom';
+import { useMeQuery } from '@/services/session';
+import { LoaderCircle } from 'lucide-react';
+import { Outlet } from 'react-router-dom';
 import { Sidebar } from './components/sidebar';
 
 export const PrivateLayout = () => {
-  const location = useLocation();
-  const token = getToken();
-
-  if (!token) {
-    return <Navigate to="/entrar" state={{ from: location.pathname }} />;
-  }
+  const { data: user } = useMeQuery();
 
   return (
-    <SidebarProvider>
-      <Sidebar />
-      <main className="w-full xl:py-10 xl:px-20 p-8">
-        <Outlet />
-      </main>
-    </SidebarProvider>
+    <>
+      {user && (
+        <SidebarProvider>
+          <Sidebar />
+          <main className="w-full xl:py-10 xl:px-20 p-8">
+            <Outlet />
+          </main>
+        </SidebarProvider>
+      )}
+      {!user && (
+        <main className="flex items-center justify-center h-screen">
+          <LoaderCircle className="size-10 text-primary animate-spin" />
+        </main>
+      )}
+    </>
   );
 };
