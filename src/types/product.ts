@@ -1,5 +1,5 @@
 import { ProductAction } from '@/utils/enum';
-import { ApiPaginationResponse } from './common';
+import { ApiListResponse } from './common';
 import { Supplier } from './supplier';
 
 export interface ProductHistory {
@@ -37,4 +37,4 @@ export interface Product extends ProductGeneralData, ProductPrices {
   histories?: ProductHistory[];
 }
 
-export interface IListProductResponse extends ApiPaginationResponse<Product> {}
+export interface IListProductResponse extends ApiListResponse<Product> {}

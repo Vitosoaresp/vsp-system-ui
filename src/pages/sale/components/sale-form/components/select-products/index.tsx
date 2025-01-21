@@ -15,7 +15,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { getProducts } from '@/service/product';
+import { getProducts } from '@/services/product';
 import { Product } from '@/types/product';
 import { formatCurrency } from '@/utils';
 import { useQuery } from '@tanstack/react-query';

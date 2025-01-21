@@ -5,7 +5,7 @@ import BuyPage from './pages/buy';
 import { CustomerPage } from './pages/customer';
 import { CustomersPage } from './pages/customers';
 import DashboardPage from './pages/dashboard';
-import { LoginPage } from './pages/login';
+import LoginPage from './pages/login';
 import PayablesPage from './pages/payables';
 import { ProductPage } from './pages/product';
 import { ProductsPage } from './pages/products';

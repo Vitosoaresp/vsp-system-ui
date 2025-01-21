@@ -7,7 +7,7 @@ import {
   ChartTooltipContent,
 } from '@/components/ui/chart';
 import { Skeleton } from '@/components/ui/skeleton';
-import { getSaleDashboardFn } from '@/service/sale';
+import { getSaleDashboardFn } from '@/services/sale';
 import { useQuery } from '@tanstack/react-query';
 import { Area, AreaChart, CartesianGrid, XAxis } from 'recharts';
 

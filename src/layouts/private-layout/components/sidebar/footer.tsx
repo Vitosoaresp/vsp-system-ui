@@ -16,22 +16,24 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar';
 import { UserAvatar } from '@/components/user-avatar';
-import { useAuthContext, useGetMe } from '@/hooks';
 import { useTheme } from '@/hooks/use-theme';
 import { cn } from '@/lib/utils';
+import { useMeQuery } from '@/services/session';
+import { logout } from '@/store/slices/session';
 import { ChevronsUpDown, LogOut, Moon, UserCircle } from 'lucide-react';
 import { useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 export const SidebarFooter = () => {
-  const { logout } = useAuthContext();
-  const { data: user, isLoading } = useGetMe();
+  const { data: user, isLoading } = useMeQuery();
   const { setTheme, theme } = useTheme();
   const navigate = useNavigate();
   const { open, isMobile } = useSidebar();
+  const dispatch = useDispatch();
 
   const handleLogout = () => {
-    logout();
+    dispatch(logout());
     navigate('/entrar');
   };
 

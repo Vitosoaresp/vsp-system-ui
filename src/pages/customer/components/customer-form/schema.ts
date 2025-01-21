@@ -2,6 +2,7 @@ import yup from '@/lib/yup';
 import { CNPJValidation, CPFValidation } from '@/utils/validation';
 
 export const customerSchema = yup.object().shape({
+  id: yup.string().optional(),
   firstName: yup.string().trim().required(),
   lastName: yup.string().trim().required(),
   email: yup.string().email().required(),

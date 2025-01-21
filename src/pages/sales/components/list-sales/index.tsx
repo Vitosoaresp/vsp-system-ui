@@ -4,7 +4,7 @@ import { PersonAvatar } from '@/components/person-avatar';
 import { Button } from '@/components/ui/button';
 import { TableCell, TableRow } from '@/components/ui/table';
 import { useSearchParams } from '@/hooks';
-import { listSalesFn } from '@/service/sale';
+import { listSalesFn } from '@/services/sale';
 import { formatCurrency, getCustomerName } from '@/utils';
 import { formatDate } from '@/utils/format-date';
 import { formatInvoiceId } from '@/utils/format-invoice-id';

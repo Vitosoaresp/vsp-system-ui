@@ -4,8 +4,8 @@ import { RhfSelect } from '@/components/rhf/select';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { useAuthContext } from '@/hooks';
-import { listCustomersFn } from '@/service/customer';
+import { listCustomersFn } from '@/services/customer';
+import { useMeQuery } from '@/services/session';
 import { Product } from '@/types/product';
 import { SalePayload } from '@/types/sale';
 import { formatCurrency, getCustomerName } from '@/utils';
@@ -26,7 +26,7 @@ interface SaleFormProps {
 }
 
 export const SaleForm = ({ onSubmit, isLoading }: SaleFormProps) => {
-  const { user } = useAuthContext();
+  const { data: user } = useMeQuery();
   const [selectedProducts, setSelectedProducts] = useState<Product[]>([]);
   const methods = useForm<SalePayload>({
     resolver: yupResolver(saleSchema),

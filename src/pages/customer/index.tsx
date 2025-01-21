@@ -5,12 +5,11 @@ import {
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
 import {
-  createCustomerFn,
-  getCustomerFn,
-  updateCustomerFn,
-} from '@/service/customer';
-import { CustomerPayload } from '@/types/customer';
-import { useMutation, useQuery } from '@tanstack/react-query';
+  useCreateCustomerMutation,
+  useGetCustomerQuery,
+  useUpdateCustomerMutation,
+} from '@/services/customer';
+import { Customer } from '@/types/customer';
 import { Users } from 'lucide-react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'sonner';
@@ -21,24 +20,17 @@ export const CustomerPage = () => {
   const navigate = useNavigate();
   const params = useParams();
 
-  const { mutateAsync: create, isPending: isCreating } = useMutation({
-    mutationFn: createCustomerFn,
-  });
-  const { mutateAsync: update, isPending: isUpdating } = useMutation({
-    mutationFn: updateCustomerFn,
+  const [create, { isLoading: isCreating }] = useCreateCustomerMutation();
+  const [update, { isLoading: isUpdating }] = useUpdateCustomerMutation();
+
+  const { data: customer, isLoading } = useGetCustomerQuery(params.id!, {
+    skip: !!params.id,
   });
 
-  const { data: customer, isLoading } = useQuery({
-    queryKey: ['customer'],
-    queryFn: () => getCustomerFn(params.id),
-    enabled: !!params.id,
-    retry: 1,
-  });
-
-  const handleSubmit = async (data: CustomerPayload) => {
+  const handleSubmit = async (data: Customer) => {
     try {
       const method = params.id ? update : create;
-      await method({ ...data, id: params.id });
+      await method({ ...data, id: params.id! });
       toast.success(`Cliente ${params.id ? 'atualizado' : 'criado'} com sucesso`);
       navigate('/clientes');
     } catch (error) {

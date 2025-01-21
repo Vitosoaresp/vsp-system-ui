@@ -2,23 +2,20 @@ import { DataTable } from '@/components/data-table';
 import { Badge } from '@/components/ui/badge';
 import { TableCell, TableRow } from '@/components/ui/table';
 import { useSearchParams } from '@/hooks';
-import { getProductHistoiresFn } from '@/service/product';
+import { useGetProductHistoiresQuery } from '@/services/product';
 import { formatCurrency } from '@/utils';
 import { ProductAction } from '@/utils/enum';
 import { formatDate } from '@/utils/format-date';
 import { getProductHistoryActionLabel } from '@/utils/helpers';
-import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 
 export const ProductHistory = () => {
   const { id } = useParams<{ id: string }>();
   const { params, handleSetParams } = useSearchParams();
-  const { data, isLoading } = useQuery({
-    queryFn: () => getProductHistoiresFn(id as string, params),
-    queryKey: ['product-histories', params, id],
-    enabled: !!id,
-    placeholderData: data => data,
-  });
+  const { data, isLoading } = useGetProductHistoiresQuery(
+    { id: id!, params },
+    { skip: !id },
+  );
 
   const histories = data?.data;
   const isEmpty = !histories || !histories?.length;

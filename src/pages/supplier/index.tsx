@@ -8,7 +8,7 @@ import {
   createSupplierFn,
   getSupplierFn,
   updateSupplierFn,
-} from '@/service/supplier';
+} from '@/services/supplier';
 import { Supplier } from '@/types/supplier';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { Factory } from 'lucide-react';
