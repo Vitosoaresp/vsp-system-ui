@@ -8,6 +8,7 @@ export interface Buy {
 }
 
 export interface PayPayable {
+  id?: string;
   paidAt: string;
   amountPaid: number;
   generateDuplicate: boolean;
@@ -15,6 +16,7 @@ export interface PayPayable {
 }
 
 export interface AccountPayable {
+  id: string;
   supplierId: string;
   amount: number;
   status: string;
@@ -24,7 +26,6 @@ export interface AccountPayable {
   isDuplicated: true;
   duplicatedRefer: string;
   amountPaid: number;
-  id: string;
   tag: unknown;
   supplier: Supplier;
   createdAt: string;

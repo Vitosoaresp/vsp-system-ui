@@ -13,9 +13,9 @@ import {
 import { TableCell, TableRow } from '@/components/ui/table';
 import { useSearchParams } from '@/hooks';
 import {
-  deleteReceivableFn,
-  listReceivablesFn,
-  payReceivableFn,
+  useDeleteReceivableMutation,
+  useGetReceivablesQuery,
+  usePayReceivableMutation,
 } from '@/services/receivable';
 import { PayReceivable } from '@/types/account-receivable';
 import { FinancialStatus } from '@/types/common';
@@ -23,7 +23,6 @@ import { formatCurrency } from '@/utils';
 import { getLabelByEnum, receivableStatusOptions } from '@/utils/enum-options';
 import { formatDate } from '@/utils/format-date';
 import { formatInvoiceId } from '@/utils/format-invoice-id';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { endOfDay, startOfDay } from 'date-fns';
 import {
   Ban,
@@ -57,23 +56,11 @@ export const ListReceivables = () => {
   });
   const [isOpenReceivableDialog, setIsOpenReceivableDialog] = useState(false);
   const [isOpenCancelDialog, setIsOpenCancelDialog] = useState(false);
-  const query = useQueryClient();
 
-  const { data, isLoading } = useQuery({
-    queryKey: ['account-receivables', params],
-    queryFn: () => listReceivablesFn(params),
-    placeholderData: data => data,
-  });
-
-  const { mutateAsync: handlePay, isPending: isPaying } = useMutation({
-    mutationFn: payReceivableFn,
-    onSuccess: () => query.invalidateQueries({ queryKey: ['account-receivables'] }),
-  });
-
-  const { mutateAsync: handleDelete, isPending: isDeleting } = useMutation({
-    mutationFn: deleteReceivableFn,
-    onSuccess: () => query.invalidateQueries({ queryKey: ['account-receivables'] }),
-  });
+  const { data, isLoading } = useGetReceivablesQuery(params);
+  const [deleteReceivable, { isLoading: isDeleting }] =
+    useDeleteReceivableMutation();
+  const [payReceivable, { isLoading: isPaying }] = usePayReceivableMutation();
 
   const handleChangeOrder = (column: string) => {
     handleSetParams({
@@ -106,16 +93,16 @@ export const ListReceivables = () => {
 
   const handleSubmit = async (data: PayReceivable) => {
     try {
-      await handlePay(data);
+      await payReceivable(data).unwrap();
       toast.success('Conta paga com sucesso');
     } catch (error) {
       toast.error('Erro ao pagar conta');
     }
   };
 
-  const handleCancel = (id: string) => {
+  const handleCancel = async (id: string) => {
     try {
-      handleDelete(id);
+      await deleteReceivable(id).unwrap();
       toast.success('Conta cancelada com sucesso');
     } catch (error) {
       toast.error('Erro ao cancelar conta');

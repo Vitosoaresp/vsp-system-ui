@@ -3,11 +3,10 @@ import { DateRangePicker } from '@/components/date-range-picker';
 import { Button } from '@/components/ui/button';
 import { TableCell, TableRow } from '@/components/ui/table';
 import { useSearchParams } from '@/hooks';
-import { listPayablesFn } from '@/services/payable';
+import { useListPayablesQuery } from '@/services/payable';
 import { formatCurrency } from '@/utils';
 import { getLabelByEnum, receivableStatusOptions } from '@/utils/enum-options';
 import { formatDate } from '@/utils/format-date';
-import { useQuery } from '@tanstack/react-query';
 import { endOfDay, startOfDay } from 'date-fns';
 import { DateRange } from 'react-day-picker';
 
@@ -27,23 +26,8 @@ export const ListPayables = () => {
     sort: 'desc',
     orderBy: 'updatedAt',
   });
-  // const query = useQueryClient();
 
-  const { data, isLoading } = useQuery({
-    queryKey: ['account-payables', params],
-    queryFn: () => listPayablesFn(params),
-    placeholderData: data => data,
-  });
-
-  // const { mutateAsync: handlePay } = useMutation({
-  //   mutationFn: payPayableFn,
-  //   onSuccess: () => query.invalidateQueries({ queryKey: ['account-payables'] }),
-  // });
-
-  // const { mutateAsync: handleDelete } = useMutation({
-  //   mutationFn: deletePayableFn,
-  //   onSuccess: () => query.invalidateQueries({ queryKey: ['account-payables'] }),
-  // });
+  const { data, isLoading } = useListPayablesQuery(params);
 
   const handleChangeOrder = (column: string) => {
     handleSetParams({

@@ -1,31 +1,48 @@
 import { ListParams } from '@/hooks';
-import { api } from '@/lib/api';
+import { api } from '@/store/api';
 import { IListSupplierResponse, Supplier } from '@/types/supplier';
 
-export const listSuppliersFn = async (
-  params?: Partial<ListParams>,
-): Promise<IListSupplierResponse> => {
-  const { data } = await api.get<IListSupplierResponse>('/suppliers', {
-    params,
-  });
-  return data;
-};
+export const supplierApi = api.injectEndpoints({
+  endpoints: builder => ({
+    listSuppliers: builder.query<IListSupplierResponse, Partial<ListParams>>({
+      query: params => ({
+        url: '/suppliers',
+        params,
+      }),
+      providesTags: response =>
+        response
+          ? [
+              ...response.data.map(({ id }) => ({ type: 'Supplier' as const, id })),
+              { type: 'Supplier', id: 'LIST' },
+            ]
+          : [{ type: 'Supplier', id: 'LIST' }],
+    }),
+    createSupplier: builder.mutation<Supplier, Supplier>({
+      query: data => ({
+        url: '/suppliers',
+        method: 'POST',
+        body: data,
+      }),
+      invalidatesTags: [{ type: 'Supplier', id: 'LIST' }],
+    }),
+    getSupplier: builder.query<Supplier, string>({
+      query: id => ({ url: `/suppliers/${id}` }),
+      providesTags: (_, __, id) => [{ type: 'Supplier', id }],
+    }),
+    updateSupplier: builder.mutation<Supplier, Partial<Supplier>>({
+      query: data => ({
+        url: `/suppliers/${data.id}`,
+        method: 'PUT',
+        body: data,
+      }),
+      invalidatesTags: (_, __, { id }) => [{ type: 'Supplier', id }],
+    }),
+  }),
+});
 
-export const createSupplierFn = async (
-  data: Partial<Supplier>,
-): Promise<Supplier> => {
-  const { data: supplier } = await api.post<Supplier>('/suppliers', data);
-  return supplier;
-};
-
-export const getSupplierFn = async (id?: string): Promise<Supplier> => {
-  const { data } = await api.get<Supplier>(`/suppliers/${id}`);
-  return data;
-};
-
-export const updateSupplierFn = async (
-  data: Partial<Supplier>,
-): Promise<Supplier> => {
-  const { data: supplier } = await api.put<Supplier>(`/suppliers/${data.id}`, data);
-  return supplier;
-};
+export const {
+  useCreateSupplierMutation,
+  useGetSupplierQuery,
+  useListSuppliersQuery,
+  useUpdateSupplierMutation,
+} = supplierApi;

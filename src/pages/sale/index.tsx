@@ -4,9 +4,8 @@ import {
   BreadcrumbLink,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
-import { createSaleFn } from '@/services/sale';
+import { useCreateSaleMutation } from '@/services/sale';
 import { SalePayload } from '@/types/sale';
-import { useMutation } from '@tanstack/react-query';
 import { ShoppingCart } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
@@ -15,9 +14,7 @@ import { SaleForm } from './components';
 export const SalePage = () => {
   const navigate = useNavigate();
 
-  const { mutateAsync: create, isPending: isLoading } = useMutation({
-    mutationFn: createSaleFn,
-  });
+  const [create, { isLoading }] = useCreateSaleMutation();
 
   const handleSubmit = async (data: SalePayload) => {
     try {

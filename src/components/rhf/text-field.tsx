@@ -73,7 +73,7 @@ export function RhfTextField<
           disabled={disabled}
           type={type}
           ref={ref}
-          className={cn(!!error ? 'border-destructive' : '', inputClassName)}
+          className={cn(error ? 'border-destructive' : '', inputClassName)}
           {...props}
           {...rest}
         />

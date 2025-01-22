@@ -3,9 +3,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { TableCell, TableRow } from '@/components/ui/table';
 import { useSearchParams } from '@/hooks';
-import { listSuppliersFn } from '@/services/supplier';
+import { useListSuppliersQuery } from '@/services/supplier';
 import { formatDate } from '@/utils/format-date';
-import { useQuery } from '@tanstack/react-query';
 import { Pencil } from 'lucide-react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -27,10 +26,7 @@ export const ListSuppliers = () => {
     orderBy: 'updatedAt',
   });
 
-  const { data, isLoading } = useQuery({
-    queryKey: ['suppliers', params],
-    queryFn: () => listSuppliersFn(params),
-  });
+  const { data, isLoading } = useListSuppliersQuery(params);
 
   const handleChangeOrder = (column: string) => {
     handleSetParams({

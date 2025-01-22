@@ -1,31 +1,45 @@
 import { ListParams } from '@/hooks';
-import { api } from '@/lib/api';
+import { api } from '@/store/api';
 import {
   AccountPayable,
   IListPayablesResponse,
   PayPayable,
 } from '@/types/account-payable';
 
-export const listPayablesFn = async (
-  params?: ListParams,
-): Promise<IListPayablesResponse> => {
-  const { data } = await api.get<IListPayablesResponse>('/bank/payables', {
-    params,
-  });
-  return data;
-};
+export const payableApi = api.injectEndpoints({
+  endpoints: builder => ({
+    listPayables: builder.query<IListPayablesResponse, ListParams>({
+      query: params => ({ url: '/bank/payables', params }),
+      providesTags: result =>
+        result
+          ? [
+              ...result.data.map(({ id }) => ({
+                type: 'Account-Payable' as const,
+                id,
+              })),
+            ]
+          : [{ type: 'Account-Payable' as const, id: 'LIST' }],
+    }),
+    payPayable: builder.mutation<AccountPayable, PayPayable>({
+      query: data => ({
+        url: `/bank/payables/${data.id}/pay`,
+        method: 'POST',
+        body: data,
+      }),
+      invalidatesTags: (_, __, { id }) => [{ type: 'Account-Payable', id }],
+    }),
+    deletePayable: builder.mutation<AccountPayable, string>({
+      query: id => ({
+        url: `/bank/payables/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: (_, __, id) => [{ type: 'Account-Payable', id }],
+    }),
+  }),
+});
 
-export const payPayableFn = async (
-  data: PayPayable & { id: string },
-): Promise<AccountPayable> => {
-  const { data: response } = await api.post<AccountPayable>(
-    `/bank/payables/${data.id}/pay`,
-    data,
-  );
-  return response;
-};
-
-export const deletePayableFn = async (id: string): Promise<AccountPayable> => {
-  const { data } = await api.delete<AccountPayable>(`/bank/payables/${id}`);
-  return data;
-};
+export const {
+  useDeletePayableMutation,
+  useListPayablesQuery,
+  usePayPayableMutation,
+} = payableApi;

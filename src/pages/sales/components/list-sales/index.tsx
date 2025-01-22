@@ -4,11 +4,10 @@ import { PersonAvatar } from '@/components/person-avatar';
 import { Button } from '@/components/ui/button';
 import { TableCell, TableRow } from '@/components/ui/table';
 import { useSearchParams } from '@/hooks';
-import { listSalesFn } from '@/services/sale';
+import { useListSalesQuery } from '@/services/sale';
 import { formatCurrency, getCustomerName } from '@/utils';
 import { formatDate } from '@/utils/format-date';
 import { formatInvoiceId } from '@/utils/format-invoice-id';
-import { useQuery } from '@tanstack/react-query';
 import { endOfDay, startOfDay } from 'date-fns';
 import { DateRange } from 'react-day-picker';
 import { Link } from 'react-router-dom';
@@ -30,10 +29,7 @@ export const ListSales = () => {
     orderBy: 'updatedAt',
   });
 
-  const { data, isLoading } = useQuery({
-    queryKey: ['sales', params],
-    queryFn: () => listSalesFn(params),
-  });
+  const { data, isLoading } = useListSalesQuery(params);
 
   const handleChangeOrder = (column: string) => {
     handleSetParams({
