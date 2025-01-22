@@ -3,10 +3,9 @@ import { RhfSelect } from '@/components/rhf/select';
 import { RhfCheckbox } from '@/components/rhf/switch';
 import { RhfTextField } from '@/components/rhf/text-field';
 import { Button } from '@/components/ui/button';
-import { listSuppliersFn } from '@/services/supplier';
+import { useListSuppliersQuery } from '@/services/supplier';
 import { Product, ProductGeneralData } from '@/types/product';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useQuery } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { generalDataSchema } from '../../schema';
 
@@ -32,15 +31,13 @@ export const GeneralDataForm = ({
     resolver: yupResolver(generalDataSchema),
   });
 
-  const { data: suppliers } = useQuery({
-    queryKey: ['suppliers'],
-    queryFn: () => listSuppliersFn({ perPage: 99999 }),
-    select: data =>
-      data.data.map(supplier => ({
-        label: supplier.name,
-        value: supplier.id,
-      })),
-  });
+  const { data } = useListSuppliersQuery({ perPage: 99999 });
+
+  const suppliers =
+    data?.data.map(supplier => ({
+      label: supplier.name,
+      value: supplier.id,
+    })) ?? [];
 
   return (
     <form onSubmit={handleSubmit(handleGeneralDataSubmit)}>

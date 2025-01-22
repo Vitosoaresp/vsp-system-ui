@@ -7,15 +7,11 @@ import {
   ChartTooltipContent,
 } from '@/components/ui/chart';
 import { Skeleton } from '@/components/ui/skeleton';
-import { getSaleDashboardFn } from '@/services/sale';
-import { useQuery } from '@tanstack/react-query';
+import { useGetSaleDashboardQuery } from '@/services/sale';
 import { Area, AreaChart, CartesianGrid, XAxis } from 'recharts';
 
 export default function DashboardPage() {
-  const { data, isLoading } = useQuery({
-    queryKey: ['dashboard'],
-    queryFn: getSaleDashboardFn,
-  });
+  const { data, isLoading } = useGetSaleDashboardQuery();
 
   const chartConfig = {
     total: {

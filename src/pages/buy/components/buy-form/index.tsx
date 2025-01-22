@@ -2,9 +2,8 @@ import { Grid } from '@/components/grid';
 import { RhfCombobox } from '@/components/rhf/combobox';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { listSuppliersFn } from '@/services/supplier';
+import { useListSuppliersQuery } from '@/services/supplier';
 import { Buy } from '@/types/account-payable';
-import { useQuery } from '@tanstack/react-query';
 import { format } from 'date-fns';
 import { FormProvider, useForm } from 'react-hook-form';
 
@@ -16,20 +15,15 @@ export const BuyForm = () => {
     formState: { errors },
   } = methods;
 
-  const { data: suppliersOptions, isLoading } = useQuery({
-    queryKey: ['suppliers'],
-    queryFn: () =>
-      listSuppliersFn({
-        perPage: 99999,
-      }),
-    select: data =>
-      data.data?.map(supplier => ({
-        label: supplier.name,
-        value: String(supplier.id),
-        cnpj: supplier.cnpj,
-        address: supplier.address,
-      })) ?? [],
-  });
+  const { data: suppliers, isLoading } = useListSuppliersQuery({ perPage: 99999 });
+
+  const suppliersOptions =
+    suppliers?.data.map(supplier => ({
+      label: supplier.name,
+      value: String(supplier.id),
+      cnpj: supplier.cnpj,
+      address: supplier.address,
+    })) ?? [];
 
   // const { data: productsOptions, isLoading: isLoadingProducts } = useQuery({
   // 	queryFn: () => getProducts({ perPage: 99999 }),
