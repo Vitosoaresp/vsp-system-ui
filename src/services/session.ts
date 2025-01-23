@@ -9,6 +9,7 @@ export const sessionApi = api.injectEndpoints({
         method: 'POST',
         body: credentials,
       }),
+      invalidatesTags: ['Me'],
     }),
     register: builder.mutation<User, Register>({
       query: register => ({
@@ -21,7 +22,7 @@ export const sessionApi = api.injectEndpoints({
       query: () => ({
         url: '/users/me',
       }),
-      providesTags: () => [{ type: 'Me' }],
+      providesTags: () => ['Me'],
     }),
   }),
 });
