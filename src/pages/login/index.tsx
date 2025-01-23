@@ -1,8 +1,6 @@
 import { useLoginMutation } from '@/services/session';
-import { setSession } from '@/store/slices/session';
 import { Credentials } from '@/types/user';
 import { LogIn } from 'lucide-react';
-import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import { Form } from './components/form';
@@ -10,12 +8,10 @@ import { Form } from './components/form';
 const LoginPage = () => {
   const [signIn, { isLoading }] = useLoginMutation();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const handleLogin = async (data: Credentials) => {
     try {
-      const response = await signIn(data).unwrap();
-      dispatch(setSession(response));
+      await signIn(data).unwrap();
       navigate('/dashboard');
       toast.success('Login realizado com sucesso!');
     } catch {

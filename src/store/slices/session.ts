@@ -1,3 +1,12 @@
+import {
+  getToken,
+  getUser,
+  removeToken,
+  removeUser,
+  setToken,
+  setUser,
+} from '@/lib/secure-storage';
+import { sessionApi } from '@/services/session';
 import { User } from '@/types/user';
 import { createSlice } from '@reduxjs/toolkit';
 
@@ -6,26 +15,38 @@ export interface SessionState {
   token: string | null;
 }
 
+const localToken = getToken();
+const localUser = getUser();
+
 const initialState: SessionState = {
-  user: null,
-  token: null,
+  user: localUser,
+  token: localToken,
 };
 
 const sessionSlice = createSlice({
   name: 'session',
   initialState,
   reducers: {
-    setSession: (state, action) => {
-      state.user = action.payload.user;
-      state.token = action.payload.token;
-    },
     logout: state => {
       state.user = null;
       state.token = null;
+      removeToken();
+      removeUser();
     },
+  },
+  extraReducers: builder => {
+    builder.addMatcher(
+      sessionApi.endpoints.login.matchFulfilled,
+      (state, { payload }) => {
+        state.user = payload.user;
+        state.token = payload.token;
+        setToken(payload.token);
+        setUser(payload.user);
+      },
+    );
   },
 });
 
-export const { logout, setSession } = sessionSlice.actions;
+export const { logout } = sessionSlice.actions;
 
 export default sessionSlice.reducer;
