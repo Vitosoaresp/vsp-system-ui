@@ -6,17 +6,16 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useGetCustomersQuery } from '@/services/customer';
 import { useMeQuery } from '@/services/session';
-import { Product } from '@/types/product';
-import { SalePayload } from '@/types/sale';
+import { Items, SalePayload } from '@/types/sale';
 import { formatCurrency, getCustomerName } from '@/utils';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { CircleDollarSign } from 'lucide-react';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo } from 'react';
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { TableProducts } from './components';
+import { AddProductDialog } from './components/add-product-dialog';
 import { CustomerDataForm } from './components/customer-data-form';
-import { SelectProducts } from './components/select-products';
 import { saleSchema } from './schema';
 
 interface SaleFormProps {
@@ -26,7 +25,6 @@ interface SaleFormProps {
 
 export const SaleForm = ({ onSubmit, isLoading }: SaleFormProps) => {
   const { data: user } = useMeQuery();
-  const [selectedProducts, setSelectedProducts] = useState<Product[]>([]);
   const methods = useForm<SalePayload>({
     resolver: yupResolver(saleSchema),
     mode: 'onBlur',
@@ -39,17 +37,17 @@ export const SaleForm = ({ onSubmit, isLoading }: SaleFormProps) => {
     handleSubmit,
     watch,
   } = methods;
+  const { data } = useGetCustomersQuery({ perPage: 99999 });
 
-  const watchedProducts = watch('items');
-  const watchedCustomerId = watch('customerId');
   const { append, fields, remove } = useFieldArray({
     control,
     name: 'items',
   });
+  const watchedProducts = watch('items');
+  const watchedCustomerId = watch('customerId');
 
   const handleRemoveProduct = (index: number) => remove(index);
 
-  const { data } = useGetCustomersQuery({ perPage: 99999 });
   const customers = data?.data;
 
   const customerOptions =
@@ -60,35 +58,17 @@ export const SaleForm = ({ onSubmit, isLoading }: SaleFormProps) => {
 
   const handleBack = () => navigate('/vendas');
 
-  const handleToggleProduct = (product: Product) => {
-    const index = selectedProducts.findIndex(p => p.id === product.id);
-
-    if (index === -1) {
-      setSelectedProducts([...selectedProducts, product]);
-    } else {
-      const newSelectedProducts = selectedProducts.filter(p => p.id !== product.id);
-      setSelectedProducts(newSelectedProducts);
-    }
-  };
-
-  const handleAppendProducts = useCallback(() => {
-    selectedProducts.forEach(product => {
+  const handleAppendProduct = useCallback(
+    (item: Items) => {
       const alreadySelected = watchedProducts.some(
-        p => p.productId === String(product.id),
+        p => p.productId === item.productId,
       );
       if (!alreadySelected) {
-        append({
-          productId: String(product.id),
-          name: product.name,
-          code: product.code,
-          quantity: 1,
-          maxQuantity: product.quantity,
-          price: product.salesPrice,
-          total: product.salesPrice,
-        });
+        append(item);
       }
-    });
-  }, [selectedProducts, watchedProducts, append]);
+    },
+    [watchedProducts, append],
+  );
 
   const address = useMemo(
     () => customers?.find(customer => customer.id === watchedCustomerId)?.address,
@@ -97,7 +77,7 @@ export const SaleForm = ({ onSubmit, isLoading }: SaleFormProps) => {
 
   return (
     <FormProvider {...methods}>
-      <form className="max-w-5xl" onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <Grid className="h-20 grid-cols-4">
           <RhfDatePicker
             control={control}
@@ -126,11 +106,7 @@ export const SaleForm = ({ onSubmit, isLoading }: SaleFormProps) => {
           products={fields}
         />
 
-        <SelectProducts
-          handleAppendProducts={handleAppendProducts}
-          handleToggleProduct={handleToggleProduct}
-          selectedProducts={selectedProducts}
-        />
+        <AddProductDialog onSubmit={handleAppendProduct} />
 
         <h2 className="text-foreground text-xl font-medium mt-5 flex items-center">
           <CircleDollarSign className="text-foreground mr-3" />
