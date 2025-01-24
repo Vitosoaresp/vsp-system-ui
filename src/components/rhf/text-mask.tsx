@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils';
 import { Ref } from 'react';
 import {
   FieldError,
@@ -9,7 +10,6 @@ import {
 import { IMaskMixin } from 'react-imask';
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
-import { cn } from '@/lib/utils';
 
 const TextMask = IMaskMixin(({ inputRef, ...props }) => (
   <Input ref={inputRef as Ref<HTMLInputElement>} {...props} />
@@ -54,7 +54,7 @@ export function RhfTextMask<
       <Label className="text-foreground" htmlFor={name}>
         {label}
       </Label>
-      <div className="relative">
+      <div className="relative mt-1">
         <TextMask
           value={value}
           onChange={onChange}

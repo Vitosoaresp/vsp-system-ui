@@ -21,6 +21,8 @@ export interface ComboboxProps<T> {
   value?: string;
   onChange: (value: string) => void;
   loading?: boolean;
+  fullWidth?: boolean;
+  emptyLabel?: string;
 }
 
 export function Combobox<T>({
@@ -29,6 +31,8 @@ export function Combobox<T>({
   onChange,
   value,
   loading = false,
+  fullWidth = false,
+  emptyLabel = 'Selecione uma opção',
 }: ComboboxProps<T>) {
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState('');
@@ -42,14 +46,17 @@ export function Combobox<T>({
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button
-          variant="default"
+          variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="justify-between px-3 gap-5 normal-case"
+          className={cn(
+            'justify-between px-3 gap-5 normal-case',
+            fullWidth && 'w-full',
+          )}
         >
           {value
             ? options.find(option => option.value === value)?.label
-            : 'Selecione uma opção'}
+            : emptyLabel}
           <ChevronsUpDown className="ml-1 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>

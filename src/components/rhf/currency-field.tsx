@@ -52,7 +52,7 @@ export function RhfCurrencyField<
       <Label className="text-foreground" htmlFor={name}>
         {label}
       </Label>
-      <div className="relative">
+      <div className="relative mt-1">
         <Input
           value={moneyFormatter.format(value)}
           onChange={({ target }) => {

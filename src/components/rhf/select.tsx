@@ -48,7 +48,7 @@ export function RhfSelect<
 
   return (
     <div className={className}>
-      <Label className="text-foreground" htmlFor={name}>
+      <Label className="text-foreground mb-1" htmlFor={name}>
         {label}
       </Label>
       <Select value={value} onValueChange={onChange} disabled={disabled} {...rest}>
