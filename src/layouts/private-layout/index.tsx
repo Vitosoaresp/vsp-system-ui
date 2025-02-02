@@ -15,7 +15,7 @@ export const PrivateLayout = () => {
     <>
       <SidebarProvider>
         <Sidebar />
-        <main className="w-full xl:py-10 xl:px-20 p-8 container">
+        <main className="w-full xl:py-10 xl:px-20 p-8">
           <Outlet />
         </main>
       </SidebarProvider>
