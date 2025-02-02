@@ -16,14 +16,14 @@ export interface PayPayable {
 }
 
 export interface AccountPayable {
-  id: string;
+  id?: string;
   supplierId: string;
   amount: number;
   status: string;
   dueDate: string;
   paidAt: string;
   tagId: string;
-  isDuplicated: true;
+  isDuplicated: boolean;
   duplicatedRefer: string;
   amountPaid: number;
   tag: unknown;

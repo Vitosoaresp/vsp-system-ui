@@ -9,6 +9,7 @@ import { getLabelByEnum, receivableStatusOptions } from '@/utils/enum-options';
 import { formatDate } from '@/utils/format-date';
 import { endOfDay, startOfDay } from 'date-fns';
 import { DateRange } from 'react-day-picker';
+import { CreatePayableDialog } from '../create-payable-dialog';
 
 const collumns: Collumn[] = [
   { label: 'Data de Vencimento', value: 'dueDate' },
@@ -90,6 +91,7 @@ export const ListPayables = () => {
             Limpar filtros
           </Button>
         </div>
+        <CreatePayableDialog />
       </div>
 
       <DataTable
