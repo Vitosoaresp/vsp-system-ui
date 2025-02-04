@@ -35,6 +35,14 @@ export const payableApi = api.injectEndpoints({
       }),
       invalidatesTags: (_, __, id) => [{ type: 'Account-Payable', id }],
     }),
+    createPayable: builder.mutation<AccountPayable, AccountPayable>({
+      query: body => ({
+        url: '/bank/payables',
+        method: 'POST',
+        body,
+      }),
+      invalidatesTags: [{ type: 'Account-Payable', id: 'LIST' }],
+    }),
   }),
 });
 
@@ -42,4 +50,5 @@ export const {
   useDeletePayableMutation,
   useListPayablesQuery,
   usePayPayableMutation,
+  useCreatePayableMutation,
 } = payableApi;
