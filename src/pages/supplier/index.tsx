@@ -22,9 +22,7 @@ export const SupplierPage = () => {
   const [createSupplier, { isLoading: isCreating }] = useCreateSupplierMutation();
   const [updateSupplier, { isLoading: isUpdating }] = useUpdateSupplierMutation();
 
-  const { data: supplier, isLoading } = useGetSupplierQuery(params.id ?? '', {
-    skip: !!params.id,
-  });
+  const { data: supplier, isLoading } = useGetSupplierQuery(params.id ?? '');
 
   const handleSubmit = async (data: Omit<Supplier, 'id'>) => {
     try {

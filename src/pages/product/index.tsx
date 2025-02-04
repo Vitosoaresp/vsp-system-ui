@@ -18,23 +18,22 @@ import { ProductSkeleton } from './components/product-form/skeleton';
 
 export const ProductPage = () => {
   const navigate = useNavigate();
-  const params = useParams();
+  const { id } = useParams() as { id: string };
+  console.log(id);
 
   const [create, { isLoading: isCreating }] = useCreateProductMutation();
   const [update, { isLoading: isUpdating }] = useUpdateProductMutation();
 
-  const { data: product, isLoading } = useGetProductQuery(params.id!, {
-    skip: !!params.id,
-  });
+  const { data: product, isLoading } = useGetProductQuery(id);
 
   const handleSubmit = async (data: Product) => {
     try {
-      const method = params.id ? update : create;
+      const method = id ? update : create;
       await method(data);
-      toast.success(`Produto ${params.id ? 'atualizado' : 'criado'} com sucesso`);
+      toast.success(`Produto ${id ? 'atualizado' : 'criado'} com sucesso`);
       navigate('/produtos');
     } catch (error) {
-      toast.error(`Error ao ${params.id ? 'atualizar' : 'criar'} o produto`);
+      toast.error(`Error ao ${id ? 'atualizar' : 'criar'} o produto`);
     }
   };
 
@@ -52,7 +51,7 @@ export const ProductPage = () => {
         <BreadcrumbSeparator />
         <BreadcrumbItem>
           <BreadcrumbLink
-            href={`/produto/${params.id ?? ''}`}
+            href={`/produto/${id ?? ''}`}
             className="flex gap-2 items-center"
           >
             <span>Produto</span>
@@ -66,7 +65,7 @@ export const ProductPage = () => {
           <ProductForm
             onSubmit={handleSubmit}
             isLoading={isSubmiting}
-            initialValues={params.id ? product : undefined}
+            initialValues={product}
           />
         )}
       </div>

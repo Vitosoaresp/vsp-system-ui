@@ -23,9 +23,7 @@ export const CustomerPage = () => {
   const [create, { isLoading: isCreating }] = useCreateCustomerMutation();
   const [update, { isLoading: isUpdating }] = useUpdateCustomerMutation();
 
-  const { data: customer, isLoading } = useGetCustomerQuery(params.id!, {
-    skip: !!params.id,
-  });
+  const { data: customer, isLoading } = useGetCustomerQuery(params.id!);
 
   const handleSubmit = async (data: Customer) => {
     try {
