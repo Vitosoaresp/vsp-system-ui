@@ -1,3 +1,4 @@
+import { Analytics } from '@vercel/analytics/react';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
@@ -14,6 +15,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       <ThemeProvider defaultTheme="dark">
         <Toaster position="top-right" />
         <Router />
+        <Analytics />
       </ThemeProvider>
     </Provider>
   </React.StrictMode>,
