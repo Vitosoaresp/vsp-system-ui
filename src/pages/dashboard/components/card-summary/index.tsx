@@ -1,5 +1,6 @@
-import { Card, CardContent, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
+import { Typography } from '@/components/ui/typography';
 import { formatCurrency } from '@/utils';
 
 interface CardSummaryProps {
@@ -18,10 +19,12 @@ export const CardSummary = ({ label, value, icon, loading }: CardSummaryProps) =
     <Card>
       <CardContent className="flex flex-col pt-6 gap-3">
         <div className="flex justify-between items-center">
-          <p className="text-muted-foreground">{label}</p>
+          <Typography variant="body1" color="secondary">
+            {label}
+          </Typography>
           {icon}
         </div>
-        <CardTitle className="text-3xl">{formatCurrency(value ?? 0)}</CardTitle>
+        <Typography variant="h1">{formatCurrency(value ?? 0)}</Typography>
       </CardContent>
     </Card>
   );
