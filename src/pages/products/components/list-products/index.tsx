@@ -52,7 +52,7 @@ export const ListProducts = () => {
           <Input
             value={search}
             onChange={({ target }) => setSearch(target.value)}
-            placeholder="Perquisar por nome, email, telefone ou cnpj"
+            placeholder="Perquisar"
           />
           <Button
             type="button"
