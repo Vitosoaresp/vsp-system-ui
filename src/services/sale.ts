@@ -1,5 +1,6 @@
 import { ListParams } from '@/hooks';
 import { api } from '@/store/api';
+import { IFinanceReportByMonth } from '@/types/common';
 import { IListSaleResponse, Sale, SaleDashboard, SalePayload } from '@/types/sale';
 
 export const saleApi = api.injectEndpoints({
@@ -40,6 +41,13 @@ export const saleApi = api.injectEndpoints({
       query: () => ({
         url: '/sales/dashboard',
       }),
+      providesTags: () => [{ type: 'Sale', id: 'Dashboard' }],
+    }),
+    getSaleDashboardByMonth: builder.query<IFinanceReportByMonth, string>({
+      query: month => ({
+        url: `/sales/dashboard/${month}`,
+      }),
+      providesTags: () => [{ type: 'Sale', id: 'Dashboard' }],
     }),
   }),
 });
@@ -48,6 +56,7 @@ export const {
   useCreateSaleMutation,
   useDeleteSaleMutation,
   useGetSaleQuery,
-  useGetSaleDashboardQuery,
   useListSalesQuery,
+  useGetSaleDashboardQuery,
+  useGetSaleDashboardByMonthQuery,
 } = saleApi;

@@ -5,6 +5,7 @@ import {
   IListPayablesResponse,
   PayPayable,
 } from '@/types/account-payable';
+import { IFinanceReportByMonth } from '@/types/common';
 
 export const payableApi = api.injectEndpoints({
   endpoints: builder => ({
@@ -43,6 +44,12 @@ export const payableApi = api.injectEndpoints({
       }),
       invalidatesTags: [{ type: 'Account-Payable', id: 'LIST' }],
     }),
+    getPayableDashboardByMonth: builder.query<IFinanceReportByMonth, string>({
+      query: month => ({
+        url: `/bank/payables/dashboard/${month}`,
+      }),
+      providesTags: () => [{ type: 'Account-Payable', id: 'Dashboard' }],
+    }),
   }),
 });
 
@@ -51,4 +58,5 @@ export const {
   useListPayablesQuery,
   usePayPayableMutation,
   useCreatePayableMutation,
+  useGetPayableDashboardByMonthQuery,
 } = payableApi;

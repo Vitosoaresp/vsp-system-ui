@@ -39,3 +39,8 @@ export interface NavItem {
     to: string;
   }[];
 }
+
+export interface IFinanceReportByMonth {
+  month: string;
+  value: number;
+}

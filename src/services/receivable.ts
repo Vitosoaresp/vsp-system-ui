@@ -5,6 +5,7 @@ import {
   IListReceivableResponse,
   PayReceivable,
 } from '@/types/account-receivable';
+import { IFinanceReportByMonth } from '@/types/common';
 
 export const apiRecevable = api.injectEndpoints({
   endpoints: builder => ({
@@ -38,6 +39,12 @@ export const apiRecevable = api.injectEndpoints({
       }),
       invalidatesTags: (_, __, id) => [{ type: 'Account-Receivable', id: id }],
     }),
+    getReceivableDashboardByMonth: builder.query<IFinanceReportByMonth, string>({
+      query: month => ({
+        url: `/bank/receivables/dashboard/${month}`,
+      }),
+      providesTags: () => [{ type: 'Account-Receivable', id: 'Dashboard' }],
+    }),
   }),
 });
 
@@ -45,4 +52,5 @@ export const {
   useDeleteReceivableMutation,
   useGetReceivablesQuery,
   usePayReceivableMutation,
+  useGetReceivableDashboardByMonthQuery,
 } = apiRecevable;
