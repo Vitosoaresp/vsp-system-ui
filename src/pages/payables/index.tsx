@@ -1,6 +1,7 @@
 import { Navigation } from '@/components/navigation';
 import { BreadcrumbItem, BreadcrumbLink } from '@/components/ui/breadcrumb';
 import { Coins } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { ListPayables } from './components/list-payables';
 
 export default function PayablesPage() {
@@ -9,11 +10,13 @@ export default function PayablesPage() {
       <Navigation>
         <BreadcrumbItem>
           <BreadcrumbLink
-            href="/contas-a-pagar"
             className="flex gap-2 items-center"
+            asChild
           >
-            <Coins className="size-4" />
-            <span>Contas a Pagar</span>
+            <Link to="/contas-a-pagar">
+              <Coins className="size-4" />
+              <span>Contas a Pagar</span>
+            </Link>
           </BreadcrumbLink>
         </BreadcrumbItem>
       </Navigation>

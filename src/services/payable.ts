@@ -14,12 +14,12 @@ export const payableApi = api.injectEndpoints({
       providesTags: result =>
         result
           ? [
-              ...result.data.map(({ id }) => ({
-                type: 'Account-Payable' as const,
-                id,
-              })),
-            ]
-          : [{ type: 'Account-Payable' as const, id: 'LIST' }],
+            ...result.data.map(({ id }) => ({
+              type: 'Account-Payable' as const,
+              id,
+            })),
+          ]
+          : [{ type: 'Account-Payable', id: 'LIST' }],
     }),
     payPayable: builder.mutation<AccountPayable, PayPayable>({
       query: data => ({

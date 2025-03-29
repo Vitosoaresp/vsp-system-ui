@@ -8,7 +8,7 @@ import { Loader2 } from 'lucide-react';
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
+  VariantProps<typeof buttonVariants> {
   asChild?: boolean;
   loading?: boolean;
 }
@@ -26,19 +26,21 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         disabled={loading || props.disabled}
         {...props}
       >
-        {loading && (
-          <Loader2
-            className={cn(
-              'text-zinc-900 animate-spin text-xl absolute',
-              loading ? 'visible' : 'invisible',
-            )}
-          />
-        )}
-        <span
-          className={cn(!loading ? 'visible' : 'invisible', 'flex items-center')}
-        >
-          {children}
-        </span>
+        <>
+          {loading && (
+            <Loader2
+              className={cn(
+                'text-zinc-900 animate-spin text-xl absolute',
+                loading ? 'visible' : 'invisible',
+              )}
+            />
+          )}
+          <span
+            className={cn(!loading ? 'visible' : 'invisible', 'flex items-center')}
+          >
+            {children}
+          </span>
+        </>
       </Comp>
     );
   },

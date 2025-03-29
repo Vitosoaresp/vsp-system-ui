@@ -63,6 +63,7 @@ export const ListProducts = () => {
             Pesquisar
           </Button>
         </div>
+
         <Button onClick={handleAddNewProduct} variant="outline">
           Criar novo produto
         </Button>

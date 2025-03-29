@@ -59,7 +59,9 @@ export const ListSuppliers = () => {
         </div>
 
         <Button variant="outline" className="uppercase">
-          <Link to="/fornecedor/">Criar novo Fornecedor</Link>
+          <Link to="/fornecedor/">
+            Criar novo Fornecedor
+          </Link>
         </Button>
       </div>
 

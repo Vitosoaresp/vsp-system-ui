@@ -11,7 +11,7 @@ import {
 } from '@/services/product';
 import { Product } from '@/types/product';
 import { Package } from 'lucide-react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'sonner';
 import { ProductForm } from './components';
 import { ProductSkeleton } from './components/product-form/skeleton';
@@ -19,12 +19,13 @@ import { ProductSkeleton } from './components/product-form/skeleton';
 export const ProductPage = () => {
   const navigate = useNavigate();
   const { id } = useParams() as { id: string };
-  console.log(id);
 
   const [create, { isLoading: isCreating }] = useCreateProductMutation();
   const [update, { isLoading: isUpdating }] = useUpdateProductMutation();
 
-  const { data: product, isLoading } = useGetProductQuery(id);
+  const { data: product, isLoading } = useGetProductQuery(id, {
+    skip: !id,
+  });
 
   const handleSubmit = async (data: Product) => {
     try {
@@ -43,18 +44,19 @@ export const ProductPage = () => {
     <div className="flex flex-col w-full space-y-10">
       <Navigation>
         <BreadcrumbItem>
-          <BreadcrumbLink href="/produtos" className="flex gap-2 items-center">
-            <Package className="size-4" />
-            <span>Produtos</span>
+          <BreadcrumbLink asChild className="flex gap-2 items-center">
+            <Link to="/produtos">
+              <Package className="size-4" />
+              <span>Produtos</span>
+            </Link>
           </BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
-          <BreadcrumbLink
-            href={`/produto/${id ?? ''}`}
-            className="flex gap-2 items-center"
-          >
-            <span>Produto</span>
+          <BreadcrumbLink asChild className="flex gap-2 items-center">
+            <Link to={`/produto/${id ?? ''}`}>
+              <span>Produto</span>
+            </Link>
           </BreadcrumbLink>
         </BreadcrumbItem>
       </Navigation>

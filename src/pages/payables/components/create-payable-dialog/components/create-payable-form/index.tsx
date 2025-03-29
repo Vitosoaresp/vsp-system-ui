@@ -22,7 +22,7 @@ export const CreatePayableForm = ({ onSubmit }: CreatePayableFormProps) => {
       status: FinancialStatus.PENDING,
       amountPaid: 0,
       isDuplicated: false,
-      tagId: '7ff5e734-8405-4a6a-880a-d7b6425f16e1',
+      tagId: 'c3a9ad02-a1a8-4eff-8485-acfcb093ecef',
     },
   });
 

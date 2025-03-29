@@ -1,6 +1,7 @@
 import { Navigation } from '@/components/navigation';
 import { BreadcrumbItem, BreadcrumbLink } from '@/components/ui/breadcrumb';
 import { Package } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { ListProducts } from './components';
 
 export const ProductsPage = () => {
@@ -8,9 +9,11 @@ export const ProductsPage = () => {
     <div className="flex flex-col w-full space-y-10">
       <Navigation>
         <BreadcrumbItem>
-          <BreadcrumbLink href="/produtos" className="flex gap-2 items-center">
-            <Package className="size-4" />
-            <span>Produtos</span>
+          <BreadcrumbLink asChild className="flex gap-2 items-center">
+            <Link to="/produtos">
+              <Package className="size-4" />
+              <span>Produtos</span>
+            </Link>
           </BreadcrumbLink>
         </BreadcrumbItem>
       </Navigation>

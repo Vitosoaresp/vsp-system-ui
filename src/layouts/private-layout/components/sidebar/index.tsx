@@ -8,6 +8,7 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar';
 import { cn } from '@/lib/utils';
+import { useMeQuery } from '@/services/session';
 import { NavItem } from '@/types/common';
 import {
   Building2,
@@ -22,6 +23,7 @@ import {
   Users,
   Wallet,
 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { CollapsibleMenu } from './collapsible-menu';
 import { SidebarFooter } from './footer';
 
@@ -52,6 +54,8 @@ const navItems: NavItem[] = [
 
 export const Sidebar = () => {
   const { open, isMobile } = useSidebar();
+  const { data: session } = useMeQuery();
+
   return (
     <SidebarUi collapsible="icon">
       <SidebarHeader className="p-3">
@@ -62,7 +66,7 @@ export const Sidebar = () => {
               open || isMobile ? 'block text-xl font-bold text-primary' : 'hidden',
             )}
           >
-            VSP SYSTEM
+            {session?.company.name}
           </h1>
         </SidebarMenuItem>
       </SidebarHeader>
@@ -76,10 +80,10 @@ export const Sidebar = () => {
                     asChild
                     isActive={location.pathname === navItem.to}
                   >
-                    <a href={navItem.to}>
+                    <Link to={navItem.to}>
                       <navItem.Icon className="font-medium" />
                       <span className="text-lg font-medium">{navItem.label}</span>
-                    </a>
+                    </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               );

@@ -11,7 +11,7 @@ import {
 } from '@/services/customer';
 import { Customer } from '@/types/customer';
 import { Users } from 'lucide-react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'sonner';
 import { CustomerForm } from './components';
 import { CustomerSkeleton } from './components/customer-form/skeleton';
@@ -23,7 +23,9 @@ export const CustomerPage = () => {
   const [create, { isLoading: isCreating }] = useCreateCustomerMutation();
   const [update, { isLoading: isUpdating }] = useUpdateCustomerMutation();
 
-  const { data: customer, isLoading } = useGetCustomerQuery(params.id!);
+  const { data: customer, isLoading } = useGetCustomerQuery(params.id!, {
+    skip: !params.id,
+  });
 
   const handleSubmit = async (data: Customer) => {
     try {
@@ -42,18 +44,22 @@ export const CustomerPage = () => {
     <div className="flex flex-col w-full space-y-10">
       <Navigation>
         <BreadcrumbItem>
-          <BreadcrumbLink href="/clientes" className="flex gap-2 items-center">
-            <Users className="size-4" />
-            <span>Clientes</span>
+          <BreadcrumbLink
+            className="flex gap-2 items-center"
+            asChild
+          >
+            <Link to="/clientes">
+              <Users className="size-4" />
+              <span>Clientes</span>
+            </Link>
           </BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
-          <BreadcrumbLink
-            href={`/cliente/${params.id ?? ''}`}
-            className="flex gap-2 items-center"
-          >
-            <span>Cliente</span>
+          <BreadcrumbLink className="flex gap-2 items-center" asChild>
+            <Link to={`/cliente/${params.id ?? ''}`}>
+              <span>Cliente</span>
+            </Link>
           </BreadcrumbLink>
         </BreadcrumbItem>
       </Navigation>

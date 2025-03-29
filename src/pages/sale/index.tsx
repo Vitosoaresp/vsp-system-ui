@@ -7,7 +7,7 @@ import {
 import { useCreateSaleMutation } from '@/services/sale';
 import { SalePayload } from '@/types/sale';
 import { ShoppingCart } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import { SaleForm } from './components';
 
@@ -30,15 +30,19 @@ export const SalePage = () => {
     <div className="flex flex-col w-full space-y-10">
       <Navigation>
         <BreadcrumbItem>
-          <BreadcrumbLink href="/vendas" className="flex gap-2 items-center">
-            <ShoppingCart className="size-4" />
-            <span>Vendas</span>
+          <BreadcrumbLink asChild className="flex gap-2 items-center">
+            <Link to="/vendas">
+              <ShoppingCart className="size-4" />
+              <span>Vendas</span>
+            </Link>
           </BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
-          <BreadcrumbLink href="/venda/" className="flex gap-2 items-center">
-            <span>Nova venda</span>
+          <BreadcrumbLink asChild className="flex gap-2 items-center">
+            <Link to="/venda/">
+              <span>Nova venda</span>
+            </Link>
           </BreadcrumbLink>
         </BreadcrumbItem>
       </Navigation>

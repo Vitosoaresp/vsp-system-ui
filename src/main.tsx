@@ -13,7 +13,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <Provider store={store}>
       <ThemeProvider defaultTheme="dark">
-        <Toaster position="top-right" />
+        <Toaster duration={3000} />
         <Router />
         <Analytics />
       </ThemeProvider>

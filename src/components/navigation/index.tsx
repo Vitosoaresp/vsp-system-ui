@@ -1,4 +1,5 @@
 import { Home } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -18,9 +19,11 @@ export const Navigation = ({ children }: { children?: React.ReactNode }) => {
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
-            <BreadcrumbLink href="/" className="flex gap-2 items-center">
-              <Home className="size-4" />
-              <span>Inicio</span>
+            <BreadcrumbLink className="flex gap-2 items-center" asChild>
+              <Link to="/">
+                <Home className="size-4" />
+                <span>Inicio</span>
+              </Link>
             </BreadcrumbLink>
           </BreadcrumbItem>
           {children && <BreadcrumbSeparator />}

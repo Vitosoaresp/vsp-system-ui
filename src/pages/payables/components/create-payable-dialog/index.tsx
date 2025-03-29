@@ -10,23 +10,26 @@ import {
 } from '@/components/ui/dialog';
 import { useCreatePayableMutation } from '@/services/payable';
 import { AccountPayable } from '@/types/account-payable';
+import { useState } from 'react';
 import { toast } from 'sonner';
 import { CreatePayableForm } from './components/create-payable-form';
 
 export const CreatePayableDialog = () => {
   const [create, { isLoading: isCreating }] = useCreatePayableMutation();
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleCreate = async (data: AccountPayable) => {
     try {
       await create(data).unwrap();
       toast.info('Conta adicionada com sucesso!');
+      setIsOpen(false);
     } catch {
       toast.error('Ocorreu um erro ao criar nova conta.');
     }
   };
 
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <Button variant="outline">Adicionar nova conta</Button>
       </DialogTrigger>

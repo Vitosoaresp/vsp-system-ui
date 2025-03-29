@@ -1,3 +1,5 @@
+import { Company } from "./company";
+
 export interface User {
   id: string;
   name: string;
@@ -6,6 +8,7 @@ export interface User {
   createdAt: string;
   updatedAt: string;
   deletedAt?: string;
+  company: Company;
 }
 
 export interface Credentials {

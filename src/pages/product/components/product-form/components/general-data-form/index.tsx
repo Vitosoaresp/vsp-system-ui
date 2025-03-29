@@ -41,7 +41,7 @@ export const GeneralDataForm = ({
 
   return (
     <form onSubmit={handleSubmit(handleGeneralDataSubmit)}>
-      <div className="p-3 bg-muted rounded border border-border mt-4 dark:bg-background">
+      <div className="p-3 bg-muted rounded border border-border mt-4 dark:bg-background space-y-5">
         <RhfCheckbox
           control={control}
           name="active"
@@ -101,7 +101,7 @@ export const GeneralDataForm = ({
           />
         </Grid>
 
-        <div className="flex mt-5 space-x-3">
+        <div className="flex space-x-3">
           <Button loading={isLoading} variant="outline" type="submit">
             Salvar
           </Button>
